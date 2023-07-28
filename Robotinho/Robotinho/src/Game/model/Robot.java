@@ -26,35 +26,75 @@ public class Robot extends Casella implements Movable{
         this.direzione = direzione;
     }
 
+    public Direzione getDirezione() {
+        return direzione;
+    }
+
     @Override
-    public void Avanza(Direzione direzione) {
+    public void Avanza() {
         int i = this.getPosizionex();
         int j = this.getPosizioney();
-
-
-        switch (direzione){
+        switch (this.direzione) {
             case North:
                 this.setDirezione(Direzione.North);
-                if(this.getPosizionex()-1 != 0)
-                    this.setPosizionex(this.getPosizionex()-1);
+                if (this.getPosizionex() - 1 != 0)
+                    this.setPosizionex(this.getPosizionex() - 1);
                 break;
             case West:
                 this.setDirezione(Direzione.West);
-                if(this.getPosizioney()-1 != 0)
-                    this.setPosizioney(this.getPosizioney()-1);
+                if (this.getPosizioney() - 1 != 0)
+                    this.setPosizioney(this.getPosizioney() - 1);
                 break;
             case East:
                 this.setDirezione(Direzione.East);
-                if(this.getPosizioney()+1 != 9)
-                    this.setPosizioney(this.getPosizioney()+1);
+                if (this.getPosizioney() + 1 != 9)
+                    this.setPosizioney(this.getPosizioney() + 1);
                 break;
             case South:
                 this.setDirezione(Direzione.South);
-                if(this.getPosizionex()+1 != 9)
-                    this.setPosizionex(this.getPosizionex()+1);
+                if (this.getPosizionex() + 1 != 9)
+                    this.setPosizionex(this.getPosizionex() + 1);
                 break;
             default:
                 break;
         }
     }
+
+    @Override
+    public void giraSx() {
+        switch (this.direzione) {
+            case North:
+            case South:
+                this.setDirezione(Direzione.West);
+                break;
+            case West:
+                this.setDirezione(Direzione.South);
+                break;
+            case East:
+                this.setDirezione(Direzione.North);
+                break;
+        }
+
+    }
+
+    public void giraDx() {
+        switch (this.direzione) {
+            case North:
+            case South:
+                this.setDirezione(Direzione.East);
+                break;
+            case West:
+                this.setDirezione(Direzione.North);
+                break;
+            case East:
+                this.setDirezione(Direzione.South);
+                break;
+        }
+
+
+
+    }
+
+
+
 }

@@ -1,6 +1,7 @@
 package Game.view;
 
 import Game.Controller.GameController;
+import Game.model.Direzione;
 import Game.model.Mappa;
 
 import javax.imageio.ImageIO;
@@ -12,10 +13,10 @@ import java.awt.image.BufferedImage;
 public class GuiMappa extends JFrame {
     private final JPanel main;
     private final JPanel buttons;
-    private final JButton Nord;
-    private final JButton Sud;
-    private final JButton Est;
-    private final JButton Ovest;
+    private final JButton dx;
+    private final JButton sx;
+    private final LabelRobot R;
+    private final JButton avanza;
 
     private JLabel[][] map;
     private class LabelMuro extends JLabel {
@@ -43,15 +44,37 @@ public class GuiMappa extends JFrame {
     }
 
     private class LabelRobot extends JLabel {
-        private final ImageIcon img;
+        private ImageIcon img;
 
         public LabelRobot() {
 
-            img=new ImageIcon(new ImageIcon("Robotinho/src/img/giru.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
+            img=new ImageIcon(new ImageIcon("Robotinho/Robotinho/src/img/RobotS.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
             this.setIcon(img);
             this.setBackground(Color.LIGHT_GRAY);
             this.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
             this.setOpaque(true);
+        }
+
+        public void setDir(Direzione dir){
+            this.setIcon(null);
+            switch (dir) {
+                case North:
+                    img = new ImageIcon(new ImageIcon("Robotinho/Robotinho/src/img/RobotN.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+                    this.setIcon(img);
+                    break;
+                case South:
+                    img = new ImageIcon(new ImageIcon("Robotinho/Robotinho/src/img/RobotS.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+                    this.setIcon(img);
+                    break;
+                case East:
+                    img = new ImageIcon(new ImageIcon("Robotinho/Robotinho/src/img/RobotE.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+                    this.setIcon(img);
+                    break;
+                case West:
+                    img = new ImageIcon(new ImageIcon("Robotinho/Robotinho/src/img/RobotW.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+                    this.setIcon(img);
+                    break;
+            }
         }
 
     }
@@ -61,7 +84,7 @@ public class GuiMappa extends JFrame {
 
         public LabelGatto() {
 
-            img=new ImageIcon(new ImageIcon("Robotinho/src/img/Gatto.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
+            img=new ImageIcon(new ImageIcon("Robotinho/Robotinho/src/img/Gatto.png").getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));
             this.setIcon(img);
             this.setBackground(Color.LIGHT_GRAY);
             this.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
@@ -75,7 +98,7 @@ public class GuiMappa extends JFrame {
 
         public LabelFornello() {
 
-            img=new ImageIcon(new ImageIcon("Robotinho/src/img/fornello.png").getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
+            img=new ImageIcon(new ImageIcon("Robotinho/Robotinho/src/img/fornello.png").getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
             this.setIcon(img);
             this.setBackground(Color.LIGHT_GRAY);
             this.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
@@ -89,7 +112,7 @@ public class GuiMappa extends JFrame {
 
         public LabelLavatrice() {
 
-            img=new ImageIcon(new ImageIcon("Robotinho/src/img/lavatrice.png").getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
+            img=new ImageIcon(new ImageIcon("Robotinho/Robotinho/src/img/lavatrice.png").getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
             this.setIcon(img);
             this.setBackground(Color.LIGHT_GRAY);
             this.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
@@ -108,7 +131,7 @@ public class GuiMappa extends JFrame {
         this.map=new JLabel[m.getDim()][m.getDim()];
         this.main=new JPanel();
 
-
+        this.R=new LabelRobot();
         main.setLayout(new GridLayout(m.getDim(),m.getDim()));
         main.setVisible(true);
         for (int i = 0; i < m.getDim(); i++) {
@@ -140,29 +163,27 @@ public class GuiMappa extends JFrame {
             }
         }
 
-        Nord=new JButton("Nord");
-        Sud=new JButton("Sud");
-        Est=new JButton("Est");
-        Ovest=new JButton("Ovest");
+        dx=new JButton("Dx");
+        sx=new JButton("Sx");
+        avanza=new JButton("Avanza");
+
 
 
         this.add(main, BorderLayout.CENTER);
         buttons=new JPanel();
         buttons.setLayout(new BorderLayout());
-        buttons.add(Nord, BorderLayout.NORTH);
-        buttons.add(Sud, BorderLayout.SOUTH);
-        buttons.add(Ovest, BorderLayout.WEST);
-        buttons.add(Est, BorderLayout.EAST);
+        buttons.add(avanza,BorderLayout.CENTER);
+        buttons.add(sx, BorderLayout.WEST);
+        buttons.add(dx, BorderLayout.EAST);
         this.add(buttons, BorderLayout.SOUTH);
 
         this.setVisible(true);
     }
 
     public void addController(GameController controller){
-        this.Nord.addActionListener(controller);
-        this.Sud.addActionListener(controller);
-        this.Ovest.addActionListener(controller);
-        this.Est.addActionListener(controller);
+        this.avanza.addActionListener(controller);
+        this.dx.addActionListener(controller);
+        this.sx.addActionListener(controller);
     }
 
     public void refresh(Mappa m){
@@ -179,7 +200,7 @@ public class GuiMappa extends JFrame {
                     main.add(this.map[i][j]);
                 }
                 if(m.getMappa()[i][j].toString().equals("Robot")) {
-                    this.map[i][j] = new LabelRobot();
+                    this.map[i][j] = this.R;
                     main.add(this.map[i][j]);
                 }
                 if(m.getMappa()[i][j].toString().equals("Cat")) {
@@ -197,6 +218,11 @@ public class GuiMappa extends JFrame {
             }
         }
         main.updateUI();
+
+    }
+
+    public void updateLabelRobot(Direzione d){
+       this.R.setDir(d);
 
     }
 

@@ -26,13 +26,25 @@ public class GameController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "Nord" -> model.Avanza(Direzione.North);
-            case "Sud" -> model.Avanza(Direzione.South);
-            case "Est" -> model.Avanza(Direzione.East);
-            case "Ovest" -> model.Avanza(Direzione.West);
+            case "Avanza":
+                model.Avanza();
+                m.aggiornaMappa();
+                view.refresh(m);
+                break;
+            case "Dx":
+                model.giraDx();
+                view.updateLabelRobot(model.getDirezione());
+                view.refresh(m);
+                break;
+            case "Sx":
+                model.giraSx();
+                view.updateLabelRobot(model.getDirezione());
+                view.refresh(m);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + e.getActionCommand());
         }
-        m.aggiornaMappa();
-        view.refresh(m);
+
     }
 }
 
