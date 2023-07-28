@@ -75,7 +75,7 @@ public class GuiMappa extends JFrame {
 
         public LabelFornello() {
 
-            img=new ImageIcon(new ImageIcon("Robotinho/src/img/fornello.png").getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT)s);
+            img=new ImageIcon(new ImageIcon("Robotinho/src/img/fornello.png").getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
             this.setIcon(img);
             this.setBackground(Color.LIGHT_GRAY);
             this.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
