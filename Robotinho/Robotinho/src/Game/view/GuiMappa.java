@@ -1,9 +1,7 @@
 package Game.view;
 
-import Controller.GameController;
+import Game.Controller.GameController;
 import Game.model.Mappa;
-import Game.model.Pavimento;
-import Game.model.Robot;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

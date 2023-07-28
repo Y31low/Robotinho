@@ -1,5 +1,4 @@
-import Controller.GameController;
-import Game.model.Direzione;
+import Game.Controller.GameController;
 import Game.model.Mappa;
 import Game.model.Gatto;
 import Game.model.Robot;
