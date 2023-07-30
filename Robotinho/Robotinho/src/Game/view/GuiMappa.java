@@ -101,7 +101,7 @@ public class GuiMappa extends JFrame {
         private final ImageIcon sfondo;
 
         public LabelGatto() {
-            img = new ImageIcon(new ImageIcon("Robotinho/Robotinho/src/img/Gatto.png").getImage().getScaledInstance(45, 50, Image.SCALE_DEFAULT));
+            img = new ImageIcon(new ImageIcon("Robotinho/Robotinho/src/img/Gatto.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
             this.setIcon(img);
             this.setBackground(Color.decode("#b4844c"));
             this.setOpaque(true);
