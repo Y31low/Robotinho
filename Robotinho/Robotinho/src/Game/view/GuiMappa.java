@@ -324,6 +324,7 @@ public class GuiMappa extends JFrame {
     public void bump(){
         JDialog dialog = new JDialog(this);
         JLabel content = new JLabel("Che male!");
+        content.setHorizontalAlignment(SwingConstants.CENTER);
         dialog.add(content);
         dialog.setSize(300,100);
         dialog.setLocationRelativeTo(null);
@@ -332,5 +333,6 @@ public class GuiMappa extends JFrame {
 
     public void updateLabelRobot(Direzione d){
         this.R.setDir(d);
+
     }
 }
