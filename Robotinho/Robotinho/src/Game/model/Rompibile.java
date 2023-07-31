@@ -2,9 +2,9 @@ package Game.model;
 
 public interface Rompibile{
 
-    public void perdita();
+    void perdita();
 
-    public void espandiPerdita();
+    void espandiPerdita();
 
-    public void interrompiPerdita();
+    void interrompiPerdita();
 }

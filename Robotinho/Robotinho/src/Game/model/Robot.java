@@ -1,12 +1,6 @@
 package Game.model;
 
 import javax.swing.*;
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 
 public class Robot extends Casella implements Movable{
     //private Mappa m ;
