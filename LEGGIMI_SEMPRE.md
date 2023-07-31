@@ -15,3 +15,7 @@ Scrivere qui le modifiche fatte al codice ogni volta che lo si ricarica.
 - Aggiunto movimento casuale gatto
 - Aggiunto bump del robot con muro e gatto
 - Robot e gatto non possono passare sugli altri oggetti
+
+31/07
+-Buonasera
+  
