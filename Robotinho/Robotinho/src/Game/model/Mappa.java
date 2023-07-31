@@ -3,6 +3,7 @@ package Game.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeListenerProxy;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
 public class Mappa implements Cloneable {
     private int N;
@@ -32,12 +33,13 @@ public class Mappa implements Cloneable {
     }
 
     private void inizializza() {
+        ArrayList<Casella> vicini=new ArrayList<>();
         for (int i = 0; i < this.N; i++) {
             for (int j = 0; j < this.N; j++) {
                 if (i == 0 || j == 0 || i == N - 1 || j == N - 1) {
                     this.mappa[i][j] = new Muro(i, j);
                 } else {
-                    this.mappa[i][j] = new Pavimento(i, j, 0);
+                    this.mappa[i][j] = new Pavimento(i, j, false);
                 }
             }
         }
@@ -63,17 +65,27 @@ public class Mappa implements Cloneable {
 
         this.mappa[1][1] = new Robot(1,1,Direzione.South);
         r=(Robot)this.mappa[1][1];
+        vicini.add(this.mappa[r.getPosizionex()-1][r.getPosizioney()]);
+        vicini.add(this.mappa[r.getPosizionex()][r.getPosizioney()-1]);
+        vicini.add(this.mappa[r.getPosizionex()][r.getPosizioney()+1]);
+        vicini.add(this.mappa[r.getPosizionex()+1][r.getPosizioney()]);
+        r.setVicini(vicini);
         robotx=this.mappa[1][1].getPosizionex();
         roboty=this.mappa[1][1].getPosizioney();
     }
 
     public void aggiornaMappa() {
-        this.mappa[robotx][roboty] = new Pavimento(robotx,roboty,0);
+        ArrayList<Casella> vicini=new ArrayList<>();
+        this.mappa[robotx][roboty] = new Pavimento(robotx,roboty,false);
+        vicini.add(this.mappa[r.getPosizionex()-1][r.getPosizioney()]);
+        vicini.add(this.mappa[r.getPosizionex()][r.getPosizioney()-1]);
+        vicini.add(this.mappa[r.getPosizionex()][r.getPosizioney()+1]);
+        vicini.add(this.mappa[r.getPosizionex()+1][r.getPosizioney()]);
         robotx = r.getPosizionex();
         roboty =r.getPosizioney();
         this.mappa[robotx][roboty] = r;
-
-        this.mappa[gattox][gattoy] = new Pavimento(gattox, gattoy, 0);
+        r.setVicini(vicini);
+        this.mappa[gattox][gattoy] = new Pavimento(gattox, gattoy, false);
         gattox = g.getPosizionex();
         gattoy = g.getPosizioney();
         this.mappa[gattox][gattoy] = g;

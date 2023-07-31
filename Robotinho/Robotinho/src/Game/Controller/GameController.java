@@ -25,11 +25,16 @@ public class GameController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        boolean bump;
         switch (e.getActionCommand()) {
             case "Avanza":
-                model.Avanza(m);
-                m.aggiornaMappa();
-                view.refresh(m);
+                bump=model.Avanza(m);
+                if (bump)
+                    view.bump();
+                else{
+                    m.aggiornaMappa();
+                    view.refresh(m);
+                }
                 break;
             case "Dx":
                 model.giraDx();

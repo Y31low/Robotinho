@@ -12,7 +12,7 @@ public class Gatto extends Casella implements Movable {
     }
 
     @Override
-    public void Avanza(Mappa m) {
+    public boolean Avanza(Mappa m) {
         int i = this.getPosizionex();
         int j = this.getPosizioney();
 
@@ -56,6 +56,7 @@ public class Gatto extends Casella implements Movable {
             case 4:
                 break;
         }
+        return true;
     }
 
     @Override

@@ -216,6 +216,7 @@ public class GuiMappa extends JFrame {
         this.setSize(500,500);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
         this.map=new JLabel[m.getDim()][m.getDim()];
         this.main=new JPanel();
@@ -318,6 +319,15 @@ public class GuiMappa extends JFrame {
             }
         }
         main.updateUI();
+    }
+
+    public void bump(){
+        JDialog dialog = new JDialog(this);
+        JLabel content = new JLabel("Che male!");
+        dialog.add(content);
+        dialog.setSize(300,100);
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
     }
 
     public void updateLabelRobot(Direzione d){
