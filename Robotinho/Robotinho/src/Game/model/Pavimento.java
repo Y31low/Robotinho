@@ -2,8 +2,8 @@ package Game.model;
 
 public class Pavimento extends Casella{
 
-    private int stato;
-    public Pavimento(int posizionex, int posizioney,int stato) {
+    private boolean stato;
+    public Pavimento(int posizionex, int posizioney,boolean stato) {
         super(posizionex, posizioney);
         this.stato=stato;
     }
@@ -13,11 +13,11 @@ public class Pavimento extends Casella{
         return "Pavimento";
     }
 
-    public int getStato() {
+    public boolean getStato() {
         return stato;
     }
 
-    public void setStato(int stato) {
+    public void setStato(boolean stato) {
         this.stato = stato;
     }
 }
