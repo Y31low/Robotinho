@@ -16,6 +16,13 @@ Scrivere qui le modifiche fatte al codice ogni volta che lo si ricarica.
 - Aggiunto bump del robot con muro e gatto
 - Robot e gatto non possono passare sugli altri oggetti
 
-31/07
+31/07:
+-Buonasera
+
+11/08:
+-Aggiunta eccezione al metodo avanza del robot
+-Aggiunta seconda GUI
+-Riorganizazzione del package view
+-Aggiunta della seconda view al controller
 -Buonasera
   
