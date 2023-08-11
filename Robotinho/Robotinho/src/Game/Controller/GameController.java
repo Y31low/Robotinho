@@ -5,53 +5,80 @@ import Game.model.Mappa;
 import Game.model.Robot;
 import Game.model.Gatto;
 import Game.view.GuiMappa;
+import Game.view.VistaInterface;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
+import java.util.HashSet;
 
 public class GameController implements ActionListener {
     private Robot model;
     private Gatto gatto;
     private Mappa m;
-    private GuiMappa view;
+    private Collection<VistaInterface> views;
 
-    public GameController(Gatto gatto, Robot model, Mappa m, GuiMappa view){
+    public GameController(Gatto gatto, Robot model, Mappa m, VistaInterface... views){
         this.m = m;
         this.model = model;
         this.gatto = gatto;
-        this.view = view;
-        this.view.addController(this);
+        this.views= new HashSet<>();
+        for (VistaInterface view:views
+             ) {
+            this.views.add(view);
+            view.addController(this);
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        boolean bump;
+
         switch (e.getActionCommand()) {
             case "Avanza":
-                bump=model.Avanza(m);
-                if (bump)
-                    view.bump();
-                else{
+                try {
+                    model.Avanza(m);
                     m.aggiornaMappa();
-                    view.refresh(m);
+                    for (VistaInterface view: views
+                    ){
+                        view.refresh(m);
+                    }
+                }
+                catch (Robot.IllegalMoveException exc){
+                    for (VistaInterface view: views
+                    ) {
+                        view.bump();
+                    }
                 }
                 break;
             case "Dx":
                 model.giraDx();
-                view.updateLabelRobot(model.getDirezione());
-                view.refresh(m);
+                for (VistaInterface view: views
+                     ) {
+                    view.updateLabelRobot(model.getDirezione());
+                    view.refresh(m);
+
+                }
+
                 break;
             case "Sx":
                 model.giraSx();
-                view.updateLabelRobot(model.getDirezione());
-                view.refresh(m);
+                for (VistaInterface view: views
+                ) {
+                    view.updateLabelRobot(model.getDirezione());
+                    view.refresh(m);
+
+                }
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + e.getActionCommand());
         }
         gatto.Avanza(m);
         m.aggiornaMappa();
-        view.refresh(m);
+        for (VistaInterface view: views
+        ) {
+            view.refresh(m);
+
+        }
     }
 }
 

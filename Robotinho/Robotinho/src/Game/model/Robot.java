@@ -8,8 +8,8 @@ public class Robot extends Casella implements Movable{
     private Direzione direzione;
     private ArrayList<Casella> vicini;
 
-    public Robot(int posizionex, int posizioney, Direzione direzione) {
-        super(posizionex, posizioney);
+    public Robot(int posizionex, int posizioney,boolean visibile, Direzione direzione) {
+        super(posizionex, posizioney,visibile);
         this.direzione = direzione;
         vicini= new ArrayList<>();
     }
@@ -28,14 +28,14 @@ public class Robot extends Casella implements Movable{
     }
 
     @Override
-    public boolean Avanza(Mappa m) {
+    public void Avanza(Mappa m) throws IllegalMoveException{
 
-        boolean bump=false;
+
         switch (this.direzione) {
             case North:
                 this.setDirezione(Direzione.North);
                 if (!this.vicini.get(0).toString().equals("Pavimento")){
-                    bump = true;
+                    throw new IllegalMoveException("BUMP");
                 }
                 else {
                     this.setPosizionex(this.getPosizionex() - 1);
@@ -44,7 +44,7 @@ public class Robot extends Casella implements Movable{
             case West:
                 this.setDirezione(Direzione.West);
                 if (!this.vicini.get(1).toString().equals("Pavimento")){
-                    bump=true;
+                    throw new IllegalMoveException("BUMP");
                 }
                 else{
                     this.setPosizioney(this.getPosizioney() - 1);
@@ -53,7 +53,7 @@ public class Robot extends Casella implements Movable{
             case East:
                 this.setDirezione(Direzione.East);
                 if (!this.vicini.get(2).toString().equals("Pavimento")){
-                    bump=true;
+                    throw new IllegalMoveException("BUMP");
                 }
                 else{
                     this.setPosizioney(this.getPosizioney() + 1);
@@ -63,18 +63,17 @@ public class Robot extends Casella implements Movable{
             case South:
                 this.setDirezione(Direzione.South);
                 if (!this.vicini.get(3).toString().equals("Pavimento")){
-                    bump=true;
+                    throw new IllegalMoveException("BUMP");
                 }
                 else {
                     this.setPosizionex(this.getPosizionex() + 1);
                 }
-
                 break;
             default:
                 break;
         }
 
-        return bump;
+
     }
 
     @Override
@@ -117,5 +116,11 @@ public class Robot extends Casella implements Movable{
     }
     public void setVicini(ArrayList<Casella>vicini){
         this.vicini=vicini;
+    }
+
+    public class IllegalMoveException extends RuntimeException {
+        public IllegalMoveException(String s) {
+            super(s);
+        }
     }
 }

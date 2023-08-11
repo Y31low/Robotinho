@@ -3,11 +3,13 @@ package Game.model;
 public abstract class Casella {
     private int posizionex;
     private int posizioney;
+    private boolean visibile;
 
 
-    public Casella(int posizionex, int posizioney) {
+    public Casella(int posizionex, int posizioney,boolean visibile) {
         this.posizionex = posizionex;
         this.posizioney = posizioney;
+        this.visibile= visibile;
     }
 
     public int getPosizionex() {
@@ -26,5 +28,12 @@ public abstract class Casella {
         this.posizioney = posizioney;
     }
 
+    public boolean isVisibile() {
+        return visibile;
+    }
+
+    public void setVisibile(boolean visibile) {
+        this.visibile = visibile;
+    }
 
 }

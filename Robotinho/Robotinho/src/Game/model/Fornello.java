@@ -3,12 +3,12 @@ package Game.model;
 public class Fornello extends Casella{
     private Boolean acceso;
 
-    public Fornello(int x, int y){
-        super(x, y);
+    public Fornello(int x, int y,boolean visibile){
+        super(x, y,visibile);
         this.acceso = false;
     }
-    public Fornello(int x, int y, Boolean acceso){
-        super(x, y);
+    public Fornello(int x, int y,boolean visibile, Boolean acceso){
+        super(x, y,visibile);
         this.acceso = acceso;
     }
 

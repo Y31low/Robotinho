@@ -1,8 +1,8 @@
 package Game.model;
 
 public class Muro extends Casella {
-    public Muro(int posizionex, int posizioney) {
-        super(posizionex, posizioney);
+    public Muro(int posizionex, int posizioney,boolean visibile) {
+        super(posizionex, posizioney,visibile);
     }
 
     @Override

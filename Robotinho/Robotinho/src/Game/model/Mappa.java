@@ -37,33 +37,33 @@ public class Mappa implements Cloneable {
         for (int i = 0; i < this.N; i++) {
             for (int j = 0; j < this.N; j++) {
                 if (i == 0 || j == 0 || i == N - 1 || j == N - 1) {
-                    this.mappa[i][j] = new Muro(i, j);
+                    this.mappa[i][j] = new Muro(i, j,true);
                 } else {
-                    this.mappa[i][j] = new Pavimento(i, j, false);
+                    this.mappa[i][j] = new Pavimento(i, j, false,false);
                 }
             }
         }
-        this.mappa[5][7] = new Fornello(5,7);
+        this.mappa[5][7] = new Fornello(5,7,false);
         fornello=(Fornello)this.mappa[5][7];
         fornellox = this.mappa[5][7].getPosizionex();
         fornelloy = this.mappa[5][7].getPosizioney();
 
-        this.mappa[4][4] = new Lavatrice(4,4);
+        this.mappa[4][4] = new Lavatrice(4,4,false);
         lavatrice=(Lavatrice)this.mappa[4][4];
         lavax = this.mappa[4][4].getPosizionex();
         lavay = this.mappa[4][4].getPosizioney();
 
-        this.mappa[7][1] = new Rubinetto(7,1);
+        this.mappa[7][1] = new Rubinetto(7,1,false);
         rubinetto = (Rubinetto)this.mappa[7][1];
         rubinettox = this.mappa[7][1].getPosizionex();
         rubinettoy = this.mappa[7][1].getPosizioney();
 
-        this.mappa[8][8] = new Gatto(8,8);
+        this.mappa[8][8] = new Gatto(8,8,true);
         g=(Gatto)this.mappa[8][8];
         gattox = this.mappa[8][8].getPosizionex();
         gattoy = this.mappa[8][8].getPosizioney();
 
-        this.mappa[1][1] = new Robot(1,1,Direzione.South);
+        this.mappa[1][1] = new Robot(1,1,true,Direzione.South);
         r=(Robot)this.mappa[1][1];
         vicini.add(this.mappa[r.getPosizionex()-1][r.getPosizioney()]);
         vicini.add(this.mappa[r.getPosizionex()][r.getPosizioney()-1]);
@@ -76,7 +76,7 @@ public class Mappa implements Cloneable {
 
     public void aggiornaMappa() {
         ArrayList<Casella> vicini=new ArrayList<>();
-        this.mappa[robotx][roboty] = new Pavimento(robotx,roboty,false);
+        this.mappa[robotx][roboty] = new Pavimento(robotx,roboty,false,false);
         vicini.add(this.mappa[r.getPosizionex()-1][r.getPosizioney()]);
         vicini.add(this.mappa[r.getPosizionex()][r.getPosizioney()-1]);
         vicini.add(this.mappa[r.getPosizionex()][r.getPosizioney()+1]);
@@ -84,8 +84,11 @@ public class Mappa implements Cloneable {
         robotx = r.getPosizionex();
         roboty =r.getPosizioney();
         this.mappa[robotx][roboty] = r;
+        vicini.forEach((v)->{
+            v.setVisibile(true);
+        });
         r.setVicini(vicini);
-        this.mappa[gattox][gattoy] = new Pavimento(gattox, gattoy, false);
+        this.mappa[gattox][gattoy] = new Pavimento(gattox, gattoy, false,false);
         gattox = g.getPosizionex();
         gattoy = g.getPosizioney();
         this.mappa[gattox][gattoy] = g;

@@ -3,8 +3,8 @@ import java.util.Random;
 
 public class Gatto extends Casella implements Movable {
     private Mappa m;
-    public Gatto(int x, int y){
-        super(x, y);
+    public Gatto(int x, int y,boolean visibile){
+        super(x, y,visibile);
     }
 
     public String toString() {
@@ -12,7 +12,7 @@ public class Gatto extends Casella implements Movable {
     }
 
     @Override
-    public boolean Avanza(Mappa m) {
+    public void Avanza(Mappa m) {
         int i = this.getPosizionex();
         int j = this.getPosizioney();
 
@@ -56,7 +56,7 @@ public class Gatto extends Casella implements Movable {
             case 4:
                 break;
         }
-        return true;
+
     }
 
     @Override
