@@ -1,10 +1,8 @@
 package Game.Controller;
 
-import Game.model.Direzione;
+import Game.model.Gatto;
 import Game.model.Mappa;
 import Game.model.Robot;
-import Game.model.Gatto;
-import Game.view.GuiMappa;
 import Game.view.VistaInterface;
 
 import java.awt.event.ActionEvent;
@@ -32,7 +30,6 @@ public class GameController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         switch (e.getActionCommand()) {
             case "Avanza":
                 try {
