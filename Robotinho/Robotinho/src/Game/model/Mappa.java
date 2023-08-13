@@ -1,5 +1,7 @@
 package Game.model;
 
+import Game.model.Casella.Posizione;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeListenerProxy;
 import java.beans.PropertyChangeSupport;
@@ -45,52 +47,52 @@ public class Mappa implements Cloneable {
         }
         this.mappa[5][7] = new Fornello(5,7,false);
         fornello=(Fornello)this.mappa[5][7];
-        fornellox = this.mappa[5][7].getPosizionex();
-        fornelloy = this.mappa[5][7].getPosizioney();
+        fornellox = this.mappa[5][7].getPosizione().getX();
+        fornelloy = this.mappa[5][7].getPosizione().getY();
 
         this.mappa[4][4] = new Lavatrice(4,4,false);
         lavatrice=(Lavatrice)this.mappa[4][4];
-        lavax = this.mappa[4][4].getPosizionex();
-        lavay = this.mappa[4][4].getPosizioney();
+        lavax = this.mappa[4][4].getPosizione().getX();
+        lavay = this.mappa[4][4].getPosizione().getY();
 
         this.mappa[7][1] = new Rubinetto(7,1,false);
         rubinetto = (Rubinetto)this.mappa[7][1];
-        rubinettox = this.mappa[7][1].getPosizionex();
-        rubinettoy = this.mappa[7][1].getPosizioney();
+        rubinettox = this.mappa[7][1].getPosizione().getX();
+        rubinettoy = this.mappa[7][1].getPosizione().getY();
 
         this.mappa[8][8] = new Gatto(8,8,true);
         g=(Gatto)this.mappa[8][8];
-        gattox = this.mappa[8][8].getPosizionex();
-        gattoy = this.mappa[8][8].getPosizioney();
+        gattox = this.mappa[8][8].getPosizione().getX();
+        gattoy = this.mappa[8][8].getPosizione().getY();
 
         this.mappa[1][1] = new Robot(1,1,true,Direzione.South);
         r=(Robot)this.mappa[1][1];
-        vicini.add(this.mappa[r.getPosizionex()-1][r.getPosizioney()]);
-        vicini.add(this.mappa[r.getPosizionex()][r.getPosizioney()-1]);
-        vicini.add(this.mappa[r.getPosizionex()][r.getPosizioney()+1]);
-        vicini.add(this.mappa[r.getPosizionex()+1][r.getPosizioney()]);
+        vicini.add(this.mappa[r.getPosizione().getX()][r.getPosizione().getY()]);
+        vicini.add(this.mappa[r.getPosizione().getX()][r.getPosizione().getY()-1]);
+        vicini.add(this.mappa[r.getPosizione().getX()][r.getPosizione().getY()+1]);
+        vicini.add(this.mappa[r.getPosizione().getX()+1][r.getPosizione().getY()]);
         r.setVicini(vicini);
-        robotx=this.mappa[1][1].getPosizionex();
-        roboty=this.mappa[1][1].getPosizioney();
+        robotx=this.mappa[1][1].getPosizione().getX();
+        roboty=this.mappa[1][1].getPosizione().getY();
     }
 
     public void aggiornaMappa() {
         ArrayList<Casella> vicini=new ArrayList<>();
         this.mappa[robotx][roboty] = new Pavimento(robotx,roboty,false,false);
-        vicini.add(this.mappa[r.getPosizionex()-1][r.getPosizioney()]);
-        vicini.add(this.mappa[r.getPosizionex()][r.getPosizioney()-1]);
-        vicini.add(this.mappa[r.getPosizionex()][r.getPosizioney()+1]);
-        vicini.add(this.mappa[r.getPosizionex()+1][r.getPosizioney()]);
-        robotx = r.getPosizionex();
-        roboty =r.getPosizioney();
+        vicini.add(this.mappa[r.getPosizione().getX()-1][r.getPosizione().getY()]);
+        vicini.add(this.mappa[r.getPosizione().getX()][r.getPosizione().getY()-1]);
+        vicini.add(this.mappa[r.getPosizione().getX()][r.getPosizione().getY()+1]);
+        vicini.add(this.mappa[r.getPosizione().getX()+1][r.getPosizione().getY()]);
+        robotx = r.getPosizione().getX();
+        roboty =r.getPosizione().getY();
         this.mappa[robotx][roboty] = r;
         vicini.forEach((v)->{
             v.setVisibile(true);
         });
         r.setVicini(vicini);
         this.mappa[gattox][gattoy] = new Pavimento(gattox, gattoy, false,false);
-        gattox = g.getPosizionex();
-        gattoy = g.getPosizioney();
+        gattox = g.getPosizione().getX();
+        gattoy = g.getPosizione().getX();
         this.mappa[gattox][gattoy] = g;
     }
 
