@@ -2,32 +2,6 @@ package Game.model;
 
 public abstract class Casella {
 
-    protected class Posizione{
-        private int x;
-        private int y;
-
-         Posizione(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public int getX() {
-            return x;
-        }
-
-        public void setX(int x) {
-            this.x = x;
-        }
-
-        public int getY() {
-            return y;
-        }
-
-        public void setY(int y) {
-            this.y = y;
-        }
-    }
-
     private Posizione posizione;
     private boolean visibile;
 
@@ -38,7 +12,7 @@ public abstract class Casella {
     }
 
     public Casella(int x,int y,boolean visibile){
-        this.posizione=new Posizione(x,y);
+        this.posizione= new Posizione(x, y);
         this.visibile=visibile;
 
     }

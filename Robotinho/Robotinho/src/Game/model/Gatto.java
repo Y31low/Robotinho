@@ -12,46 +12,43 @@ public class Gatto extends Casella implements Movable {
     }
 
     @Override
+    public boolean isPassable(Mappa m, int x, int y) {
+        return m.getMappa()[x][y].toString().equals("Pavimento");
+    }
+
+    @Override
     public void Avanza(Mappa m) {
-        int i = this.getPosizionex();
-        int j = this.getPosizioney();
 
         Random random = new Random();
         /*0 = North; 1 = East; 2 = South; 3 = West; 4 = DoNothing*/
         int direzione = random.nextInt(5);
 
+        Posizione p;
+
         switch(direzione){
             case 0:
-                if((! m.getMappa()[getPosizionex()-1][getPosizioney()].toString().equals("Lavatrice")) &&
-                        (! m.getMappa()[getPosizionex()-1][getPosizioney()].toString().equals("Fornello")) &&
-                        (! m.getMappa()[getPosizionex()-1][getPosizioney()].toString().equals("Rubinetto")) &&
-                        (! m.getMappa()[getPosizionex()-1][getPosizioney()].toString().equals("Robot")) &&
-                        (! m.getMappa()[getPosizionex()-1][getPosizioney()].toString().equals("Muro")))
-                    this.setPosizionex(this.getPosizionex() - 1);
+                if(isPassable(m, this.getPosizione().getX() - 1, this.getPosizione().getY())){
+                    p = new Posizione(this.getPosizione().getX() - 1, this.getPosizione().getY());
+                    this.setPosizione(p);
+                }
                 break;
             case 1:
-                if((! m.getMappa()[getPosizionex()][getPosizioney()+1].toString().equals("Lavatrice")) &&
-                        (! m.getMappa()[getPosizionex()][getPosizioney()+1].toString().equals("Fornello")) &&
-                        (! m.getMappa()[getPosizionex()][getPosizioney()+1].toString().equals("Rubinetto")) &&
-                        (! m.getMappa()[getPosizionex()][getPosizioney()+1].toString().equals("Robot")) &&
-                        (! m.getMappa()[getPosizionex()][getPosizioney()+1].toString().equals("Muro")))
-                    this.setPosizioney(this.getPosizioney() + 1);
+                if(isPassable(m, this.getPosizione().getX(), this.getPosizione().getY() +1)){
+                    p = new Posizione(this.getPosizione().getX(), this.getPosizione().getY() + 1);
+                    this.setPosizione(p);
+                }
                 break;
             case 2:
-                if((! m.getMappa()[getPosizionex()+1][getPosizioney()].toString().equals("Lavatrice")) &&
-                        (! m.getMappa()[getPosizionex()+1][getPosizioney()].toString().equals("Fornello")) &&
-                        (! m.getMappa()[getPosizionex()+1][getPosizioney()].toString().equals("Rubinetto")) &&
-                        (! m.getMappa()[getPosizionex()+1][getPosizioney()].toString().equals("Robot")) &&
-                        (! m.getMappa()[getPosizionex()+1][getPosizioney()].toString().equals("Muro")))
-                    this.setPosizionex(this.getPosizionex() + 1);
+                if(isPassable(m, this.getPosizione().getX() + 1, this.getPosizione().getY())){
+                    p = new Posizione(this.getPosizione().getX() + 1, this.getPosizione().getY());
+                    this.setPosizione(p);
+                }
                 break;
             case 3:
-                if((! m.getMappa()[getPosizionex()][getPosizioney()-1].toString().equals("Lavatrice")) &&
-                        (! m.getMappa()[getPosizionex()][getPosizioney()-1].toString().equals("Fornello")) &&
-                        (! m.getMappa()[getPosizionex()][getPosizioney()-1].toString().equals("Rubinetto")) &&
-                        (! m.getMappa()[getPosizionex()][getPosizioney()-1].toString().equals("Robot")) &&
-                        (! m.getMappa()[getPosizionex()][getPosizioney()-1].toString().equals("Muro")))
-                    this.setPosizioney(this.getPosizioney() - 1);
+                if(isPassable(m, this.getPosizione().getX(), this.getPosizione().getY() -1)){
+                    p = new Posizione(this.getPosizione().getX(), this.getPosizione().getY() - 1);
+                    this.setPosizione(p);
+                }
                 break;
             case 4:
                 break;

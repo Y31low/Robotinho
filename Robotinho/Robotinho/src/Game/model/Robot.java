@@ -1,17 +1,14 @@
 package Game.model;
 
-import javax.swing.*;
-import java.util.ArrayList;
-
 public class Robot extends Casella implements Movable{
     //private Mappa m ;
     private Direzione direzione;
-    private ArrayList<Casella> vicini;
+
 
     public Robot(int posizionex, int posizioney,boolean visibile, Direzione direzione) {
         super(posizionex, posizioney,visibile);
         this.direzione = direzione;
-        vicini= new ArrayList<>();
+        //c[p.getX()][p.getY()].setVisibile(true);
     }
 
     @Override
@@ -28,52 +25,75 @@ public class Robot extends Casella implements Movable{
     }
 
     @Override
-    public void Avanza(Mappa m) throws IllegalMoveException{
+    public boolean isPassable(Mappa m, int x, int y) {
+        return m.getMappa()[x][y].toString().equals("Pavimento");
+    }
 
+    private void discover(Mappa m, Posizione p) {
+        Casella[][] c;
+        c = m.getMappa();
+
+        c[p.getX()-1][p.getY()].setVisibile(true);
+        c[p.getX()+1][p.getY()].setVisibile(true);
+        c[p.getX()][p.getY()-1].setVisibile(true);
+        c[p.getX()][p.getY()+1].setVisibile(true);
+    }
+
+
+    @Override
+    public void Avanza(Mappa m) throws IllegalMoveException{
+        Posizione p;
 
         switch (this.direzione) {
             case North:
                 this.setDirezione(Direzione.North);
-                if (!this.vicini.get(0).toString().equals("Pavimento")){
+                if (! isPassable(m, this.getPosizione().getX()-1, this.getPosizione().getY())){
                     throw new IllegalMoveException("BUMP");
                 }
                 else {
-                    this.setPosizionex(this.getPosizionex() - 1);
+                    m.getMappa()[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
+                    p = new Posizione(this.getPosizione().getX() - 1, this.getPosizione().getY());
+                    this.setPosizione(p);
+
                 }
                 break;
             case West:
                 this.setDirezione(Direzione.West);
-                if (!this.vicini.get(1).toString().equals("Pavimento")){
+                if (! isPassable(m, this.getPosizione().getX(), this.getPosizione().getY()-1)){
                     throw new IllegalMoveException("BUMP");
                 }
                 else{
-                    this.setPosizioney(this.getPosizioney() - 1);
+                    m.getMappa()[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
+                    p = new Posizione(this.getPosizione().getX(), this.getPosizione().getY() - 1);
+                    this.setPosizione(p);
                 }
                 break;
             case East:
                 this.setDirezione(Direzione.East);
-                if (!this.vicini.get(2).toString().equals("Pavimento")){
+                if (! isPassable(m, this.getPosizione().getX(), this.getPosizione().getY()+1)){
                     throw new IllegalMoveException("BUMP");
                 }
                 else{
-                    this.setPosizioney(this.getPosizioney() + 1);
+                    m.getMappa()[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
+                    p = new Posizione(this.getPosizione().getX(), this.getPosizione().getY() + 1);
+                    this.setPosizione(p);
                 }
-
                 break;
             case South:
                 this.setDirezione(Direzione.South);
-                if (!this.vicini.get(3).toString().equals("Pavimento")){
+                if (! isPassable(m, this.getPosizione().getX()+1, this.getPosizione().getY())){
                     throw new IllegalMoveException("BUMP");
                 }
                 else {
-                    this.setPosizionex(this.getPosizionex() + 1);
+                    m.getMappa()[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
+                    p = new Posizione(this.getPosizione().getX() + 1, this.getPosizione().getY());
+                    this.setPosizione(p);
                 }
                 break;
             default:
                 break;
         }
-
-
+        this.discover(m, this.getPosizione());
     }
 
     @Override
@@ -114,11 +134,8 @@ public class Robot extends Casella implements Movable{
     public void interagisci(){
 
     }
-    public void setVicini(ArrayList<Casella>vicini){
-        this.vicini=vicini;
-    }
 
-    public class IllegalMoveException extends RuntimeException {
+    public static class IllegalMoveException extends RuntimeException {
         public IllegalMoveException(String s) {
             super(s);
         }
