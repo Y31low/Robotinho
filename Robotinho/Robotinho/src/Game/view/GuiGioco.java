@@ -52,9 +52,10 @@ public class GuiGioco extends JFrame implements VistaInterface {
                         if(stato != null){
                             if(stato.getStato())
                                 this.map[i][j] = new LabelBagnato();
+                            else
+                                this.map[i][j] = new LabelPavimento();
+
                         }
-                        else
-                            this.map[i][j] = new LabelPavimento();
 
                         main.add(this.map[i][j]);
                     }
@@ -162,9 +163,10 @@ public class GuiGioco extends JFrame implements VistaInterface {
                         if(stato != null){
                             if(stato.getStato())
                                 this.map[i][j] = new LabelBagnato();
+                            else
+                                this.map[i][j] = new LabelPavimento();
                         }
-                        else
-                            this.map[i][j] = new LabelPavimento();
+
 
                         main.add(this.map[i][j]);
                     }

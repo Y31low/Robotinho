@@ -1,5 +1,7 @@
 package Game.model;
 
+import java.util.Objects;
+
 public class Posizione {
     private int x;
     private int y;
@@ -30,7 +32,7 @@ public class Posizione {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Posizione posizione = (Posizione) o;
-        return x == posizione.x && y == posizione.y;
+        return (x == posizione.x) && (y == posizione.y);
     }
 
     @Override
