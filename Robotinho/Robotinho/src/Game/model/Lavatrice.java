@@ -1,12 +1,12 @@
 package Game.model;
 
 import java.util.ArrayList;
-import java.util.Random;
+
 
 public class Lavatrice extends Casella implements Rompibile{
     private boolean stato;
 
-    private ArrayList<Casella> vicini;
+
 
     public Lavatrice(int posizionex, int posizioney,boolean visibile) {
         super(posizionex, posizioney,visibile);
@@ -19,13 +19,12 @@ public class Lavatrice extends Casella implements Rompibile{
     }
 
     @Override
-    public void perdita() {
-        Random random = new Random();
-        int direzione = random.nextInt(4);
+    public void perdita(Mappa m) {
+        Direzione direzione = Direzione.randomDirection();
         Pavimento p;
         switch(direzione){
-            case 0:
-                if(this.vicini.get(0).toString().equals("Pavimento")){
+            case North:
+                if(){
                     p = (Pavimento)vicini.get(0);
                     if(p.getStato())
                         p.setStato(true);
