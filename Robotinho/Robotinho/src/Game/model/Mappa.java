@@ -84,7 +84,7 @@ public class Mappa {
 
         this.mappa[gattox][gattoy] = new Pavimento(gattox, gattoy, false);
         gattox = g.getPosizione().getX();
-        gattoy = g.getPosizione().getX();
+        gattoy = g.getPosizione().getY();
         this.mappa[gattox][gattoy] = g;
     }
 
@@ -98,6 +98,10 @@ public class Mappa {
 
     public Casella getRobot() {
         return this.mappa[1][1];
+    }
+
+    public ArrayList<StatoCasella> getStatoPavimento() {
+        return statoPavimento;
     }
 
     public Casella getGatto() {

@@ -37,7 +37,7 @@ public class GameController implements ActionListener {
                     m.aggiornaMappa();
                     for (VistaInterface view: views
                     ){
-                        view.refresh(m);
+                        view.refresh(m, m.getStatoPavimento());
                     }
                 }
                 catch (Robot.IllegalMoveException exc){
@@ -52,7 +52,7 @@ public class GameController implements ActionListener {
                 for (VistaInterface view: views
                      ) {
                     view.updateLabelRobot(model.getDirezione());
-                    view.refresh(m);
+                    view.refresh(m, m.getStatoPavimento());
 
                 }
 
@@ -62,7 +62,7 @@ public class GameController implements ActionListener {
                 for (VistaInterface view: views
                 ) {
                     view.updateLabelRobot(model.getDirezione());
-                    view.refresh(m);
+                    view.refresh(m, m.getStatoPavimento());
 
                 }
                 break;
@@ -73,7 +73,7 @@ public class GameController implements ActionListener {
         m.aggiornaMappa();
         for (VistaInterface view: views
         ) {
-            view.refresh(m);
+            view.refresh(m, m.getStatoPavimento());
 
         }
     }

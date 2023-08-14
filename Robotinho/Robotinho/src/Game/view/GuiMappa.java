@@ -3,9 +3,12 @@ package Game.view;
 import Game.Controller.GameController;
 import Game.model.Direzione;
 import Game.model.Mappa;
+import Game.model.Posizione;
+import Game.model.StatoCasella;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GuiMappa extends JFrame implements VistaInterface {
     private final JPanel main;
@@ -19,7 +22,7 @@ public class GuiMappa extends JFrame implements VistaInterface {
 
     private JLabel[][] map;
 
-    public GuiMappa(Mappa m) throws HeadlessException {
+    public GuiMappa(Mappa m, ArrayList<StatoCasella> bagnato) throws HeadlessException {
 
         super("Robotinho");
         this.setSize(500, 500);
@@ -30,6 +33,8 @@ public class GuiMappa extends JFrame implements VistaInterface {
         this.map = new JLabel[m.getDim()][m.getDim()];
         this.main = new JPanel();
 
+        StatoCasella stato = null;
+
         this.R = new LabelRobot();
         main.setLayout(new GridLayout(m.getDim(), m.getDim()));
         main.setVisible(true);
@@ -39,8 +44,19 @@ public class GuiMappa extends JFrame implements VistaInterface {
                     this.map[i][j] = new LabelMuro();
                     main.add(this.map[i][j]);
                 } else if (m.getMappa()[i][j].toString().equals("Pavimento")) {
-                    this.map[i][j] = new LabelPavimento();
+                    for(StatoCasella s : bagnato) {
+                        if(s.getPosizione().equals(new Posizione(i, j)))
+                            stato = s;
+                    }
+                    if(stato != null){
+                        if(stato.getStato())
+                            this.map[i][j] = new LabelBagnato();
+                    }
+                    else
+                        this.map[i][j] = new LabelPavimento();
+
                     main.add(this.map[i][j]);
+
                 } else if (m.getMappa()[i][j].toString().equals("Robot")) {
                     this.map[i][j] = new LabelRobot();
                     main.add(this.map[i][j]);
@@ -86,8 +102,9 @@ public class GuiMappa extends JFrame implements VistaInterface {
     }
 
     @Override
-    public void refresh(Mappa m) {
+    public void refresh(Mappa m, ArrayList<StatoCasella> bagnato) {
         main.removeAll();
+        StatoCasella stato = null;
 
         for (int i = 0; i < m.getDim(); i++) {
             for (int j = 0; j < m.getDim(); j++) {
@@ -96,7 +113,17 @@ public class GuiMappa extends JFrame implements VistaInterface {
                     main.add(this.map[i][j]);
                 }
                 if (m.getMappa()[i][j].toString().equals("Pavimento")) {
-                    this.map[i][j] = new LabelPavimento();
+                    for(StatoCasella s : bagnato) {
+                        if(s.getPosizione().equals(new Posizione(i, j)))
+                            stato = s;
+                    }
+                    if(stato != null){
+                        if(stato.getStato())
+                            this.map[i][j] = new LabelBagnato();
+                    }
+                    else
+                        this.map[i][j] = new LabelPavimento();
+
                     main.add(this.map[i][j]);
                 }
                 if (m.getMappa()[i][j].toString().equals("Robot")) {
@@ -123,7 +150,6 @@ public class GuiMappa extends JFrame implements VistaInterface {
         }
         main.updateUI();
     }
-
 
     @Override
     public void updateLabelRobot(Direzione d) {

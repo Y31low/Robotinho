@@ -1,5 +1,7 @@
 package Game.model;
 
+import java.util.ArrayList;
+
 public class StatoCasella extends Casella{
     private boolean stato;
 
@@ -20,6 +22,7 @@ public class StatoCasella extends Casella{
     public void setStato(boolean stato) {
         this.stato = stato;
     }
+
 
 
 }

@@ -24,11 +24,6 @@ public class Robot extends Casella implements Movable{
         return direzione;
     }
 
-    @Override
-    public boolean isPassable(Mappa m, int x, int y) {
-        return m.getMappa()[x][y].toString().equals("Pavimento");
-    }
-
     private void discover(Mappa m, Posizione p) {
         Casella[][] c;
         c = m.getMappa();

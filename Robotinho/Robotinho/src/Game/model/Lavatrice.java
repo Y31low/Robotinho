@@ -6,56 +6,69 @@ import java.util.ArrayList;
 public class Lavatrice extends Casella implements Rompibile{
     private boolean stato;
 
-
-
     public Lavatrice(int posizionex, int posizioney,boolean visibile) {
         super(posizionex, posizioney,visibile);
         this.stato = false;
-        this.vicini = new ArrayList<>();
     }
 
     public String toString() {
         return "Lavatrice";
     }
 
+    public StatoCasella getStatoCasella(ArrayList<StatoCasella> bagnato, Posizione p){
+        for(StatoCasella s : bagnato) {
+            if(s.getPosizione().equals(p))
+                return s;
+        }
+        return null;
+    }
+
     @Override
-    public void perdita(Mappa m) {
+    public void perdita(Mappa m, ArrayList<StatoCasella> bagnato) {
         Direzione direzione = Direzione.randomDirection();
         Pavimento p;
         switch(direzione){
             case North:
-                if(){
-                    p = (Pavimento)vicini.get(0);
-                    if(p.getStato())
-                        p.setStato(true);
+                if(isPassable(m, this.getPosizione().getX()-1, this.getPosizione().getY())){
+                    p = (Pavimento) m.getMappa()[this.getPosizione().getX()-1][this.getPosizione().getY()];
+                    StatoCasella s = getStatoCasella(bagnato, p.getPosizione());
+
+                    if(!s.getStato())
+                        s.setStato(true);
                 }
                 break;
-            case 1:
-                if(this.vicini.get(1).toString().equals("Pavimento")){
-                    p = (Pavimento)vicini.get(1);
-                    if(p.getStato())
-                        p.setStato(true);
+            case East:
+                if(isPassable(m, this.getPosizione().getX(), this.getPosizione().getY()+1)){
+                    p = (Pavimento) m.getMappa()[this.getPosizione().getX()][this.getPosizione().getY()+1];
+                    StatoCasella s = getStatoCasella(bagnato, p.getPosizione());
+
+                    if(!s.getStato())
+                        s.setStato(true);
                 }
                 break;
-            case 2:
-                if(this.vicini.get(2).toString().equals("Pavimento")){
-                    p = (Pavimento)vicini.get(2);
-                    if(p.getStato())
-                        p.setStato(true);
+            case South:
+                if(isPassable(m, this.getPosizione().getX()+1, this.getPosizione().getY())){
+                    p = (Pavimento) m.getMappa()[this.getPosizione().getX()+1][this.getPosizione().getY()];
+                    StatoCasella s = getStatoCasella(bagnato, p.getPosizione());
+
+                    if(!s.getStato())
+                        s.setStato(true);
                 }
                 break;
-            case 3:
-                if(this.vicini.get(3).toString().equals("Pavimento")){
-                    p = (Pavimento)vicini.get(3);
-                    if(p.getStato())
-                        p.setStato(true);
+            case West:
+                if(isPassable(m, this.getPosizione().getX(), this.getPosizione().getY()-1)){
+                    p = (Pavimento) m.getMappa()[this.getPosizione().getX()][this.getPosizione().getY()-1];
+                    StatoCasella s = getStatoCasella(bagnato, p.getPosizione());
+
+                    if(!s.getStato())
+                        s.setStato(true);
                 }
                 break;
         }
     }
 
     @Override
-    public void espandiPerdita() {
+    public void espandiPerdita(Mappa m) {
 
     }
 
