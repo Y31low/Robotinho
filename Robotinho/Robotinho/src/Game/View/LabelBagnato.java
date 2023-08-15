@@ -1,7 +1,6 @@
-package Game.view;
+package Game.View;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class LabelBagnato extends Label {
     private ImageIcon img;

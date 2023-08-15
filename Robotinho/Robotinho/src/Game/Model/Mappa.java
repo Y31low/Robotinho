@@ -1,8 +1,7 @@
-package Game.model;
+package Game.Model;
 
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Mappa {
     private int N;
@@ -19,20 +18,20 @@ public class Mappa {
     private Fornello fornello;
     private int fornellox, fornelloy;
 
-    private ArrayList<StatoCasella> statoPavimento;
+    private HashMap<Posizione,StatoCasella> statoPavimento;
 
     Casella[][] mappa;
 
     public Mappa() {
         this.N = 10;
         this.mappa = new Casella[this.N][this.N];
-        this.statoPavimento = new ArrayList<>();
+        this.statoPavimento = new HashMap<>();
         this.inizializza();
     }
     public Mappa(int N) {
         this.N = N;
         this.mappa = new Casella[this.N][this.N];
-        this.statoPavimento = new ArrayList<>();
+        this.statoPavimento = new HashMap<>();
     }
 
     private void inizializza() {
@@ -42,7 +41,7 @@ public class Mappa {
                     this.mappa[i][j] = new Muro(i, j,true);
                 } else {
                     this.mappa[i][j] = new Pavimento(i, j, false);
-                    this.statoPavimento.add(new StatoCasella(new Posizione(i,j), false, false));
+                    this.statoPavimento.put(new Posizione(i,j),new StatoCasella(new Posizione(i,j), false, false));
                 }
             }
         }
@@ -72,7 +71,7 @@ public class Mappa {
         roboty=this.mappa[1][1].getPosizione().getY();
 
         this.mappa[1][3] = new Pavimento(1, 3, true);
-        this.statoPavimento.add(new StatoCasella(new Posizione(1,3), true, true));
+        this.statoPavimento.put(new Posizione(1,3),new StatoCasella(new Posizione(1,3), true, true));
     }
 
     public void aggiornaMappa() {
@@ -100,7 +99,7 @@ public class Mappa {
         return this.mappa[1][1];
     }
 
-    public ArrayList<StatoCasella> getStatoPavimento() {
+    public HashMap<Posizione,StatoCasella> getStatoPavimento() {
         return statoPavimento;
     }
 

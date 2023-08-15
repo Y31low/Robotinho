@@ -1,4 +1,7 @@
-package Game.model;
+package Game.Model;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Robot extends Casella implements Movable{
     //private Mappa m ;
@@ -126,13 +129,22 @@ public class Robot extends Casella implements Movable{
         }
     }
 
-    public void interagisci(){
-
+    public void Asciuga(HashMap<Posizione,StatoCasella> s) throws IllegalActionException{
+        StatoCasella bagnato=s.get(this.getPosizione());
+        if (!bagnato.getStato()) throw new IllegalActionException("La casella non è bagnata!");
+        else
+            bagnato.setStato(false);
     }
 
-    public static class IllegalMoveException extends RuntimeException {
-        public IllegalMoveException(String s) {
-            super(s);
+    public class IllegalMoveException extends RuntimeException {
+        public IllegalMoveException(String message) {
+            super(message);
+        }
+    }
+
+    public class IllegalActionException extends RuntimeException {
+        public IllegalActionException(String message) {
+            super(message);
         }
     }
 }

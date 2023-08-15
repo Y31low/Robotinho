@@ -1,4 +1,4 @@
-package Game.model;
+package Game.Model;
 
 public class Pavimento extends Casella{
     public Pavimento(int posizionex, int posizioney,boolean visibile) {

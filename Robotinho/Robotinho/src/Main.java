@@ -1,9 +1,9 @@
 import Game.Controller.GameController;
-import Game.model.Mappa;
-import Game.model.Gatto;
-import Game.model.Robot;
-import Game.view.GuiGioco;
-import Game.view.GuiMappa;
+import Game.Model.Mappa;
+import Game.Model.Gatto;
+import Game.Model.Robot;
+import Game.View.GuiGioco;
+import Game.View.GuiMappa;
 
 public class Main {
     public static void main(String[] args) {

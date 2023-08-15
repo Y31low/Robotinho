@@ -1,6 +1,4 @@
-package Game.model;
-
-import java.util.ArrayList;
+package Game.Model;
 
 public class StatoCasella extends Casella{
     private boolean stato;

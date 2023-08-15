@@ -1,7 +1,4 @@
-package Game.view;
-
-import javax.swing.*;
-import java.awt.*;
+package Game.View;
 
 public class LabelFornello extends Label {
     public LabelFornello() {

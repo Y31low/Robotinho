@@ -1,4 +1,4 @@
-package Game.model;
+package Game.Model;
 
 public interface Movable {
     void Avanza(Mappa m);

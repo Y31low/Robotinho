@@ -1,5 +1,4 @@
-package Game.model;
-import java.util.Random;
+package Game.Model;
 
 public class Gatto extends Casella implements Movable {
     private Mappa m;

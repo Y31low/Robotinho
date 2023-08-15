@@ -1,4 +1,4 @@
-package Game.model;
+package Game.Model;
 
 public class Muro extends Casella {
     public Muro(int posizionex, int posizioney,boolean visibile) {

@@ -1,4 +1,4 @@
-package Game.model;
+package Game.Model;
 
 public class Fornello extends Casella{
     private Boolean acceso;

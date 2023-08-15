@@ -1,9 +1,9 @@
 package Game.Controller;
 
-import Game.model.Gatto;
-import Game.model.Mappa;
-import Game.model.Robot;
-import Game.view.VistaInterface;
+import Game.Model.Gatto;
+import Game.Model.Mappa;
+import Game.Model.Robot;
+import Game.View.VistaInterface;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,16 +34,11 @@ public class GameController implements ActionListener {
             case "Avanza":
                 try {
                     model.Avanza(m);
-                    m.aggiornaMappa();
-                    for (VistaInterface view: views
-                    ){
-                        view.refresh(m, m.getStatoPavimento());
-                    }
                 }
                 catch (Robot.IllegalMoveException exc){
                     for (VistaInterface view: views
                     ) {
-                        view.bump();
+                        view.errore("Che male!");
                     }
                 }
                 break;
@@ -52,7 +47,6 @@ public class GameController implements ActionListener {
                 for (VistaInterface view: views
                      ) {
                     view.updateLabelRobot(model.getDirezione());
-                    view.refresh(m, m.getStatoPavimento());
 
                 }
 
@@ -62,8 +56,18 @@ public class GameController implements ActionListener {
                 for (VistaInterface view: views
                 ) {
                     view.updateLabelRobot(model.getDirezione());
-                    view.refresh(m, m.getStatoPavimento());
 
+                }
+                break;
+            case "Asciuga":
+                try {
+                    model.Asciuga(m.getStatoPavimento());
+                }
+                catch (Robot.IllegalActionException exc){
+                    for (VistaInterface view: views
+                    ) {
+                        view.errore("E' gia' asciutto coglione!");
+                    }
                 }
                 break;
             default:

@@ -1,6 +1,6 @@
-package Game.view;
+package Game.View;
 
-import Game.model.Direzione;
+import Game.Model.Direzione;
 
 import javax.swing.*;
 import java.awt.*;

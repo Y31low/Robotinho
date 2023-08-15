@@ -1,4 +1,4 @@
-package Game.model;
+package Game.Model;
 import java.util.Random;
 public enum Direzione {
     North,
