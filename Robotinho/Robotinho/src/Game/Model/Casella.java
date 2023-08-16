@@ -18,7 +18,7 @@ public abstract class Casella {
     }
 
     public boolean isPassable(Mappa m, int x, int y) {
-        return m.getMappa()[x][y].toString().equals("Pavimento");
+        return m.getMappa()[x][y].tipo().equals("Pavimento");
     }
     public boolean isVisibile() {
         return visibile;
@@ -35,4 +35,6 @@ public abstract class Casella {
     public void setPosizione(Posizione posizione) {
         this.posizione = posizione;
     }
+
+    public abstract String tipo();
 }

@@ -6,7 +6,7 @@ public class Pavimento extends Casella{
     }
 
     @Override
-    public String toString() {
+    public String tipo() {
         return "Pavimento";
     }
 

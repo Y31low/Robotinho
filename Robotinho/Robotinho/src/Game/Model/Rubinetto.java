@@ -10,8 +10,8 @@ public class Rubinetto extends Casella implements Rompibile{
         super(posizionex, posizioney,visibile);
         this.stato = false;
     }
-
-    public String toString() {
+    @Override
+    public String tipo() {
         return "Rubinetto";
     }
 

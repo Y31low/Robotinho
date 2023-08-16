@@ -22,5 +22,8 @@ public class StatoCasella extends Casella{
     }
 
 
-
+    @Override
+    public String tipo() {
+        return "Stato Casella";
+    }
 }

@@ -6,7 +6,7 @@ public class Muro extends Casella {
     }
 
     @Override
-    public String toString() {
+    public String tipo() {
         return "Muro";
     }
 }

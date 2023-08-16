@@ -40,7 +40,7 @@ public class GuiGioco extends JFrame implements VistaInterface {
         for (int i = 0; i < m.getMappa().length; i++) {
             for (int j = 0; j < m.getMappa()[i].length; j++) {
                 if(m.getMappa()[i][j].isVisibile()){
-                    switch (m.getMappa()[i][j].toString()) {
+                    switch (m.getMappa()[i][j].tipo()) {
                         case "Muro":
                             this.map[i][j] = new LabelMuro();
                             break;
@@ -126,7 +126,7 @@ public class GuiGioco extends JFrame implements VistaInterface {
         for (int i = 0; i < m.getMappa().length; i++) {
             for (int j = 0; j < m.getMappa()[i].length; j++) {
                 if(m.getMappa()[i][j].isVisibile()){
-                    switch (m.getMappa()[i][j].toString()) {
+                    switch (m.getMappa()[i][j].tipo()) {
                         case "Muro":
                             this.map[i][j] = new LabelMuro();
                             break;

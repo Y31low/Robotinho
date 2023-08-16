@@ -5,8 +5,8 @@ public class Gatto extends Casella implements Movable {
     public Gatto(int x, int y,boolean visibile){
         super(x, y,visibile);
     }
-
-    public String toString() {
+    @Override
+    public String tipo() {
         return "Cat";
     }
 

@@ -15,7 +15,7 @@ public class Robot extends Casella implements Movable{
     }
 
     @Override
-    public String toString() {
+    public String tipo() {
         return "Robot";
     }
 

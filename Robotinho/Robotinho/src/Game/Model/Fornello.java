@@ -11,8 +11,8 @@ public class Fornello extends Casella{
         super(x, y,visibile);
         this.acceso = acceso;
     }
-
-    public String toString() {
+    @Override
+    public String tipo() {
         return "Fornello";
     }
 
