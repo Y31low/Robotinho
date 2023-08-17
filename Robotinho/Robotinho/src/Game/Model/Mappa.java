@@ -7,11 +7,14 @@ import java.util.Random;
 public class Mappa {
     private int N;
     private Robot r;
-    private int robotx, roboty;
+    private Posizione posizioneRobot;
+    private Posizione posizioneGatto;
+    private Posizione posizioneFornello;
+    private Posizione posizioneRubinetto;
+    private Posizione posizioneLavatrice;
     private Gatto g;
-    private int gattox, gattoy;
     private Lavatrice lavatrice;
-    private int lavax, lavay;
+
 
     private Rubinetto rubinetto;
     private int rubinettox, rubinettoy;
@@ -36,6 +39,7 @@ public class Mappa {
     }
 
     private void inizializza() {
+        Posizione posRandom;
         for (int i = 0; i < this.N; i++) {
             for (int j = 0; j < this.N; j++) {
                 if (i == 0 || j == 0 || i == N - 1 || j == N - 1) {
@@ -67,16 +71,16 @@ public class Mappa {
     }
 
     public void aggiornaMappa() {
-        this.mappa[robotx][roboty] = new Pavimento(robotx,roboty,true);
+        this.mappa[posizioneRobot.getX()][posizioneRobot.getY()] = new Pavimento(posizioneRobot.getX(), posizioneRobot.getY(), true);
 
         posizioneRobot.setX(r.getPosizione().getX());
         posizioneRobot.setY(r.getPosizione().getY());
         this.mappa[posizioneRobot.getX()][posizioneRobot.getY()] = r;
 
-        this.mappa[gattox][gattoy] = new Pavimento(gattox, gattoy, false);
-        gattox = g.getPosizione().getX();
-        gattoy = g.getPosizione().getY();
-        this.mappa[gattox][gattoy] = g;
+        this.mappa[posizioneGatto.getX()][posizioneGatto.getY()] = new Pavimento(posizioneGatto.getX(), posizioneGatto.getY(), false);
+        posizioneGatto.setX(g.getPosizione().getX());
+        posizioneGatto.setY(g.getPosizione().getY());
+        this.mappa[posizioneGatto.getX()][posizioneRobot.getY()] = g;
     }
 
     public int getDim() {
@@ -123,4 +127,20 @@ public class Mappa {
         }
     }
     */
+    private Posizione randomPos() {
+        Random random = new Random();
+        Posizione posRandom;
+
+        do {
+            posRandom = new Posizione(random.nextInt(this.N), random.nextInt(this.N));
+        } while (!this.mappa[posRandom.getX()][posRandom.getY()].tipo().equals("Pavimento"));
+
+        return posRandom;
+    }
+
+
+
+
+
+
 }
