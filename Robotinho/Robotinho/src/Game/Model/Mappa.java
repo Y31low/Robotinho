@@ -52,7 +52,8 @@ public class Mappa {
         }
 
         posizioneRobot = randomPos(); //da aggiustare la posizione del robot nel costruttore
-        this.mappa[posizioneRobot.getX()][posizioneRobot.getY()] = r = new Robot(posizioneRobot.getX(), posizioneRobot.getY(), true, Direzione.South);
+        r = new Robot(posizioneRobot.getX(), posizioneRobot.getY(), true, Direzione.South);
+        this.mappa[posizioneRobot.getX()][posizioneRobot.getY()] = r;
 
         posizioneLavatrice = randomPos();
         this.mappa[posizioneLavatrice.getX()][posizioneLavatrice.getY()] = lavatrice = new Lavatrice(posizioneLavatrice.getX(), posizioneLavatrice.getY(), false);
@@ -64,7 +65,9 @@ public class Mappa {
         this.mappa[posizioneRubinetto.getX()][posizioneRubinetto.getY()] = rubinetto = new Rubinetto(posizioneRubinetto.getX(), posizioneRubinetto.getY(), false);
 
         posizioneGatto = randomPos();
-        this.mappa[posizioneGatto.getX()][posizioneGatto.getY()] = g = new Gatto(posizioneGatto.getX(), posizioneGatto.getY(), true);
+        g = new Gatto(posizioneGatto.getX(), posizioneGatto.getY(), true);
+        this.mappa[posizioneGatto.getX()][posizioneGatto.getY()] = g;
+
 
         this.mappa[1][3] = new Pavimento(1, 3, true);
         this.statoPavimento.put(new Posizione(1,3),new StatoCasella(new Posizione(1,3), true, true));
@@ -80,7 +83,7 @@ public class Mappa {
         this.mappa[posizioneGatto.getX()][posizioneGatto.getY()] = new Pavimento(posizioneGatto.getX(), posizioneGatto.getY(), false);
         posizioneGatto.setX(g.getPosizione().getX());
         posizioneGatto.setY(g.getPosizione().getY());
-        this.mappa[posizioneGatto.getX()][posizioneRobot.getY()] = g;
+        this.mappa[posizioneGatto.getX()][posizioneGatto.getY()] = g;
     }
 
     public int getDim() {

@@ -36,27 +36,21 @@ public class GameController implements ActionListener {
                     model.Avanza(m);
                 }
                 catch (Robot.IllegalMoveException exc){
-                    for (VistaInterface view: views
-                    ) {
+                    for (VistaInterface view: views) {
                         view.errore("Che male!");
                     }
                 }
                 break;
             case "Dx":
                 model.giraDx();
-                for (VistaInterface view: views
-                     ) {
+                for (VistaInterface view: views) {
                     view.updateLabelRobot(model.getDirezione());
-
                 }
-
                 break;
             case "Sx":
                 model.giraSx();
-                for (VistaInterface view: views
-                ) {
+                for (VistaInterface view: views) {
                     view.updateLabelRobot(model.getDirezione());
-
                 }
                 break;
             case "Asciuga":
@@ -64,8 +58,7 @@ public class GameController implements ActionListener {
                     model.Asciuga(m.getStatoPavimento());
                 }
                 catch (Robot.IllegalActionException exc){
-                    for (VistaInterface view: views
-                    ) {
+                    for (VistaInterface view: views) {
                         view.errore("E' gia' asciutto coglione!");
                     }
                 }
