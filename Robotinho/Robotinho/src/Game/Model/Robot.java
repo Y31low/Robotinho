@@ -7,10 +7,13 @@ public class Robot extends Casella implements Movable{
     //private Mappa m ;
     private Direzione direzione;
 
+    private int mosse;
+
 
     public Robot(int posizionex, int posizioney, boolean visibile, Direzione direzione) {
         super(posizionex, posizioney,visibile);
         this.direzione = direzione;
+        this.mosse=0;
         //c[p.getX()][p.getY()].setVisibile(true);
     }
 
@@ -36,7 +39,7 @@ public class Robot extends Casella implements Movable{
 
 
     @Override
-    public void Avanza(Mappa m) throws IllegalMoveException{
+    public void Avanza(Casella[][] m) throws IllegalMoveException{
         Posizione p;
 
         switch (this.direzione) {
@@ -46,7 +49,7 @@ public class Robot extends Casella implements Movable{
                     throw new IllegalMoveException("BUMP");
                 }
                 else {
-                    m.getMappa()[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
+                    m[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
                     p = new Posizione(this.getPosizione().getX() - 1, this.getPosizione().getY());
                     this.setPosizione(p);
 
@@ -89,6 +92,7 @@ public class Robot extends Casella implements Movable{
                 break;
         }
         this.discover(m, this.getPosizione());
+        this.mosse++;
     }
 
     public void giraSx() {
@@ -106,6 +110,7 @@ public class Robot extends Casella implements Movable{
                 this.setDirezione(Direzione.North);
                 break;
         }
+        this.mosse++;
     }
 
     public void giraDx() {
@@ -123,6 +128,7 @@ public class Robot extends Casella implements Movable{
                 this.setDirezione(Direzione.South);
                 break;
         }
+        this.mosse++;
     }
 
     public void Asciuga(HashMap<Posizione,StatoCasella> s) throws IllegalActionException{
@@ -130,6 +136,7 @@ public class Robot extends Casella implements Movable{
         if (!bagnato.getStato()) throw new IllegalActionException("La casella non è bagnata!");
         else
             bagnato.setStato(false);
+        this.mosse++;
     }
 
     public static class IllegalMoveException extends RuntimeException {
@@ -141,6 +148,72 @@ public class Robot extends Casella implements Movable{
     public static class IllegalActionException extends RuntimeException {
         public IllegalActionException(String message) {
             super(message);
+        }
+    }
+
+    public int getMosse() {
+        return mosse;
+    }
+
+    public void spegniFornello(Casella[][] m) throws IllegalActionException{
+        Fornello f;
+        switch (this.direzione){
+            case North:
+                if(m[this.getPosizione().getX()-1][this.getPosizione().getY()].tipo().equals("Fornello")){
+                   f=(Fornello) m[this.getPosizione().getX()-1][this.getPosizione().getY()];
+                   if (!f.getAcceso()){
+                       throw new IllegalActionException("E' gia' spento pirla!");
+                   }
+                   else{
+                       f.setAcceso(false);
+                   }
+                }
+                else {
+                    throw new IllegalActionException("Nessun fornello nella mia direzione!");
+                }
+                break;
+            case East:
+                if(m[this.getPosizione().getX()][this.getPosizione().getY()+1].tipo().equals("Fornello")){
+                    f = (Fornello)m[this.getPosizione().getX()][this.getPosizione().getY()+1];
+                    if(!f.getAcceso()){
+                        throw new IllegalActionException("E' già spento pirla");
+                    }
+                    else{
+                        f.setAcceso(false);
+                    }
+                }
+                else{
+                    throw new IllegalActionException("Nessun fornello nella mia direzione!");
+                }
+                break;
+            case South:
+                if(m[this.getPosizione().getX()+1][this.getPosizione().getY()].tipo().equals("Fornello")){
+                    f = (Fornello)m[this.getPosizione().getX()+1][this.getPosizione().getY()];
+                    if(!f.getAcceso()){
+                        throw new IllegalActionException("E' già spento pirla");
+                    }
+                    else{
+                        f.setAcceso(false);
+                    }
+                }
+                else{
+                    throw new IllegalActionException("Nessun fornello nella mia direzione!");
+                }
+                break;
+            case West:
+                if(m[this.getPosizione().getX()][this.getPosizione().getY()-1].tipo().equals("Fornello")){
+                    f = (Fornello)m[this.getPosizione().getX()][this.getPosizione().getY()-1];
+                    if(!f.getAcceso()){
+                        throw new IllegalActionException("E' già spento pirla");
+                    }
+                    else{
+                        f.setAcceso(false);
+                    }
+                }
+                else{
+                    throw new IllegalActionException("Nessun fornello nella mia direzione!");
+                }
+                break;
         }
     }
 }

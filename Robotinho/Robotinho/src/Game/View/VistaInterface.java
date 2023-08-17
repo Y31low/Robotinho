@@ -23,4 +23,6 @@ public interface VistaInterface {
 
      void errore(String s);
 
+     void visualizzaStato(boolean stato);
+
 }

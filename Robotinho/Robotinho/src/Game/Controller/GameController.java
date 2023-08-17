@@ -1,8 +1,6 @@
 package Game.Controller;
 
-import Game.Model.Gatto;
-import Game.Model.Mappa;
-import Game.Model.Robot;
+import Game.Model.*;
 import Game.View.VistaInterface;
 
 import java.awt.event.ActionEvent;
@@ -11,15 +9,12 @@ import java.util.Collection;
 import java.util.HashSet;
 
 public class GameController implements ActionListener {
-    private Robot model;
-    private Gatto gatto;
-    private Mappa m;
+    private Gioco g;
     private Collection<VistaInterface> views;
+    private ThreadTempo threadTempo;
 
-    public GameController(Gatto gatto, Robot model, Mappa m, VistaInterface... views){
-        this.m = m;
-        this.model = model;
-        this.gatto = gatto;
+    public GameController(Gioco g, ThreadTempo threadTempo,VistaInterface... views){
+        this.g=g;
         this.views= new HashSet<>();
         this.threadTempo=threadTempo;
         for (VistaInterface view:views) {
@@ -27,23 +22,28 @@ public class GameController implements ActionListener {
             view.addController(this);
             view.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
         }
+
+        threadTempo.run();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         switch (e.getActionCommand()) {
+            case "ScattoTimer":
+
             case "Avanza":
                 try {
-                    model.Avanza(m);
+                    g.avanza();
                 }
                 catch (Robot.IllegalMoveException exc){
                     for (VistaInterface view: views) {
-                        view.errore("Che male!");
+                        view.errore(exc.getMessage());
                     }
                 }
                 break;
             case "Dx":
-                model.giraDx();
+                g.giraDx();
                 for (VistaInterface view: views) {
                     view.updateLabelRobot(g.getRobot().getDirezione());
                 }
@@ -51,7 +51,7 @@ public class GameController implements ActionListener {
             case "Sx":
                 g.giraSx();
                 for (VistaInterface view: views) {
-                    view.updateLabelRobot(model.getDirezione());
+                    view.updateLabelRobot(g.getRobot().getDirezione());
                 }
                 break;
             case "Asciuga":
@@ -60,7 +60,7 @@ public class GameController implements ActionListener {
                 }
                 catch (Robot.IllegalActionException exc){
                     for (VistaInterface view: views) {
-                        view.errore("E' gia' asciutto coglione!");
+                        view.errore(exc.getMessage());
                     }
                 }
                 break;
@@ -80,10 +80,16 @@ public class GameController implements ActionListener {
             default:
                 throw new IllegalStateException("Unexpected value: " + e.getActionCommand());
         }
-        gatto.Avanza(m);
-        m.aggiornaMappa();
+
         for (VistaInterface view: views) {
-            view.refresh(m, m.getStatoPavimento());
+            view.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
+            view.refresh(g.getMappa(), g.getStatoCasella());
+        }
+
+        if(g.getFornello().getAcceso()){
+            for (VistaInterface view: views) {
+                view.updateLabelFornello(true);
+            }
         }
     }
 }

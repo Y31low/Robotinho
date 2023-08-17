@@ -16,15 +16,15 @@ public class Lavatrice extends Casella implements Rompibile{
     }
 
     @Override
-    public void perdita(Mappa m, HashMap<Posizione,StatoCasella> bagnato) {
+    public void perdita(Casella[][] m, HashMap<Posizione,StatoCasella> bagnato) {
         Direzione direzione = Direzione.randomDirection();
         Posizione p;
+        this.stato=true;
         switch(direzione){
             case North:
                 if(isPassable(m, this.getPosizione().getX()-1, this.getPosizione().getY())){
                     p = new Posizione(this.getPosizione().getX()-1,this.getPosizione().getY());
-                    if(!bagnato.get(p).getStato())
-                        bagnato.get(p).setStato(true);
+                    espandiPerdita(m, p, bagnato, direzione);
                 }
                 break;
             case East:
@@ -49,12 +49,35 @@ public class Lavatrice extends Casella implements Rompibile{
     }
 
     @Override
-    public void espandiPerdita(Mappa m) {
-
+    //Da mettere private
+    public void espandiPerdita(Casella[][] m, Posizione p, HashMap<Posizione,StatoCasella> bagnato, Direzione dir) {
+        if (m[p.getX()][p.getY()].tipo().equals("Pavimento")){
+            if(!bagnato.get(p).getStato()){
+                bagnato.get(p).setStato(true);
+            }
+            else {
+                switch(dir){
+                    case North:
+                        espandiPerdita(m,new Posizione(p.getX()-1,p.getY()), bagnato, dir);
+                        break;
+                    case East:
+                        espandiPerdita(m,new Posizione(p.getX(),p.getY()+1), bagnato, dir);
+                        break;
+                    case South:
+                        espandiPerdita(m,new Posizione(p.getX()+1,p.getY()), bagnato, dir);
+                        break;
+                    case West:
+                        espandiPerdita(m,new Posizione(p.getX(),p.getY()-1), bagnato, dir);
+                        break;
+                }
+            }
+        }
+        else
+            return;
     }
 
     @Override
     public void interrompiPerdita() {
-
+        this.stato = false;
     }
 }

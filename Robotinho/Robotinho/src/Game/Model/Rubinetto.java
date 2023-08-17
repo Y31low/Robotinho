@@ -16,7 +16,7 @@ public class Rubinetto extends Casella implements Rompibile{
     }
 
     @Override
-    public void perdita(Mappa m, HashMap<Posizione,StatoCasella> bagnato) {
+    public void perdita(Casella[][] m, HashMap<Posizione,StatoCasella> bagnato) {
         Direzione direzione = Direzione.randomDirection();
         Posizione p;
         this.stato=true;

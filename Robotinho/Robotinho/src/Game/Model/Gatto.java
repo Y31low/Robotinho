@@ -1,7 +1,7 @@
 package Game.Model;
 
 public class Gatto extends Casella implements Movable {
-    private Mappa m;
+
     public Gatto(int x, int y,boolean visibile){
         super(x, y,visibile);
     }
@@ -11,7 +11,7 @@ public class Gatto extends Casella implements Movable {
     }
 
     @Override
-    public void Avanza(Mappa m) {
+    public void Avanza(Casella[][] m) {
 
         Direzione direzione = Direzione.randomDirection();
 

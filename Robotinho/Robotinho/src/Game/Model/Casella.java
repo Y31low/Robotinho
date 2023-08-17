@@ -4,7 +4,7 @@ public abstract class Casella {
 
     private Posizione posizione;
     private boolean visibile;
-    
+
     public Casella(Posizione posizione,boolean visibile) {
         this.posizione=posizione;
         this.visibile= visibile;
@@ -16,8 +16,8 @@ public abstract class Casella {
 
     }
 
-    public boolean isPassable(Mappa m, int x, int y) {
-        return m.getMappa()[x][y].tipo().equals("Pavimento");
+    public boolean isPassable(Casella[][] m, int x, int y) {
+        return m[x][y].tipo().equals("Pavimento");
     }
     public boolean isVisibile() {
         return visibile;

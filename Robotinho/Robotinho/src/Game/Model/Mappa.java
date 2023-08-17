@@ -1,6 +1,7 @@
 package Game.Model;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -17,10 +18,10 @@ public class Mappa {
 
 
     private Rubinetto rubinetto;
-    private int rubinettox, rubinettoy;
+
 
     private Fornello fornello;
-    private int fornellox, fornelloy;
+
 
     private HashMap<Posizione,StatoCasella> statoPavimento;
 
@@ -29,17 +30,17 @@ public class Mappa {
     public Mappa() {
         this.N = 10;
         this.mappa = new Casella[this.N][this.N];
-        this.statoPavimento = new HashMap<>();
-        this.inizializza();
+        this.statoPavimento=new HashMap<>();
+
     }
     public Mappa(int N) {
         this.N = N;
         this.mappa = new Casella[this.N][this.N];
-        this.statoPavimento = new HashMap<>();
+        this.statoPavimento=new HashMap<>();
+
     }
 
-    private void inizializza() {
-        Posizione posRandom;
+    protected void inizializza() {
         for (int i = 0; i < this.N; i++) {
             for (int j = 0; j < this.N; j++) {
                 if (i == 0 || j == 0 || i == N - 1 || j == N - 1) {
@@ -93,32 +94,27 @@ public class Mappa {
         return mappa;
     }
 
-    public Casella getRobot() {
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                if (mappa[i][j].tipo().equals("Robot")) {
-                    return mappa[i][j];
-                }
-            }
-        }
-        return null;
+    public Robot getRobot() {
+       return this.r;
     }
 
     public HashMap<Posizione,StatoCasella> getStatoPavimento() {
         return statoPavimento;
     }
 
-    public Casella getGatto() {
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                if (mappa[i][j].tipo().equals("Cat")) {
-                    return mappa[i][j];
-                }
-            }
-        }
-        return null;
+    public Gatto getGatto() {
+        return this.g;
+    }
+    public void rotturaLavatrice(){
+        this.lavatrice.perdita(this.getMappa(),statoPavimento);
+    }
+    public void rotturaRubinetto(){
+        this.rubinetto.perdita(this.getMappa(),statoPavimento);
     }
 
+    public void rotturaFornello(){
+        this.fornello.setAcceso(true);
+    }
     /*
     public void printMap(){
         for (int i = 0; i < this.N; i++) {

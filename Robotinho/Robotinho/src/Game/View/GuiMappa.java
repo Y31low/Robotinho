@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class GuiMappa extends JFrame implements VistaInterface {
     private final JPanel main;
     private final JPanel buttons;
+    private final JPanel infoCasella;
     private final JButton dx;
     private final JButton sx;
     private final LabelRobot R;
@@ -20,10 +21,12 @@ public class GuiMappa extends JFrame implements VistaInterface {
     private final JButton avanza;
     private final JButton spegni;
     private final JButton asciuga;
+    private final JButton aggiusta;
+    private final JLabel statoCasella;
 
     private JLabel[][] map;
 
-    public GuiMappa(Mappa m, HashMap<Posizione,StatoCasella> bagnato) throws HeadlessException {
+    public GuiMappa(Mappa m, HashMap<Posizione, StatoCasella> bagnato) throws HeadlessException {
 
         super("Robotinho");
         this.setSize(500, 500);
@@ -83,17 +86,19 @@ public class GuiMappa extends JFrame implements VistaInterface {
         dx = new JButton("Dx");
         sx = new JButton("Sx");
         avanza = new JButton("Avanza");
-        spegni = new JButton("Spegni Fornello");
+        spegni = new JButton("Spegni");
         asciuga = new JButton("Asciuga");
+        aggiusta = new JButton("Aggiusta");
 
         this.add(main, BorderLayout.CENTER);
         buttons = new JPanel();
-        buttons.setLayout(new BorderLayout());
-        buttons.add(avanza, BorderLayout.CENTER);
-        buttons.add(sx, BorderLayout.WEST);
-        buttons.add(dx, BorderLayout.EAST);
-        buttons.add(spegni, BorderLayout.NORTH);
-        buttons.add(asciuga, BorderLayout.SOUTH);
+        buttons.setLayout(new GridLayout(2, 4));
+        buttons.add(sx);
+        buttons.add(avanza);
+        buttons.add(dx);
+        buttons.add(spegni);
+        buttons.add(asciuga);
+        buttons.add(aggiusta);
         this.add(buttons, BorderLayout.SOUTH);
 
         this.infoCasella = new JPanel();
@@ -112,7 +117,7 @@ public class GuiMappa extends JFrame implements VistaInterface {
     }
 
     @Override
-    public void refresh(Mappa m, HashMap<Posizione,StatoCasella> bagnato) {
+    public void refresh(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
         main.removeAll();
         StatoCasella stato = null;
 
@@ -184,4 +189,14 @@ public class GuiMappa extends JFrame implements VistaInterface {
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }
+
+    @Override
+    public void visualizzaStato(boolean stato) {
+        if(!stato)
+            this.statoCasella.setText("Sei su una casella asciutta");
+        else
+            this.statoCasella.setText("Sei su una casella bagnata");
+    }
+
+
 }

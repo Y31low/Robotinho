@@ -125,6 +125,8 @@ public class GuiGioco extends JFrame implements VistaInterface {
         this.dx.addActionListener(controller);
         this.sx.addActionListener(controller);
         this.asciuga.addActionListener(controller);
+        this.aggiusta.addActionListener(controller);
+        this.spegni.addActionListener(controller);
     }
 
     @Override
