@@ -30,8 +30,6 @@ public class Rubinetto extends Casella implements Rompibile{
             case East:
                 if(isPassable(m, this.getPosizione().getX(), this.getPosizione().getY()+1)){
                     p = new Posizione(this.getPosizione().getX()-1,this.getPosizione().getY()+1);
-
-
                     if(!bagnato.get(p).getStato())
                         bagnato.get(p).setStato(true);
                 }

@@ -4,8 +4,7 @@ public abstract class Casella {
 
     private Posizione posizione;
     private boolean visibile;
-
-
+    
     public Casella(Posizione posizione,boolean visibile) {
         this.posizione=posizione;
         this.visibile= visibile;

@@ -43,7 +43,6 @@ public class Gatto extends Casella implements Movable {
                 }
                 break;
         }
-
     }
 
     @Override

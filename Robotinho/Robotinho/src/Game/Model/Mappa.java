@@ -2,6 +2,7 @@ package Game.Model;
 
 
 import java.util.HashMap;
+import java.util.Random;
 
 public class Mappa {
     private int N;
@@ -45,30 +46,21 @@ public class Mappa {
                 }
             }
         }
-        this.mappa[5][7] = new Fornello(5,7,false);
-        fornello=(Fornello)this.mappa[5][7];
-        fornellox = this.mappa[5][7].getPosizione().getX();
-        fornelloy = this.mappa[5][7].getPosizione().getY();
 
-        this.mappa[4][4] = new Lavatrice(4,4,false);
-        lavatrice=(Lavatrice)this.mappa[4][4];
-        lavax = this.mappa[4][4].getPosizione().getX();
-        lavay = this.mappa[4][4].getPosizione().getY();
+        posizioneRobot = randomPos(); //da aggiustare la posizione del robot nel costruttore
+        this.mappa[posizioneRobot.getX()][posizioneRobot.getY()] = r = new Robot(posizioneRobot.getX(), posizioneRobot.getY(), true, Direzione.South);
 
-        this.mappa[7][1] = new Rubinetto(7,1,false);
-        rubinetto = (Rubinetto)this.mappa[7][1];
-        rubinettox = this.mappa[7][1].getPosizione().getX();
-        rubinettoy = this.mappa[7][1].getPosizione().getY();
+        posizioneLavatrice = randomPos();
+        this.mappa[posizioneLavatrice.getX()][posizioneLavatrice.getY()] = lavatrice = new Lavatrice(posizioneLavatrice.getX(), posizioneLavatrice.getY(), false);
 
-        this.mappa[8][8] = new Gatto(8,8,true);
-        g=(Gatto)this.mappa[8][8];
-        gattox = this.mappa[8][8].getPosizione().getX();
-        gattoy = this.mappa[8][8].getPosizione().getY();
+        posizioneFornello = randomPos();
+        this.mappa[posizioneFornello.getX()][posizioneFornello.getY()] = fornello = new Fornello(posizioneFornello.getX(), posizioneFornello.getY(), false);
 
-        this.mappa[1][1] = new Robot(1,1,true,Direzione.South);
-        r=(Robot)this.mappa[1][1];
-        robotx=this.mappa[1][1].getPosizione().getX();
-        roboty=this.mappa[1][1].getPosizione().getY();
+        posizioneRubinetto = randomPos();
+        this.mappa[posizioneRubinetto.getX()][posizioneRubinetto.getY()] = rubinetto = new Rubinetto(posizioneRubinetto.getX(), posizioneRubinetto.getY(), false);
+
+        posizioneGatto = randomPos();
+        this.mappa[posizioneGatto.getX()][posizioneGatto.getY()] = g = new Gatto(posizioneGatto.getX(), posizioneGatto.getY(), true);
 
         this.mappa[1][3] = new Pavimento(1, 3, true);
         this.statoPavimento.put(new Posizione(1,3),new StatoCasella(new Posizione(1,3), true, true));
@@ -77,9 +69,9 @@ public class Mappa {
     public void aggiornaMappa() {
         this.mappa[robotx][roboty] = new Pavimento(robotx,roboty,true);
 
-        robotx = r.getPosizione().getX();
-        roboty = r.getPosizione().getY();
-        this.mappa[robotx][roboty] = r;
+        posizioneRobot.setX(r.getPosizione().getX());
+        posizioneRobot.setY(r.getPosizione().getY());
+        this.mappa[posizioneRobot.getX()][posizioneRobot.getY()] = r;
 
         this.mappa[gattox][gattoy] = new Pavimento(gattox, gattoy, false);
         gattox = g.getPosizione().getX();
@@ -96,7 +88,14 @@ public class Mappa {
     }
 
     public Casella getRobot() {
-        return this.mappa[1][1];
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (mappa[i][j].tipo().equals("Robot")) {
+                    return mappa[i][j];
+                }
+            }
+        }
+        return null;
     }
 
     public HashMap<Posizione,StatoCasella> getStatoPavimento() {
@@ -104,7 +103,14 @@ public class Mappa {
     }
 
     public Casella getGatto() {
-        return this.mappa[8][8];
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (mappa[i][j].tipo().equals("Cat")) {
+                    return mappa[i][j];
+                }
+            }
+        }
+        return null;
     }
 
     /*

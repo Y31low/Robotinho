@@ -11,7 +11,6 @@ public class Main {
         Robot r = (Robot) m.getRobot();
         Gatto gatto = (Gatto) m.getGatto();
 
-
         GuiMappa g = new GuiMappa(m, m.getStatoPavimento());
         GuiGioco g2= new GuiGioco(m, m.getStatoPavimento());
         GameController controller = new GameController(gatto, r, m, g,g2);

@@ -75,10 +75,8 @@ public class GameController implements ActionListener {
         }
         gatto.Avanza(m);
         m.aggiornaMappa();
-        for (VistaInterface view: views
-        ) {
+        for (VistaInterface view: views) {
             view.refresh(m, m.getStatoPavimento());
-
         }
     }
 }

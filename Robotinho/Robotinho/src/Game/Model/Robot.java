@@ -8,7 +8,7 @@ public class Robot extends Casella implements Movable{
     private Direzione direzione;
 
 
-    public Robot(int posizionex, int posizioney,boolean visibile, Direzione direzione) {
+    public Robot(int posizionex, int posizioney, boolean visibile, Direzione direzione) {
         super(posizionex, posizioney,visibile);
         this.direzione = direzione;
         //c[p.getX()][p.getY()].setVisibile(true);
@@ -136,13 +136,13 @@ public class Robot extends Casella implements Movable{
             bagnato.setStato(false);
     }
 
-    public class IllegalMoveException extends RuntimeException {
+    public static class IllegalMoveException extends RuntimeException {
         public IllegalMoveException(String message) {
             super(message);
         }
     }
 
-    public class IllegalActionException extends RuntimeException {
+    public static class IllegalActionException extends RuntimeException {
         public IllegalActionException(String message) {
             super(message);
         }
