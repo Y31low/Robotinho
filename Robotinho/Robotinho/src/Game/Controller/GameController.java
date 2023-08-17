@@ -5,10 +5,12 @@ import Game.View.VistaInterface;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class GameController implements ActionListener {
+public class GameController implements ActionListener, PropertyChangeListener {
     private Gioco g;
     private Collection<VistaInterface> views;
     private ThreadTempo threadTempo;
@@ -22,7 +24,7 @@ public class GameController implements ActionListener {
             view.addController(this);
             view.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
         }
-
+        threadTempo.addObserver(this);
         threadTempo.run();
     }
 
@@ -90,6 +92,19 @@ public class GameController implements ActionListener {
             for (VistaInterface view: views) {
                 view.updateLabelFornello(true);
             }
+        }
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("TimerFornello")){
+            for (VistaInterface view: views) {
+                view.updateLabelFornello(true);
+            }
+
+        }
+        for (VistaInterface view: views) {
+            view.refresh(g.getMappa(), g.getStatoCasella());
         }
     }
 }
