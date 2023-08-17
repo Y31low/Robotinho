@@ -27,14 +27,11 @@ public class Robot extends Casella implements Movable{
         return direzione;
     }
 
-    private void discover(Mappa m, Posizione p) {
-        Casella[][] c;
-        c = m.getMappa();
-
-        c[p.getX()-1][p.getY()].setVisibile(true);
-        c[p.getX()+1][p.getY()].setVisibile(true);
-        c[p.getX()][p.getY()-1].setVisibile(true);
-        c[p.getX()][p.getY()+1].setVisibile(true);
+    private void discover(Casella[][] m, Posizione p) {
+        m[p.getX()-1][p.getY()].setVisibile(true);
+        m[p.getX()+1][p.getY()].setVisibile(true);
+        m[p.getX()][p.getY()-1].setVisibile(true);
+        m[p.getX()][p.getY()+1].setVisibile(true);
     }
 
 
@@ -61,7 +58,7 @@ public class Robot extends Casella implements Movable{
                     throw new IllegalMoveException("BUMP");
                 }
                 else{
-                    m.getMappa()[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
+                    m[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
                     p = new Posizione(this.getPosizione().getX(), this.getPosizione().getY() - 1);
                     this.setPosizione(p);
                 }
@@ -72,7 +69,7 @@ public class Robot extends Casella implements Movable{
                     throw new IllegalMoveException("BUMP");
                 }
                 else{
-                    m.getMappa()[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
+                    m[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
                     p = new Posizione(this.getPosizione().getX(), this.getPosizione().getY() + 1);
                     this.setPosizione(p);
                 }
@@ -83,7 +80,7 @@ public class Robot extends Casella implements Movable{
                     throw new IllegalMoveException("BUMP");
                 }
                 else {
-                    m.getMappa()[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
+                    m[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
                     p = new Posizione(this.getPosizione().getX() + 1, this.getPosizione().getY());
                     this.setPosizione(p);
                 }
@@ -94,7 +91,6 @@ public class Robot extends Casella implements Movable{
         this.discover(m, this.getPosizione());
     }
 
-    @Override
     public void giraSx() {
         switch (this.direzione) {
             case North:

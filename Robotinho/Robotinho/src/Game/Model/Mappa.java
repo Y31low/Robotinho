@@ -56,21 +56,20 @@ public class Mappa {
         this.mappa[posizioneRobot.getX()][posizioneRobot.getY()] = r;
 
         posizioneLavatrice = randomPos();
-        this.mappa[posizioneLavatrice.getX()][posizioneLavatrice.getY()] = lavatrice = new Lavatrice(posizioneLavatrice.getX(), posizioneLavatrice.getY(), false);
+        lavatrice = new Lavatrice(posizioneLavatrice.getX(), posizioneLavatrice.getY(), false);
+        this.mappa[posizioneLavatrice.getX()][posizioneLavatrice.getY()] = lavatrice;
 
         posizioneFornello = randomPos();
-        this.mappa[posizioneFornello.getX()][posizioneFornello.getY()] = fornello = new Fornello(posizioneFornello.getX(), posizioneFornello.getY(), false);
+        fornello = new Fornello(posizioneFornello.getX(), posizioneFornello.getY(), false);
+        this.mappa[posizioneFornello.getX()][posizioneFornello.getY()] = fornello;
 
         posizioneRubinetto = randomPos();
-        this.mappa[posizioneRubinetto.getX()][posizioneRubinetto.getY()] = rubinetto = new Rubinetto(posizioneRubinetto.getX(), posizioneRubinetto.getY(), false);
+        rubinetto = new Rubinetto(posizioneRubinetto.getX(), posizioneRubinetto.getY(), false);
+        this.mappa[posizioneRubinetto.getX()][posizioneRubinetto.getY()] = rubinetto;
 
         posizioneGatto = randomPos();
         g = new Gatto(posizioneGatto.getX(), posizioneGatto.getY(), true);
         this.mappa[posizioneGatto.getX()][posizioneGatto.getY()] = g;
-
-
-        this.mappa[1][3] = new Pavimento(1, 3, true);
-        this.statoPavimento.put(new Posizione(1,3),new StatoCasella(new Posizione(1,3), true, true));
     }
 
     public void aggiornaMappa() {
@@ -141,9 +140,15 @@ public class Mappa {
         return posRandom;
     }
 
+    public Lavatrice getLavatrice() {
+        return this.lavatrice;
+    }
 
+    public Rubinetto getRubinetto() {
+        return this.rubinetto;
+    }
 
-
-
-
+    public Fornello getFornello() {
+        return this.fornello;
+    }
 }

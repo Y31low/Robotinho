@@ -16,9 +16,13 @@ public class GuiGioco extends JFrame implements VistaInterface {
     private final JButton dx;
     private final JButton sx;
     private final LabelRobot R;
+    private final LabelFornello F;
     private final JButton avanza;
     private final JButton spegni;
     private final JButton asciuga;
+    private final JButton aggiusta;
+    private final JLabel statoCasella;
+    private final JPanel infoCasella;
 
     private JLabel[][] map;
 
@@ -35,6 +39,7 @@ public class GuiGioco extends JFrame implements VistaInterface {
         StatoCasella stato;
 
         this.R=new LabelRobot();
+        this.F = new LabelFornello();
         main.setLayout(new GridLayout(m.getDim(),m.getDim()));
         main.setVisible(true);
         for (int i = 0; i < m.getMappa().length; i++) {
@@ -60,7 +65,7 @@ public class GuiGioco extends JFrame implements VistaInterface {
                             this.map[i][j] = new LabelGatto();
                             break;
                         case "Fornello":
-                            this.map[i][j] = new LabelFornello();
+                            this.map[i][j] = F;
                             break;
                         case "Lavatrice":
                             this.map[i][j] = new LabelLavatrice();
@@ -81,33 +86,37 @@ public class GuiGioco extends JFrame implements VistaInterface {
         dx = new JButton("Dx");
         sx = new JButton("Sx");
         avanza = new JButton("Avanza");
-        spegni = new JButton("Spegni Fornello");
+        spegni = new JButton("Spegni");
         asciuga = new JButton("Asciuga");
+        aggiusta = new JButton("Aggiusta");
 
         this.add(main, BorderLayout.CENTER);
         buttons = new JPanel();
-        buttons.setLayout(new BorderLayout());
-        buttons.add(avanza,BorderLayout.CENTER);
-        buttons.add(sx, BorderLayout.WEST);
-        buttons.add(dx, BorderLayout.EAST);
-        buttons.add(spegni, BorderLayout.NORTH);
-        buttons.add(asciuga, BorderLayout.SOUTH);
+        buttons.setLayout(new GridLayout(2,4));
+        buttons.add(sx);
+        buttons.add(avanza);
+        buttons.add(dx);
+        buttons.add(spegni);
+        buttons.add(asciuga);
+        buttons.add(aggiusta);
         this.add(buttons, BorderLayout.SOUTH);
+
+        this.infoCasella=new JPanel();
+        this.infoCasella.setLayout(new BorderLayout());
+
+        this.statoCasella=new JLabel("-", SwingConstants.CENTER);
+        this.infoCasella.add(this.statoCasella,BorderLayout.CENTER);
+        this.add(statoCasella,BorderLayout.NORTH);
 
         this.visible();
 
     }
 
 
-
     private class LabelSconosciuto extends Label{
-
-
         public LabelSconosciuto() {
             super("Robotinho/Robotinho/src/img/Sconosciuto.jpg");
         }
-
-
 
     }
 
@@ -146,7 +155,7 @@ public class GuiGioco extends JFrame implements VistaInterface {
                             this.map[i][j] = new LabelGatto();
                             break;
                         case "Fornello":
-                            this.map[i][j] = new LabelFornello();
+                            this.map[i][j] = F;
                             break;
                         case "Lavatrice":
                             this.map[i][j] = new LabelLavatrice();
@@ -177,10 +186,24 @@ public class GuiGioco extends JFrame implements VistaInterface {
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }
+
+    @Override
+    public void visualizzaStato(boolean stato) {
+        if(!stato){
+            this.statoCasella.setText("Sei su una casella asciutta");
+        }
+        else{
+            this.statoCasella.setText("Sei su una casella bagnata");
+        }
+    }
+
     @Override
     public void updateLabelRobot(Direzione d){
         this.R.setDir(d);
+    }
 
+    public void updateLabelFornello(boolean acceso){
+        this.F.setAcceso(acceso);
     }
 
     @Override

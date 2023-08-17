@@ -16,6 +16,7 @@ public class GuiMappa extends JFrame implements VistaInterface {
     private final JButton dx;
     private final JButton sx;
     private final LabelRobot R;
+    private final LabelFornello F;
     private final JButton avanza;
     private final JButton spegni;
     private final JButton asciuga;
@@ -36,8 +37,11 @@ public class GuiMappa extends JFrame implements VistaInterface {
         StatoCasella stato = null;
 
         this.R = new LabelRobot();
+        this.F = new LabelFornello();
+
         main.setLayout(new GridLayout(m.getDim(), m.getDim()));
         main.setVisible(true);
+
         for (int i = 0; i < m.getMappa().length; i++) {
             for (int j = 0; j < m.getMappa()[i].length; j++) {
                 switch (m.getMappa()[i][j].tipo()) {
@@ -60,7 +64,7 @@ public class GuiMappa extends JFrame implements VistaInterface {
                         this.map[i][j] = new LabelGatto();
                         break;
                     case "Fornello":
-                        this.map[i][j] = new LabelFornello();
+                        this.map[i][j] = F;
                         break;
                     case "Lavatrice":
                         this.map[i][j] = new LabelLavatrice();
@@ -92,6 +96,12 @@ public class GuiMappa extends JFrame implements VistaInterface {
         buttons.add(asciuga, BorderLayout.SOUTH);
         this.add(buttons, BorderLayout.SOUTH);
 
+        this.infoCasella = new JPanel();
+        this.infoCasella.setLayout(new BorderLayout());
+
+        this.statoCasella = new JLabel("-", SwingConstants.CENTER);
+        this.infoCasella.add(this.statoCasella, BorderLayout.CENTER);
+        this.add(statoCasella, BorderLayout.NORTH);
 
         visible();
     }
@@ -128,7 +138,7 @@ public class GuiMappa extends JFrame implements VistaInterface {
                         this.map[i][j] = new LabelGatto();
                         break;
                     case "Fornello":
-                        this.map[i][j] = new LabelFornello();
+                        this.map[i][j] = F;
                         break;
                     case "Lavatrice":
                         this.map[i][j] = new LabelLavatrice();
@@ -149,7 +159,10 @@ public class GuiMappa extends JFrame implements VistaInterface {
     @Override
     public void updateLabelRobot(Direzione d) {
         this.R.setDir(d);
+    }
 
+    public void updateLabelFornello(boolean acceso) {
+        this.F.setAcceso(acceso);
     }
 
     public void addController(GameController controller) {
@@ -157,6 +170,8 @@ public class GuiMappa extends JFrame implements VistaInterface {
         this.dx.addActionListener(controller);
         this.sx.addActionListener(controller);
         this.asciuga.addActionListener(controller);
+        this.aggiusta.addActionListener(controller);
+        this.spegni.addActionListener(controller);
     }
 
     @Override

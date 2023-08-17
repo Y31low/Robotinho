@@ -7,7 +7,7 @@ public interface Rompibile{
 
     void perdita(Mappa m, HashMap<Posizione,StatoCasella> bagnato);
 
-    void espandiPerdita(Mappa m);
+     void espandiPerdita(Casella[][] m, Posizione p, HashMap<Posizione,StatoCasella> bagnato, Direzione dir);
 
     void interrompiPerdita();
 

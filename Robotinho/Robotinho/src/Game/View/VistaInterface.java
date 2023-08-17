@@ -15,6 +15,8 @@ public interface VistaInterface {
 
      void updateLabelRobot(Direzione d);
 
+     void updateLabelFornello(boolean acceso);
+
      void visible();
 
      void addController(GameController controller);

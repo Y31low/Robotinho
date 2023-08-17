@@ -44,14 +44,4 @@ public class Gatto extends Casella implements Movable {
                 break;
         }
     }
-
-    @Override
-    public void giraDx() {
-
-    }
-
-    @Override
-    public void giraSx(){
-
-    }
 }

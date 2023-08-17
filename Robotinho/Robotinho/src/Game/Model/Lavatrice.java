@@ -29,25 +29,20 @@ public class Lavatrice extends Casella implements Rompibile{
                 break;
             case East:
                 if(isPassable(m, this.getPosizione().getX(), this.getPosizione().getY()+1)){
-                    p = new Posizione(this.getPosizione().getX()-1,this.getPosizione().getY()+1);
-
-
-                    if(!bagnato.get(p).getStato())
-                        bagnato.get(p).setStato(true);
+                    p = new Posizione(this.getPosizione().getX(),this.getPosizione().getY()+1);
+                    espandiPerdita(m, p, bagnato, direzione);
                 }
                 break;
             case South:
                 if(isPassable(m, this.getPosizione().getX()+1, this.getPosizione().getY())){
                     p = new Posizione(this.getPosizione().getX()+1,this.getPosizione().getY());
-                    if(!bagnato.get(p).getStato())
-                        bagnato.get(p).setStato(true);
+                    espandiPerdita(m, p, bagnato, direzione);
                 }
                 break;
             case West:
                 if(isPassable(m, this.getPosizione().getX(), this.getPosizione().getY()-1)){
                     p = new Posizione(this.getPosizione().getX(),this.getPosizione().getY()-1);
-                    if(!bagnato.get(p).getStato())
-                        bagnato.get(p).setStato(true);
+                    espandiPerdita(m, p, bagnato, direzione);
                 }
                 break;
         }

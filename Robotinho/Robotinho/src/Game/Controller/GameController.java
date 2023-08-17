@@ -21,10 +21,11 @@ public class GameController implements ActionListener {
         this.model = model;
         this.gatto = gatto;
         this.views= new HashSet<>();
-        for (VistaInterface view:views
-             ) {
+        this.threadTempo=threadTempo;
+        for (VistaInterface view:views) {
             this.views.add(view);
             view.addController(this);
+            view.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
         }
     }
 
@@ -44,22 +45,35 @@ public class GameController implements ActionListener {
             case "Dx":
                 model.giraDx();
                 for (VistaInterface view: views) {
-                    view.updateLabelRobot(model.getDirezione());
+                    view.updateLabelRobot(g.getRobot().getDirezione());
                 }
                 break;
             case "Sx":
-                model.giraSx();
+                g.giraSx();
                 for (VistaInterface view: views) {
                     view.updateLabelRobot(model.getDirezione());
                 }
                 break;
             case "Asciuga":
                 try {
-                    model.Asciuga(m.getStatoPavimento());
+                    g.asciuga();
                 }
                 catch (Robot.IllegalActionException exc){
                     for (VistaInterface view: views) {
                         view.errore("E' gia' asciutto coglione!");
+                    }
+                }
+                break;
+            case "Spegni":
+                try {
+                    g.spegniFornello();
+                    for (VistaInterface view : views) {
+                        view.updateLabelFornello(false);
+                    }
+                }
+                catch (Robot.IllegalActionException exc) {
+                    for (VistaInterface view : views) {
+                        view.errore(exc.getMessage());
                     }
                 }
                 break;
@@ -73,4 +87,3 @@ public class GameController implements ActionListener {
         }
     }
 }
-
