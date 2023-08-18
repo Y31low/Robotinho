@@ -40,8 +40,6 @@ public class ThreadTempo extends Thread{
                 this.support.firePropertyChange("TimerFornello", lastTimeFornello,System.currentTimeMillis()/1000);
             }
         }
-
-
     }
     public void addObserver(PropertyChangeListener observer) {
         this.support.addPropertyChangeListener(observer);

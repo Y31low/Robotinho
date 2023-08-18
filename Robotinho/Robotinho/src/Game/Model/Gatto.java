@@ -31,14 +31,14 @@ public class Gatto extends Casella implements Movable {
                 }
                 break;
             case South:
-                if(isPassable(m, this.getPosizione().getX() + 1, this.getPosizione().getY())){
-                    p = new Posizione(this.getPosizione().getX() + 1, this.getPosizione().getY());
+                if(isPassable(m, this.getPosizione().getX()+1, this.getPosizione().getY())){
+                    p = new Posizione(this.getPosizione().getX()+1, this.getPosizione().getY());
                     this.setPosizione(p);
                 }
                 break;
             case West:
-                if(isPassable(m, this.getPosizione().getX(), this.getPosizione().getY() -1)){
-                    p = new Posizione(this.getPosizione().getX(), this.getPosizione().getY() - 1);
+                if(isPassable(m, this.getPosizione().getX(), this.getPosizione().getY()-1)){
+                    p = new Posizione(this.getPosizione().getX(), this.getPosizione().getY()-1);
                     this.setPosizione(p);
                 }
                 break;

@@ -15,11 +15,11 @@ public class Gioco {
     public Gioco(int N){
         this.mappa = new Mappa(10);
         this.mappa.inizializza();
-        this.robot = (Robot) this.mappa.getRobot();
-        this.gatto = (Gatto)this.mappa.getGatto();
-        this.lavatrice = (Lavatrice)this.mappa.getLavatrice();
-        this.rubinetto = (Rubinetto)this.mappa.getRubinetto();
-        this.fornello = (Fornello)this.mappa.getFornello();
+        this.robot = this.mappa.getRobot();
+        this.gatto = this.mappa.getGatto();
+        this.lavatrice = this.mappa.getLavatrice();
+        this.rubinetto = this.mappa.getRubinetto();
+        this.fornello = this.mappa.getFornello();
         this.statoCasella= this.mappa.getStatoPavimento();
     }
 

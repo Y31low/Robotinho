@@ -134,7 +134,6 @@ public class GameController implements ActionListener, PropertyChangeListener {
                 view.updateLabelFornello(true);
             }
         }
-
         for (VistaInterface view: views) {
             view.refresh(g.getMappa(), g.getStatoCasella());
         }
