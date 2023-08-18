@@ -216,4 +216,58 @@ public class Robot extends Casella implements Movable{
                 break;
         }
     }
+
+    private Casella getCasellaSuccessiva(Casella[][] m){
+        Casella c = null;
+        switch(this.direzione){
+            case North:
+                c = m[this.getPosizione().getX()-1][this.getPosizione().getY()];
+                break;
+            case East:
+                c = m[this.getPosizione().getX()][this.getPosizione().getY()+1];
+                break;
+            case South:
+                c = m[this.getPosizione().getX()+1][this.getPosizione().getY()];
+                break;
+            case West:
+                c = m[this.getPosizione().getX()][this.getPosizione().getY()-1];
+                break;
+        }
+        return c;
+    }
+    public void interrompiLavatrice(Casella[][] m) throws IllegalActionException{
+        Casella successiva = getCasellaSuccessiva(m);
+        Lavatrice l;
+
+        if(successiva.tipo().equals("Lavatrice")){
+            l=(Lavatrice) successiva;
+            if (!l.isStato()){
+                throw new IllegalActionException("La lavatrice non è rotta!");
+            }
+            else{
+                l.interrompiPerdita();
+            }
+        }
+        else {
+            throw new IllegalActionException("Nessuna lavatrice nella mia direzione!");
+        }
+    }
+
+    public void interrompiRubinetto(Casella[][] m) throws IllegalActionException{
+        Casella successiva = getCasellaSuccessiva(m);
+        Rubinetto r;
+
+        if(successiva.tipo().equals("Rubinetto")){
+            r=(Rubinetto) successiva;
+            if (!r.isStato()){
+                throw new IllegalActionException("Il rubinetto non è rotto!");
+            }
+            else{
+                r.interrompiPerdita();
+            }
+        }
+        else {
+            throw new IllegalActionException("Nessun rubinetto nella mia direzione!");
+        }
+    }
 }

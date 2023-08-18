@@ -79,6 +79,35 @@ public class GameController implements ActionListener, PropertyChangeListener {
                     }
                 }
                 break;
+            case "Aggiusta Lavatrice":
+            {
+                try{
+                    g.aggiustaPerditaLavatrice();
+                    for (VistaInterface view : views) {
+                        view.updateLabelLavatrice(false);
+                    }
+                }
+                catch(Robot.IllegalActionException exc){
+                    for (VistaInterface view : views) {
+                        view.errore(exc.getMessage());
+                    }
+                }
+            }
+            break;
+            case "Aggiusta Rubinetto":
+                try{
+                    g.aggiustaPerditaRubinetto();
+                    for (VistaInterface view : views) {
+                        view.updateLabelRubinetto(false);
+                    }
+                }
+                catch(Robot.IllegalActionException exc){
+                    for (VistaInterface view : views) {
+                        view.errore(exc.getMessage());
+                    }
+                }
+                break;
+
             default:
                 throw new IllegalStateException("Unexpected value: " + e.getActionCommand());
         }
@@ -97,12 +126,23 @@ public class GameController implements ActionListener, PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("TimerRubinetto")){
+            for (VistaInterface view: views) {
+                view.updateLabelRubinetto(true);
+            }
+        }
+        if (evt.getPropertyName().equals("TimerLavatrice")){
+            for (VistaInterface view: views) {
+                view.updateLabelLavatrice(true);
+            }
+
+        }
         if (evt.getPropertyName().equals("TimerFornello")){
             for (VistaInterface view: views) {
                 view.updateLabelFornello(true);
             }
-
         }
+
         for (VistaInterface view: views) {
             view.refresh(g.getMappa(), g.getStatoCasella());
         }

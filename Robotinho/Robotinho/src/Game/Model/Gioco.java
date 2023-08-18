@@ -12,7 +12,7 @@ public class Gioco {
     private HashMap<Posizione,StatoCasella> statoCasella;
 
     public Gioco(int N){
-        this.mappa = new Mappa(N);
+        this.mappa = new Mappa(10);
         this.mappa.inizializza();
         this.robot = (Robot) this.mappa.getRobot();
         this.gatto = (Gatto)this.mappa.getGatto();
@@ -55,12 +55,11 @@ public class Gioco {
         this.rubinetto.perdita(mappa.getMappa(), statoCasella);
     }
 
-    public void interrompiRubinetto(){
-        this.rubinetto.interrompiPerdita();
+    public void aggiustaPerditaLavatrice(){
+       this.robot.interrompiLavatrice(mappa.getMappa());
     }
-
-    public void interrompiLavtarice(){
-        this.lavatrice.interrompiPerdita();
+    public void aggiustaPerditaRubinetto(){
+        this.robot.interrompiRubinetto(mappa.getMappa());
     }
     public void accendiFornello(){
         this.fornello.setAcceso(true);

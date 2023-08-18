@@ -16,6 +16,8 @@ public interface VistaInterface {
      void updateLabelRobot(Direzione d);
 
      void updateLabelFornello(boolean acceso);
+     void updateLabelLavatrice(boolean rotta);
+     void updateLabelRubinetto(boolean rotto);
 
      void visible();
 

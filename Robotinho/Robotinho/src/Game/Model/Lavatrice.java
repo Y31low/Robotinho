@@ -76,6 +76,10 @@ public class Lavatrice extends Casella implements Rompibile{
             return;
     }
 
+    public boolean isStato() {
+        return stato;
+    }
+
     @Override
     public void interrompiPerdita() {
         this.stato = false;
