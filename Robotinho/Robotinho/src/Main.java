@@ -3,9 +3,12 @@ import Game.Model.*;
 import Game.View.GuiGioco;
 import Game.View.GuiMappa;
 
+import java.io.File;
+
 public class Main {
     public static void main(String[] args) {
-        Gioco g= new Gioco(10);
+        File f= new File("Robotinho/Robotinho/src/Livello/DimensioniLivello.txt");
+        Gioco g= new Gioco(f);
         ThreadTempo threadTempo= new ThreadTempo(g);
         GuiMappa u = new GuiMappa(g.getMappa(), g.getStatoCasella());
         GuiGioco e = new GuiGioco(g.getMappa(), g.getStatoCasella());
