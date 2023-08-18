@@ -6,6 +6,7 @@ import Game.Model.Mappa;
 import Game.Model.Posizione;
 import Game.Model.StatoCasella;
 
+import javax.sound.sampled.BooleanControl;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
@@ -22,7 +23,8 @@ public class GuiGioco extends JFrame implements VistaInterface {
     private final JButton avanza;
     private final JButton spegni;
     private final JButton asciuga;
-    private final JButton aggiusta;
+    private final JButton aggiustaLavatrice;
+    private final JButton aggiustaRubinetto;
     private final JLabel statoCasella;
     private final JPanel infoCasella;
 
@@ -93,17 +95,19 @@ public class GuiGioco extends JFrame implements VistaInterface {
         avanza = new JButton("Avanza");
         spegni = new JButton("Spegni");
         asciuga = new JButton("Asciuga");
-        aggiusta = new JButton("Aggiusta");
+        aggiustaLavatrice = new JButton("Aggiusta Lavatrice");
+        aggiustaRubinetto = new JButton("Aggiusta Rubinetto");
 
         this.add(main, BorderLayout.CENTER);
         buttons = new JPanel();
-        buttons.setLayout(new GridLayout(2,4));
+        buttons.setLayout(new GridLayout(2, 0));
         buttons.add(sx);
         buttons.add(avanza);
         buttons.add(dx);
         buttons.add(spegni);
         buttons.add(asciuga);
-        buttons.add(aggiusta);
+        buttons.add(aggiustaLavatrice);
+        buttons.add(aggiustaRubinetto);
         this.add(buttons, BorderLayout.SOUTH);
 
         this.infoCasella=new JPanel();
@@ -129,12 +133,13 @@ public class GuiGioco extends JFrame implements VistaInterface {
         this.dx.addActionListener(controller);
         this.sx.addActionListener(controller);
         this.asciuga.addActionListener(controller);
-        this.aggiusta.addActionListener(controller);
+        this.aggiustaLavatrice.addActionListener(controller);
+        this.aggiustaRubinetto.addActionListener(controller);
         this.spegni.addActionListener(controller);
     }
 
     @Override
-    public void refresh(Mappa m, HashMap<Posizione,StatoCasella> bagnato){
+    public synchronized void refresh(Mappa m, HashMap<Posizione,StatoCasella> bagnato){
         main.removeAll();
         StatoCasella stato;
 
@@ -208,7 +213,7 @@ public class GuiGioco extends JFrame implements VistaInterface {
         this.R.setDir(d);
     }
 
-    public void updateLabelFornello(boolean acceso){
+    public synchronized void updateLabelFornello(boolean acceso){
         this.F.setAcceso(acceso);
     }
 

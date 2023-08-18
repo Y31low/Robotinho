@@ -32,8 +32,6 @@ public class GameController implements ActionListener, PropertyChangeListener {
     public void actionPerformed(ActionEvent e) {
 
         switch (e.getActionCommand()) {
-            case "ScattoTimer":
-
             case "Avanza":
                 try {
                     g.avanza();
@@ -115,12 +113,6 @@ public class GameController implements ActionListener, PropertyChangeListener {
         for (VistaInterface view: views) {
             view.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
             view.refresh(g.getMappa(), g.getStatoCasella());
-        }
-
-        if(g.getFornello().getAcceso()){
-            for (VistaInterface view: views) {
-                view.updateLabelFornello(true);
-            }
         }
     }
 

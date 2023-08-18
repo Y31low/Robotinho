@@ -10,6 +10,7 @@ public class Gioco {
     private Fornello fornello;
     private Mappa mappa;
     private HashMap<Posizione,StatoCasella> statoCasella;
+    private final int  N=10;//dimensione mappa
 
     public Gioco(int N){
         this.mappa = new Mappa(10);
