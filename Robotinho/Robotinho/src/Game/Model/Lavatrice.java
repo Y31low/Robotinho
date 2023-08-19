@@ -72,8 +72,6 @@ public class Lavatrice extends Casella implements Rompibile{
                 }
             }
         }
-        else
-            return;
     }
 
     public boolean isStato() {

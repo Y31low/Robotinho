@@ -27,7 +27,7 @@ public class GuiMappa extends JFrame implements VistaInterface {
     private final JButton aggiustaRubinetto;
     private final JLabel statoCasella;
 
-    private JLabel[][] map;
+    private final JLabel[][] map;
 
     public GuiMappa(Mappa m, HashMap<Posizione, StatoCasella> bagnato) throws HeadlessException {
 

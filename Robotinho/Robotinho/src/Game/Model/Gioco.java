@@ -2,96 +2,106 @@ package Game.Model;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Gioco {
-    private Robot robot;
-    private Gatto gatto;
-    private Lavatrice lavatrice;
-    private Rubinetto rubinetto;
-    private Fornello fornello;
-    private Mappa mappa;
-    private HashMap<Posizione,StatoCasella> statoCasella;
-    private final int  N=10;//dimensione mappa
+    private final Robot robot;
+    private final Gatto gatto;
+    private final Lavatrice[] lavatrice;
+    private final Rubinetto[] rubinetto;
+    private final Fornello[] fornello;
+    private final Mappa mappa;
+    private final HashMap<Posizione, StatoCasella> statoCasella;
+    private final int N = 10;//dimensione mappa
+    private final int N_LAVATRICI=2;
+    private final int N_FORNELLI=3;
+    private final int N_RUBINETTI=2;
 
-    public Gioco(int N){
-        this.mappa = new Mappa(10);
+    public Gioco(int N) {
+        this.mappa = new Mappa(10,N_LAVATRICI,N_FORNELLI,N_RUBINETTI);
         this.mappa.inizializza();
         this.robot = this.mappa.getRobot();
         this.gatto = this.mappa.getGatto();
         this.lavatrice = this.mappa.getLavatrice();
         this.rubinetto = this.mappa.getRubinetto();
         this.fornello = this.mappa.getFornello();
-        this.statoCasella= this.mappa.getStatoPavimento();
+        this.statoCasella = this.mappa.getStatoPavimento();
     }
 
-    public Gioco(File f){
+    public Gioco(File f) {
         char[] in = new char[50];
         int size = 0;
-        StringBuilder n =new StringBuilder();
+        StringBuilder n = new StringBuilder();
         try {
-                FileReader fr = new FileReader(f);
-                BufferedReader br = new BufferedReader(fr);
-                size = br.read(in);
-                br.close();
-        } catch(IOException e) {
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            size = br.read(in);
+            br.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         for (int i = 0; i < size; i++) {
             n.append(in[i]);
         }
         System.out.println(n);
-        int dimensione=Integer.parseInt(n.toString());
-        this.mappa = new Mappa(dimensione);
+        int dimensione = Integer.parseInt(n.toString());
+        this.mappa = new Mappa(dimensione,N_LAVATRICI,N_FORNELLI,N_RUBINETTI);
         this.mappa.inizializza();
         this.robot = this.mappa.getRobot();
         this.gatto = this.mappa.getGatto();
         this.lavatrice = this.mappa.getLavatrice();
         this.rubinetto = this.mappa.getRubinetto();
         this.fornello = this.mappa.getFornello();
-        this.statoCasella= this.mappa.getStatoPavimento();
+        this.statoCasella = this.mappa.getStatoPavimento();
     }
 
-    public void avanza(){
+    public void avanza() {
         robot.Avanza(mappa.getMappa());
         gatto.Avanza(mappa.getMappa());
         mappa.aggiornaMappa();
     }
-    public void giraDx(){
+
+    public void giraDx() {
         robot.giraDx();
         gatto.Avanza(mappa.getMappa());
     }
 
-    public void giraSx(){
+    public void giraSx() {
         robot.giraSx();
         gatto.Avanza(mappa.getMappa());
     }
 
-    public void asciuga(){
+    public void asciuga() {
         robot.Asciuga(this.statoCasella);
         gatto.Avanza(mappa.getMappa());
     }
 
-    public void spegniFornello(){
+    public void spegniFornello() {
         robot.spegniFornello(mappa.getMappa());
         gatto.Avanza(mappa.getMappa());
     }
 
-    public void perdiAcquaLavatrice(){
-        this.lavatrice.perdita(mappa.getMappa(),statoCasella);
+    public void perdiAcquaLavatrice() {
+        int rnd = new Random().nextInt(this.lavatrice.length);
+        this.lavatrice[rnd].perdita(mappa.getMappa(), statoCasella);
     }
 
-    public void perdiAcquaRubinetto(){
-        this.rubinetto.perdita(mappa.getMappa(), statoCasella);
+    public void perdiAcquaRubinetto() {
+        int rnd = new Random().nextInt(this.lavatrice.length);
+        this.rubinetto[rnd].perdita(mappa.getMappa(), statoCasella);
     }
 
-    public void aggiustaPerditaLavatrice(){
-       this.robot.interrompiLavatrice(mappa.getMappa());
+    public void aggiustaPerditaLavatrice() {
+        this.robot.interrompiLavatrice(mappa.getMappa());
     }
-    public void aggiustaPerditaRubinetto(){
+
+    public void aggiustaPerditaRubinetto() {
         this.robot.interrompiRubinetto(mappa.getMappa());
     }
-    public void accendiFornello(){
-        this.fornello.setAcceso(true);
+
+    public void accendiFornello() {
+        int rnd = new Random().nextInt(this.lavatrice.length);
+        this.fornello[rnd].setAcceso(true);
     }
 
     public Robot getRobot() {
@@ -102,15 +112,15 @@ public class Gioco {
         return gatto;
     }
 
-    public Lavatrice getLavatrice() {
+    public Lavatrice[] getLavatrice() {
         return lavatrice;
     }
 
-    public Rubinetto getRubinetto() {
+    public Rubinetto[] getRubinetto() {
         return rubinetto;
     }
 
-    public Fornello getFornello() {
+    public Fornello[] getFornello() {
         return fornello;
     }
 

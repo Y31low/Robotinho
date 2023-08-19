@@ -4,8 +4,8 @@ import javax.swing.event.SwingPropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 
 public class ThreadTempo extends Thread{
-    private Gioco g;
-    private SwingPropertyChangeSupport support;
+    private final Gioco g;
+    private final SwingPropertyChangeSupport support;
     public ThreadTempo(Gioco g) {
         this.g = g;
         this.support=new SwingPropertyChangeSupport(this);

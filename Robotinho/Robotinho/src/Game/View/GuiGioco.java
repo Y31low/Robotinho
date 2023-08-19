@@ -28,7 +28,7 @@ public class GuiGioco extends JFrame implements VistaInterface {
     private final JLabel statoCasella;
     private final JPanel infoCasella;
 
-    private JLabel[][] map;
+    private final JLabel[][] map;
 
     public GuiGioco(Mappa m, HashMap<Posizione,StatoCasella> bagnato) throws HeadlessException {
         super("Robotinho");
