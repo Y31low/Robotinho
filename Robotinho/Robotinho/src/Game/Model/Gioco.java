@@ -87,7 +87,7 @@ public class Gioco {
     }
 
     public void perdiAcquaRubinetto() {
-        int rnd = new Random().nextInt(this.lavatrice.length);
+        int rnd = new Random().nextInt(this.rubinetto.length);
         this.rubinetto[rnd].perdita(mappa.getMappa(), statoCasella);
     }
 
@@ -100,7 +100,7 @@ public class Gioco {
     }
 
     public void accendiFornello() {
-        int rnd = new Random().nextInt(this.lavatrice.length);
+        int rnd = new Random().nextInt(this.fornello.length);
         this.fornello[rnd].setAcceso(true);
     }
 

@@ -90,6 +90,8 @@ public class Mappa {
         posizioneGatto = randomPos();
         g = new Gatto(posizioneGatto.getX(), posizioneGatto.getY(), true);
         this.mappa[posizioneGatto.getX()][posizioneGatto.getY()] = g;
+
+        printMap();
     }
 
     public void aggiornaMappa() {
@@ -137,16 +139,28 @@ public class Mappa {
         return fornello;
     }
 
-    /*
+
         public void printMap(){
             for (int i = 0; i < this.N; i++) {
                 for (int j = 0; j < this.N; j++) {
-                    System.out.print("|"+mappa[i][j].toString()+"|");
+                    System.out.print("|"+mappa[i][j].tipo()+"|");
                 }
                 System.out.println();
             }
         }
-        */
+
+    public int getN_LAVATRICI() {
+        return N_LAVATRICI;
+    }
+
+    public int getN_FORNELLI() {
+        return N_FORNELLI;
+    }
+
+    public int getN_RUBINETTI() {
+        return N_RUBINETTI;
+    }
+
     private Posizione randomPos() {
         Random random = new Random();
         Posizione posRandom;

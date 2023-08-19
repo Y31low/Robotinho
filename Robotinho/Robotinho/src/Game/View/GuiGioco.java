@@ -17,9 +17,9 @@ public class GuiGioco extends JFrame implements VistaInterface {
     private final JButton dx;
     private final JButton sx;
     private final LabelRobot R;
-    private final LabelFornello F;
-    private final LabelLavatrice L;
-    private final LabelRubinetto rubinetto;
+    private final HashMap<Posizione, LabelFornello>F;
+    private final HashMap<Posizione,LabelLavatrice> L;
+    private final HashMap<Posizione,LabelRubinetto> rubinetto;
     private final JButton avanza;
     private final JButton spegni;
     private final JButton asciuga;
@@ -43,14 +43,13 @@ public class GuiGioco extends JFrame implements VistaInterface {
         StatoCasella stato;
 
         this.R=new LabelRobot();
-        this.F = new LabelFornello();
-        this.L = new LabelLavatrice();
-        this.rubinetto = new LabelRubinetto();
-
+        this.F = new HashMap<>();
+        this.L = new HashMap<>();
+        this.rubinetto = new HashMap<>();
         main.setLayout(new GridLayout(m.getDim(),m.getDim()));
         main.setVisible(true);
-        for (int i = 0; i < m.getMappa().length; i++) {
-            for (int j = 0; j < m.getMappa()[i].length; j++) {
+        for (int i = 0; i < m.getDim(); i++) {
+            for (int j = 0; j < m.getDim(); j++) {
                 if(m.getMappa()[i][j].isVisibile()){
                     switch (m.getMappa()[i][j].tipo()) {
                         case "Muro":
@@ -72,13 +71,16 @@ public class GuiGioco extends JFrame implements VistaInterface {
                             this.map[i][j] = new LabelGatto();
                             break;
                         case "Fornello":
-                            this.map[i][j] = F;
+                            F.put(new Posizione(i,j),new LabelFornello());
+                            this.map[i][j] = F.get(new Posizione(i,j));
                             break;
                         case "Lavatrice":
-                            this.map[i][j] = L;
+                            L.put(new Posizione(i,j),new LabelLavatrice());
+                            this.map[i][j] = L.get(new Posizione(i,j));
                             break;
                         case "Rubinetto":
-                            this.map[i][j] = rubinetto;
+                            rubinetto.put(new Posizione(i,j),new LabelRubinetto());
+                            this.map[i][j] = rubinetto.get(new Posizione(i,j));
                             break;
                         default:
                             break;
@@ -139,12 +141,12 @@ public class GuiGioco extends JFrame implements VistaInterface {
     }
 
     @Override
-    public synchronized void refresh(Mappa m, HashMap<Posizione,StatoCasella> bagnato){
+    public  void refresh(Mappa m, HashMap<Posizione,StatoCasella> bagnato){
         main.removeAll();
         StatoCasella stato;
 
-        for (int i = 0; i < m.getMappa().length; i++) {
-            for (int j = 0; j < m.getMappa()[i].length; j++) {
+        for (int i = 0; i < m.getDim(); i++) {
+            for (int j = 0; j < m.getDim(); j++) {
                 if(m.getMappa()[i][j].isVisibile()){
                     switch (m.getMappa()[i][j].tipo()) {
                         case "Muro":
@@ -166,13 +168,13 @@ public class GuiGioco extends JFrame implements VistaInterface {
                             this.map[i][j] = new LabelGatto();
                             break;
                         case "Fornello":
-                            this.map[i][j] = F;
+                            this.map[i][j] = F.get(new Posizione(i,j));
                             break;
                         case "Lavatrice":
-                            this.map[i][j] = L;
+                            this.map[i][j] = L.get(new Posizione(i,j));
                             break;
                         case "Rubinetto":
-                            this.map[i][j] = rubinetto;
+                            this.map[i][j] = rubinetto.get(new Posizione(i,j));
                             break;
                         default:
                             break;
@@ -214,14 +216,14 @@ public class GuiGioco extends JFrame implements VistaInterface {
     }
 
     public synchronized void updateLabelFornello(boolean acceso){
-        this.F.setAcceso(acceso);
+        //this.F.setAcceso(acceso);
     }
 
-    public synchronized void updateLabelLavatrice(boolean rotta){
-        this.L.setRotta(rotta);
+   public synchronized void updateLabelLavatrice(boolean rotta){
+        //this.L.setRotta(rotta);
     }
     public synchronized void updateLabelRubinetto(boolean rotto){
-        this.rubinetto.setRotto(rotto);
+        //this.rubinetto.setRotto(rotto);
     }
 
     @Override
