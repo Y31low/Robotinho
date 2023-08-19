@@ -6,7 +6,6 @@ import Game.Model.Mappa;
 import Game.Model.Posizione;
 import Game.Model.StatoCasella;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface VistaInterface {
@@ -15,9 +14,9 @@ public interface VistaInterface {
 
      void updateLabelRobot(Direzione d);
 
-     void updateLabelFornello(boolean acceso);
-     void updateLabelLavatrice(boolean rotta);
-     void updateLabelRubinetto(boolean rotto);
+     void updateLabelFornello(Posizione p, boolean acceso);
+     void updateLabelLavatrice(Posizione p,boolean rotta);
+     void updateLabelRubinetto(Posizione p,boolean rotto);
 
      void visible();
 

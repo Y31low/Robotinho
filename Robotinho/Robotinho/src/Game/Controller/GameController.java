@@ -1,6 +1,7 @@
 package Game.Controller;
 
 import Game.Model.Gioco;
+import Game.Model.Posizione;
 import Game.Model.Robot;
 import Game.Model.ThreadTempo;
 import Game.View.VistaInterface;
@@ -26,13 +27,12 @@ public class GameController implements ActionListener, PropertyChangeListener {
             view.addController(this);
             view.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
         }
-        //threadTempo.addObserver(this);
-        //threadTempo.run();
+        threadTempo.addObserver(this);
+        threadTempo.start();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         switch (e.getActionCommand()) {
             case "Avanza":
                 try {
@@ -66,10 +66,13 @@ public class GameController implements ActionListener, PropertyChangeListener {
                 break;
             case "Spegni":
                 try {
-                    g.spegniFornello();
-                    for (VistaInterface view : views) {
-                        view.updateLabelFornello(false);
-                    }
+                   Posizione p=g.spegniFornello();
+                   if(p!=null){
+                       for (VistaInterface view : views) {
+                           view.updateLabelFornello(p,false);
+                       }
+                   }
+
                 } catch (Robot.IllegalActionException exc) {
                     for (VistaInterface view : views) {
                         view.errore(exc.getMessage());
@@ -78,10 +81,13 @@ public class GameController implements ActionListener, PropertyChangeListener {
                 break;
             case "Aggiusta Lavatrice": {
                 try {
-                    g.aggiustaPerditaLavatrice();
-                    for (VistaInterface view : views) {
-                        view.updateLabelLavatrice(false);
+                    Posizione p=g.aggiustaPerditaLavatrice();
+                    if(p!=null){
+                        for (VistaInterface view : views) {
+                            view.updateLabelLavatrice(p,false);
+                        }
                     }
+
                 } catch (Robot.IllegalActionException exc) {
                     for (VistaInterface view : views) {
                         view.errore(exc.getMessage());
@@ -91,10 +97,13 @@ public class GameController implements ActionListener, PropertyChangeListener {
             break;
             case "Aggiusta Rubinetto":
                 try {
-                    g.aggiustaPerditaRubinetto();
-                    for (VistaInterface view : views) {
-                        view.updateLabelRubinetto(false);
+                    Posizione p=g.aggiustaPerditaRubinetto();
+                    if(p!=null){
+                        for (VistaInterface view : views) {
+                            view.updateLabelRubinetto(p,false);
+                        }
                     }
+
                 } catch (Robot.IllegalActionException exc) {
                     for (VistaInterface view : views) {
                         view.errore(exc.getMessage());
@@ -116,22 +125,23 @@ public class GameController implements ActionListener, PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("TimerRubinetto")) {
             for (VistaInterface view : views) {
-                view.updateLabelRubinetto(true);
+                view.updateLabelRubinetto((Posizione) evt.getNewValue(),true);
+                view.refresh(g.getMappa(), g.getStatoCasella());
             }
         }
         if (evt.getPropertyName().equals("TimerLavatrice")) {
             for (VistaInterface view : views) {
-                view.updateLabelLavatrice(true);
+                view.updateLabelLavatrice((Posizione) evt.getNewValue(),true);
+                view.refresh(g.getMappa(), g.getStatoCasella());
             }
 
         }
         if (evt.getPropertyName().equals("TimerFornello")) {
             for (VistaInterface view : views) {
-                view.updateLabelFornello(true);
+                view.updateLabelFornello((Posizione) evt.getNewValue(), true);
+                view.refresh(g.getMappa(), g.getStatoCasella());
             }
         }
-        for (VistaInterface view : views) {
-            view.refresh(g.getMappa(), g.getStatoCasella());
-        }
+
     }
 }

@@ -5,9 +5,11 @@ import Game.Model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 
-public class GuiMappa extends JFrame implements VistaInterface {
+public class GuiMappa extends JFrame implements VistaInterface, PropertyChangeListener {
     private final JPanel main;
     private final JPanel buttons;
     private final JPanel infoCasella;
@@ -125,7 +127,7 @@ public class GuiMappa extends JFrame implements VistaInterface {
     }
 
     @Override
-    public void refresh(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
+    public synchronized void refresh(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
         main.removeAll();
         StatoCasella stato = null;
 
@@ -174,17 +176,18 @@ public class GuiMappa extends JFrame implements VistaInterface {
         this.R.setDir(d);
     }
 
-    public synchronized void updateLabelFornello(boolean acceso) {
-        //this.F.setAcceso(acceso);
+    public synchronized void updateLabelFornello(Posizione p,boolean acceso) {
+        this.F.get(p).setAcceso(acceso);
     }
 
     @Override
-    public synchronized void updateLabelLavatrice(boolean rotta) {
-       // this.L.setRotta(rotta);
+    public synchronized void updateLabelLavatrice(Posizione p,boolean rotta) {
+        this.L.get(p).setRotta(rotta);
     }
 
-    public synchronized void updateLabelRubinetto(boolean rotto){
-        //this.rubinetto.setRotto(rotto);
+    @Override
+    public synchronized void updateLabelRubinetto(Posizione p,boolean rotto){
+        this.rubinetto.get(p).setRotto(rotto);
     }
 
     public void addController(GameController controller) {
@@ -217,4 +220,8 @@ public class GuiMappa extends JFrame implements VistaInterface {
     }
 
 
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
+    }
 }

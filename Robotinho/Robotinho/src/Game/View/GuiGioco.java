@@ -1,14 +1,13 @@
 package Game.View;
 
 import Game.Controller.GameController;
-import Game.Model.Direzione;
-import Game.Model.Mappa;
-import Game.Model.Posizione;
-import Game.Model.StatoCasella;
+import Game.Model.*;
 
 import javax.sound.sampled.BooleanControl;
 import javax.swing.*;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 
 public class GuiGioco extends JFrame implements VistaInterface {
@@ -141,7 +140,7 @@ public class GuiGioco extends JFrame implements VistaInterface {
     }
 
     @Override
-    public  void refresh(Mappa m, HashMap<Posizione,StatoCasella> bagnato){
+    public synchronized void refresh(Mappa m, HashMap<Posizione,StatoCasella> bagnato){
         main.removeAll();
         StatoCasella stato;
 
@@ -215,15 +214,18 @@ public class GuiGioco extends JFrame implements VistaInterface {
         this.R.setDir(d);
     }
 
-    public synchronized void updateLabelFornello(boolean acceso){
-        //this.F.setAcceso(acceso);
+    public synchronized void updateLabelFornello(Posizione p,boolean acceso) {
+        this.F.get(p).setAcceso(acceso);
     }
 
-   public synchronized void updateLabelLavatrice(boolean rotta){
-        //this.L.setRotta(rotta);
+    @Override
+    public synchronized void updateLabelLavatrice(Posizione p,boolean rotta) {
+         this.L.get(p).setRotta(rotta);
     }
-    public synchronized void updateLabelRubinetto(boolean rotto){
-        //this.rubinetto.setRotto(rotto);
+
+    @Override
+    public synchronized void updateLabelRubinetto(Posizione p,boolean rotto){
+        this.rubinetto.get(p).setRotto(rotto);
     }
 
     @Override

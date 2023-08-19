@@ -1,6 +1,9 @@
 package Game.Model;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -17,6 +20,8 @@ public class Gioco {
     private final int N_FORNELLI=3;
     private final int N_RUBINETTI=2;
 
+
+
     public Gioco(int N) {
         this.mappa = new Mappa(10,N_LAVATRICI,N_FORNELLI,N_RUBINETTI);
         this.mappa.inizializza();
@@ -26,6 +31,7 @@ public class Gioco {
         this.rubinetto = this.mappa.getRubinetto();
         this.fornello = this.mappa.getFornello();
         this.statoCasella = this.mappa.getStatoPavimento();
+
     }
 
     public Gioco(File f) {
@@ -53,6 +59,7 @@ public class Gioco {
         this.rubinetto = this.mappa.getRubinetto();
         this.fornello = this.mappa.getFornello();
         this.statoCasella = this.mappa.getStatoPavimento();
+
     }
 
     public void avanza() {
@@ -76,37 +83,45 @@ public class Gioco {
         gatto.Avanza(mappa.getMappa());
     }
 
-    public void spegniFornello() {
-        robot.spegniFornello(mappa.getMappa());
+    public Posizione spegniFornello() {
+
+        Posizione p=robot.spegniFornello(mappa.getMappa());
         gatto.Avanza(mappa.getMappa());
+        return p;
     }
 
-    public void perdiAcquaLavatrice() {
+    public Posizione perdiAcquaLavatrice() {
         int rnd = new Random().nextInt(this.lavatrice.length);
         this.lavatrice[rnd].perdita(mappa.getMappa(), statoCasella);
+        return this.lavatrice[rnd].getPosizione();
+
     }
 
-    public void perdiAcquaRubinetto() {
+    public Posizione perdiAcquaRubinetto() {
         int rnd = new Random().nextInt(this.rubinetto.length);
         this.rubinetto[rnd].perdita(mappa.getMappa(), statoCasella);
+        return this.lavatrice[rnd].getPosizione();
+
     }
 
-    public void aggiustaPerditaLavatrice() {
-        this.robot.interrompiLavatrice(mappa.getMappa());
+    public Posizione aggiustaPerditaLavatrice() {
+        return robot.interrompiLavatrice(mappa.getMappa());
     }
 
-    public void aggiustaPerditaRubinetto() {
-        this.robot.interrompiRubinetto(mappa.getMappa());
+    public Posizione aggiustaPerditaRubinetto() {
+        return robot.interrompiRubinetto(mappa.getMappa());
     }
 
-    public void accendiFornello() {
+    public Posizione accendiFornello() {
         int rnd = new Random().nextInt(this.fornello.length);
         this.fornello[rnd].setAcceso(true);
+        return this.fornello[rnd].getPosizione();
     }
 
     public Robot getRobot() {
         return robot;
     }
+
 
     public Gatto getGatto() {
         return gatto;
@@ -131,4 +146,6 @@ public class Gioco {
     public HashMap<Posizione, StatoCasella> getStatoCasella() {
         return statoCasella;
     }
+
+    
 }

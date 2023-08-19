@@ -155,7 +155,8 @@ public class Robot extends Casella implements Movable{
         return mosse;
     }
 
-    public void spegniFornello(Casella[][] m) throws IllegalActionException{
+    public Posizione spegniFornello(Casella[][] m) throws IllegalActionException{
+        Posizione p=null;
         Fornello f;
         switch (this.direzione){
             case North:
@@ -163,13 +164,16 @@ public class Robot extends Casella implements Movable{
                    f=(Fornello) m[this.getPosizione().getX()-1][this.getPosizione().getY()];
                    if (!f.getAcceso()){
                        throw new IllegalActionException("E' gia' spento pirla!");
+
                    }
                    else{
                        f.setAcceso(false);
+                       p= f.getPosizione();
                    }
                 }
                 else {
                     throw new IllegalActionException("Nessun fornello nella mia direzione!");
+
                 }
                 break;
             case East:
@@ -177,13 +181,16 @@ public class Robot extends Casella implements Movable{
                     f = (Fornello)m[this.getPosizione().getX()][this.getPosizione().getY()+1];
                     if(!f.getAcceso()){
                         throw new IllegalActionException("E' già spento pirla");
+
                     }
                     else{
                         f.setAcceso(false);
+                        p= f.getPosizione();
                     }
                 }
                 else{
                     throw new IllegalActionException("Nessun fornello nella mia direzione!");
+
                 }
                 break;
             case South:
@@ -191,13 +198,16 @@ public class Robot extends Casella implements Movable{
                     f = (Fornello)m[this.getPosizione().getX()+1][this.getPosizione().getY()];
                     if(!f.getAcceso()){
                         throw new IllegalActionException("E' già spento pirla");
+
                     }
                     else{
                         f.setAcceso(false);
+                        p= f.getPosizione();
                     }
                 }
                 else{
                     throw new IllegalActionException("Nessun fornello nella mia direzione!");
+
                 }
                 break;
             case West:
@@ -205,9 +215,11 @@ public class Robot extends Casella implements Movable{
                     f = (Fornello)m[this.getPosizione().getX()][this.getPosizione().getY()-1];
                     if(!f.getAcceso()){
                         throw new IllegalActionException("E' già spento pirla");
+
                     }
                     else{
                         f.setAcceso(false);
+                        p= f.getPosizione();
                     }
                 }
                 else{
@@ -215,6 +227,7 @@ public class Robot extends Casella implements Movable{
                 }
                 break;
         }
+        return p;
     }
 
     private Casella getCasellaSuccessiva(Casella[][] m){
@@ -235,7 +248,8 @@ public class Robot extends Casella implements Movable{
         }
         return c;
     }
-    public void interrompiLavatrice(Casella[][] m) throws IllegalActionException{
+    public Posizione interrompiLavatrice(Casella[][] m) throws IllegalActionException{
+        Posizione p=null;
         Casella successiva = getCasellaSuccessiva(m);
         Lavatrice l;
 
@@ -246,14 +260,17 @@ public class Robot extends Casella implements Movable{
             }
             else{
                 l.interrompiPerdita();
+                p=l.getPosizione();
             }
         }
         else {
             throw new IllegalActionException("Nessuna lavatrice nella mia direzione!");
         }
+        return p;
     }
 
-    public void interrompiRubinetto(Casella[][] m) throws IllegalActionException{
+    public Posizione interrompiRubinetto(Casella[][] m) throws IllegalActionException{
+        Posizione p=null;
         Casella successiva = getCasellaSuccessiva(m);
         Rubinetto r;
 
@@ -264,10 +281,12 @@ public class Robot extends Casella implements Movable{
             }
             else{
                 r.interrompiPerdita();
-            }
+                p=r.getPosizione();           }
         }
         else {
             throw new IllegalActionException("Nessun rubinetto nella mia direzione!");
         }
+        return p;
     }
+
 }

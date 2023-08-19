@@ -17,6 +17,7 @@ public class ThreadTempo extends Thread{
         long lasTimeLavatrice = System.currentTimeMillis();
         long lasTimeRubinetto = System.currentTimeMillis();
         long lastTimeFornello = System.currentTimeMillis();
+        Posizione p;
 
         while (true) {
             long tempoLavatrice = (System.currentTimeMillis() - lasTimeLavatrice) / 1000;
@@ -24,20 +25,20 @@ public class ThreadTempo extends Thread{
             long tempoFornello = (System.currentTimeMillis() - lastTimeFornello) / 1000;
 
             if (tempoLavatrice > 10) {
-                g.perdiAcquaLavatrice();
+                p=g.perdiAcquaLavatrice();
                 lasTimeLavatrice = System.currentTimeMillis();
-                this.support.firePropertyChange("TimerLavatrice", lasTimeLavatrice,System.currentTimeMillis()/1000);
+                this.support.firePropertyChange("TimerLavatrice", null,p);
 
             }
             if (tempoRubinetto > 15) {
-                g.perdiAcquaRubinetto();
+                p=g.perdiAcquaRubinetto();
                 lasTimeRubinetto = System.currentTimeMillis();
-                this.support.firePropertyChange("TimerRubinetto", lasTimeRubinetto,System.currentTimeMillis()/1000);
+                this.support.firePropertyChange("TimerRubinetto", null,p);
             }
             if (tempoFornello > 7) {
-                g.accendiFornello();
+                p=g.accendiFornello();
                 lastTimeFornello = System.currentTimeMillis();
-                this.support.firePropertyChange("TimerFornello", lastTimeFornello,System.currentTimeMillis()/1000);
+                this.support.firePropertyChange("TimerFornello", null,p);
             }
         }
     }
