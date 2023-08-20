@@ -71,22 +71,25 @@ public class Gioco {
     public void giraDx() {
         robot.giraDx();
         gatto.Avanza(mappa.getMappa());
+        mappa.aggiornaMappa();
     }
 
     public void giraSx() {
         robot.giraSx();
         gatto.Avanza(mappa.getMappa());
+        mappa.aggiornaMappa();
     }
 
     public void asciuga() {
         robot.Asciuga(this.statoCasella);
         gatto.Avanza(mappa.getMappa());
+        mappa.aggiornaMappa();
     }
 
     public Posizione spegniFornello() {
-
         Posizione p=robot.spegniFornello(mappa.getMappa());
         gatto.Avanza(mappa.getMappa());
+        mappa.aggiornaMappa();
         return p;
     }
 

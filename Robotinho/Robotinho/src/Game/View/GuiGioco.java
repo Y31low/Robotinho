@@ -28,7 +28,7 @@ public class GuiGioco extends JFrame implements VistaInterface {
     private final JButton aggiustaRubinetto;
     private final JLabel statoCasella;
 
-    private final JLabel[][] map;
+    private JLabel[][] map;
 
     public GuiGioco(Mappa m, HashMap<Posizione, StatoCasella> bagnato) throws HeadlessException {
 
@@ -132,7 +132,13 @@ public class GuiGioco extends JFrame implements VistaInterface {
     @Override
     public synchronized void refresh(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
         main.removeAll();
-        updateMapLabels(m,bagnato);
+        this.map = updateMapLabels(m,bagnato);
+        for (JLabel[] jLabels : map) {
+            for (JLabel jLabel : jLabels) {
+                main.add(jLabel);
+            }
+        }
+
         main.updateUI();
     }
 
@@ -184,12 +190,14 @@ public class GuiGioco extends JFrame implements VistaInterface {
             this.statoCasella.setText("Sei su una casella bagnata");
     }
 
-    private void updateMapLabels(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
+    private Label[][] updateMapLabels(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
         boolean stato;
-        for (int i = 0; i < m.getDim(); i++) {
-            for (int j = 0; j < m.getDim(); j++) {
+        Label[][] mappa = new Label[m.getDim()][m.getDim()];
+
+        for (int i = 0; i < mappa.length; i++) {
+            for (int j = 0; j < mappa[i].length; j++) {
                 if (m.getMappa()[i][j].isVisibile()) {
-                    JLabel label;
+                    Label label;
 
                     switch (m.getMappa()[i][j].tipo()) {
                         case "Muro":
@@ -222,14 +230,13 @@ public class GuiGioco extends JFrame implements VistaInterface {
                             break;
                     }
 
-                    this.map[i][j] = label;
-                    main.add(this.map[i][j]);
+                    mappa[i][j] = label;
                 } else {
-                    this.map[i][j] = new LabelSconosciuto();
-                    main.add(this.map[i][j]);
+                    mappa[i][j] = new LabelSconosciuto();
                 }
             }
         }
+        return mappa;
     }
 
 
