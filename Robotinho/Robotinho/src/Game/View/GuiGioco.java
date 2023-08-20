@@ -8,7 +8,6 @@ import Game.Model.StatoCasella;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
 import java.util.HashMap;
 
 public class GuiGioco extends JFrame implements VistaInterface {
@@ -190,7 +189,7 @@ public class GuiGioco extends JFrame implements VistaInterface {
             this.statoCasella.setText("Sei su una casella bagnata");
     }
 
-    private Label[][] updateMapLabels(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
+    public Label[][] updateMapLabels(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
         boolean stato;
         Label[][] mappa = new Label[m.getDim()][m.getDim()];
 
@@ -238,8 +237,5 @@ public class GuiGioco extends JFrame implements VistaInterface {
         }
         return mappa;
     }
-
-
-
 
 }

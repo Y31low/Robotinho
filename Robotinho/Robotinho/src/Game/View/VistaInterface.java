@@ -25,5 +25,6 @@ public interface VistaInterface {
      void errore(String s);
 
      void visualizzaStato(boolean stato);
+      Label[][] updateMapLabels(Mappa m, HashMap<Posizione, StatoCasella> bagnato);
 
 }

@@ -25,7 +25,7 @@ public class GuiMappa extends JFrame implements VistaInterface{
     private final JButton aggiustaRubinetto;
     private final JLabel statoCasella;
 
-    private final JLabel[][] map;
+    private JLabel[][] map;
 
     public GuiMappa(Mappa m, HashMap<Posizione, StatoCasella> bagnato) throws HeadlessException {
 
@@ -84,9 +84,9 @@ public class GuiMappa extends JFrame implements VistaInterface{
                     default:
                         break;
                 }
-                main.add(this.map[i][j]);
             }
         }
+        refresh(m,bagnato);
 
         main.setVisible(true);
 
@@ -128,42 +128,10 @@ public class GuiMappa extends JFrame implements VistaInterface{
     @Override
     public synchronized void refresh(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
         main.removeAll();
-        StatoCasella stato = null;
-
-        for (int i = 0; i <m.getDim(); i++) {
-            for (int j = 0; j < m.getDim(); j++) {
-                switch (m.getMappa()[i][j].tipo()) {
-                    case "Muro":
-                        this.map[i][j] = new LabelMuro();
-                        break;
-                    case "Pavimento":
-                        stato = bagnato.get(new Posizione(i, j));
-                        if (stato != null) {
-                            if (stato.getStato())
-                                this.map[i][j] = new LabelBagnato();
-                            else
-                                this.map[i][j] = new LabelPavimento();
-                        }
-                        break;
-                    case "Robot":
-                        this.map[i][j] = R;
-                        break;
-                    case "Cat":
-                        this.map[i][j] = new LabelGatto();
-                        break;
-                    case "Fornello":
-                        this.map[i][j] = F.get(new Posizione(i,j));
-                        break;
-                    case "Lavatrice":
-                        this.map[i][j] = L.get(new Posizione(i,j));
-                        break;
-                    case "Rubinetto":
-                        this.map[i][j] = rubinetto.get(new Posizione(i,j));
-                        break;
-                    default:
-                        break;
-                }
-                main.add(this.map[i][j]);
+        this.map = updateMapLabels(m,bagnato);
+        for (JLabel[] jLabels : map) {
+            for (JLabel jLabel : jLabels) {
+                main.add(jLabel);
             }
         }
 
@@ -218,6 +186,51 @@ public class GuiMappa extends JFrame implements VistaInterface{
             this.statoCasella.setText("Sei su una casella bagnata");
     }
 
+    public Label[][] updateMapLabels(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
+        boolean stato;
+        Label[][] mappa = new Label[m.getDim()][m.getDim()];
+
+        for (int i = 0; i < mappa.length; i++) {
+            for (int j = 0; j < mappa[i].length; j++) {
+                    Label label;
+
+                    switch (m.getMappa()[i][j].tipo()) {
+                        case "Muro":
+                            label = new LabelMuro();
+                            break;
+                        case "Pavimento":
+                            stato = bagnato.get(new Posizione(i, j)).getStato();
+                            if (stato)
+                                label = new LabelBagnato();
+                            else
+                                label = new LabelPavimento();
+                            break;
+                        case "Robot":
+                            label = R;
+                            break;
+                        case "Cat":
+                            label = new LabelGatto();
+                            break;
+                        case "Fornello":
+                            label = F.get(new Posizione(i, j));
+                            break;
+                        case "Lavatrice":
+                            label = L.get(new Posizione(i, j));
+                            break;
+                        case "Rubinetto":
+                            label = rubinetto.get(new Posizione(i, j));
+                            break;
+                        default:
+                            label = new LabelSconosciuto();
+                            break;
+                    }
+
+                    mappa[i][j] = label;
+
+            }
+        }
+        return mappa;
+    }
 
 
 }
