@@ -28,7 +28,7 @@ public class GameController implements ActionListener, PropertyChangeListener {
             view.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
         }
         threadTempo.addObserver(this);
-        threadTempo.start();
+       threadTempo.start();
     }
 
     @Override
@@ -123,22 +123,26 @@ public class GameController implements ActionListener, PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        Posizione p;
         if (evt.getPropertyName().equals("TimerRubinetto")) {
             for (VistaInterface view : views) {
-                view.updateLabelRubinetto((Posizione) evt.getNewValue(),true);
+                p=(Posizione) evt.getNewValue();
+                view.updateLabelRubinetto(p,true);
                 view.refresh(g.getMappa(), g.getStatoCasella());
             }
         }
         if (evt.getPropertyName().equals("TimerLavatrice")) {
+            p=(Posizione) evt.getNewValue();
             for (VistaInterface view : views) {
-                view.updateLabelLavatrice((Posizione) evt.getNewValue(),true);
+                view.updateLabelLavatrice(p,true);
                 view.refresh(g.getMappa(), g.getStatoCasella());
             }
 
         }
         if (evt.getPropertyName().equals("TimerFornello")) {
+            p=(Posizione) evt.getNewValue();
             for (VistaInterface view : views) {
-                view.updateLabelFornello((Posizione) evt.getNewValue(), true);
+                view.updateLabelFornello(p, true);
                 view.refresh(g.getMappa(), g.getStatoCasella());
             }
         }

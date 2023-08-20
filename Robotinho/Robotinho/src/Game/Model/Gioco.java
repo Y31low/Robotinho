@@ -100,7 +100,7 @@ public class Gioco {
     public Posizione perdiAcquaRubinetto() {
         int rnd = new Random().nextInt(this.rubinetto.length);
         this.rubinetto[rnd].perdita(mappa.getMappa(), statoCasella);
-        return this.lavatrice[rnd].getPosizione();
+        return this.rubinetto[rnd].getPosizione();
 
     }
 

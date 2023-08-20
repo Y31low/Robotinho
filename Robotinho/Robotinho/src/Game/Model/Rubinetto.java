@@ -72,8 +72,7 @@ public class Rubinetto extends Casella implements Rompibile{
                 }
             }
         }
-        else {
-        }
+
     }
 
     public boolean isStato() {

@@ -1,18 +1,20 @@
 package Game.View;
 
 import Game.Controller.GameController;
-import Game.Model.*;
+import Game.Model.Direzione;
+import Game.Model.Mappa;
+import Game.Model.Posizione;
+import Game.Model.StatoCasella;
 
-import javax.sound.sampled.BooleanControl;
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 
 public class GuiGioco extends JFrame implements VistaInterface {
     private final JPanel main;
     private final JPanel buttons;
+    private final JPanel infoCasella;
     private final JButton dx;
     private final JButton sx;
     private final LabelRobot R;
@@ -25,31 +27,32 @@ public class GuiGioco extends JFrame implements VistaInterface {
     private final JButton aggiustaLavatrice;
     private final JButton aggiustaRubinetto;
     private final JLabel statoCasella;
-    private final JPanel infoCasella;
 
     private final JLabel[][] map;
 
-    public GuiGioco(Mappa m, HashMap<Posizione,StatoCasella> bagnato) throws HeadlessException {
+    public GuiGioco(Mappa m, HashMap<Posizione, StatoCasella> bagnato) throws HeadlessException {
+
         super("Robotinho");
-        this.setSize(500,500);
+        this.setSize(500, 500);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
-        this.map=new JLabel[m.getDim()][m.getDim()];
-        this.main=new JPanel();
+        this.map = new JLabel[m.getDim()][m.getDim()];
+        this.main = new JPanel();
 
-        StatoCasella stato;
+        StatoCasella stato = null;
 
-        this.R=new LabelRobot();
+        this.R = new LabelRobot();
         this.F = new HashMap<>();
         this.L = new HashMap<>();
         this.rubinetto = new HashMap<>();
-        main.setLayout(new GridLayout(m.getDim(),m.getDim()));
-        main.setVisible(true);
+
+        main.setLayout(new GridLayout(m.getDim(), m.getDim()));
+
+
         for (int i = 0; i < m.getDim(); i++) {
             for (int j = 0; j < m.getDim(); j++) {
-                if(m.getMappa()[i][j].isVisibile()){
                     switch (m.getMappa()[i][j].tipo()) {
                         case "Muro":
                             this.map[i][j] = new LabelMuro();
@@ -64,7 +67,7 @@ public class GuiGioco extends JFrame implements VistaInterface {
                             }
                             break;
                         case "Robot":
-                            this.map[i][j] =  R;
+                            this.map[i][j] = R;
                             break;
                         case "Cat":
                             this.map[i][j] = new LabelGatto();
@@ -84,24 +87,24 @@ public class GuiGioco extends JFrame implements VistaInterface {
                         default:
                             break;
                     }
-                }
-                else
-                    this.map[i][j] = new LabelSconosciuto();
-
-                main.add(this.map[i][j]);
             }
         }
+
+        refresh(m,bagnato);
+
+        main.setVisible(true);
+
         dx = new JButton("Dx");
         sx = new JButton("Sx");
         avanza = new JButton("Avanza");
         spegni = new JButton("Spegni");
         asciuga = new JButton("Asciuga");
         aggiustaLavatrice = new JButton("Aggiusta Lavatrice");
-        aggiustaRubinetto = new JButton("Aggiusta Rubinetto");
+        aggiustaRubinetto=new JButton("Aggiusta Rubinetto");
 
         this.add(main, BorderLayout.CENTER);
         buttons = new JPanel();
-        buttons.setLayout(new GridLayout(2, 0));
+        buttons.setLayout(new GridLayout(2,0));
         buttons.add(sx);
         buttons.add(avanza);
         buttons.add(dx);
@@ -111,25 +114,48 @@ public class GuiGioco extends JFrame implements VistaInterface {
         buttons.add(aggiustaRubinetto);
         this.add(buttons, BorderLayout.SOUTH);
 
-        this.infoCasella=new JPanel();
+        this.infoCasella = new JPanel();
         this.infoCasella.setLayout(new BorderLayout());
 
-        this.statoCasella=new JLabel("-", SwingConstants.CENTER);
-        this.infoCasella.add(this.statoCasella,BorderLayout.CENTER);
-        this.add(statoCasella,BorderLayout.NORTH);
+        this.statoCasella = new JLabel("-", SwingConstants.CENTER);
+        this.infoCasella.add(this.statoCasella, BorderLayout.CENTER);
+        this.add(statoCasella, BorderLayout.NORTH);
 
-        this.visible();
+        visible();
     }
 
-
-    private class LabelSconosciuto extends Label{
-        public LabelSconosciuto() {
-            super("Robotinho/Robotinho/src/img/Sconosciuto.jpg");
-        }
-
+    @Override
+    public void visible() {
+        this.setVisible(true);
     }
 
-    public void addController(GameController controller){
+    @Override
+    public synchronized void refresh(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
+        main.removeAll();
+        updateMapLabels(m,bagnato);
+        main.updateUI();
+    }
+
+    @Override
+    public void updateLabelRobot(Direzione d) {
+        this.R.setDir(d);
+    }
+
+    public synchronized void updateLabelFornello(Posizione p,boolean acceso) {
+        this.F.get(p).setAcceso(acceso);
+    }
+
+    @Override
+    public synchronized void updateLabelLavatrice(Posizione p,boolean rotta) {
+        this.L.get(p).setRotta(rotta);
+    }
+
+    @Override
+    public synchronized void updateLabelRubinetto(Posizione p,boolean rotto){
+        this.rubinetto.get(p).setRotto(rotto);
+    }
+
+    public void addController(GameController controller) {
         this.avanza.addActionListener(controller);
         this.dx.addActionListener(controller);
         this.sx.addActionListener(controller);
@@ -140,96 +166,73 @@ public class GuiGioco extends JFrame implements VistaInterface {
     }
 
     @Override
-    public synchronized void refresh(Mappa m, HashMap<Posizione,StatoCasella> bagnato){
-        main.removeAll();
-        StatoCasella stato;
-
-        for (int i = 0; i < m.getDim(); i++) {
-            for (int j = 0; j < m.getDim(); j++) {
-                if(m.getMappa()[i][j].isVisibile()){
-                    switch (m.getMappa()[i][j].tipo()) {
-                        case "Muro":
-                            this.map[i][j] = new LabelMuro();
-                            break;
-                        case "Pavimento":
-                            stato = bagnato.get(new Posizione(i, j));
-                            if (stato != null) {
-                                if (stato.getStato())
-                                    this.map[i][j] = new LabelBagnato();
-                                else
-                                    this.map[i][j] = new LabelPavimento();
-                            }
-                            break;
-                        case "Robot":
-                            this.map[i][j] =  R;
-                            break;
-                        case "Cat":
-                            this.map[i][j] = new LabelGatto();
-                            break;
-                        case "Fornello":
-                            this.map[i][j] = F.get(new Posizione(i,j));
-                            break;
-                        case "Lavatrice":
-                            this.map[i][j] = L.get(new Posizione(i,j));
-                            break;
-                        case "Rubinetto":
-                            this.map[i][j] = rubinetto.get(new Posizione(i,j));
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else
-                    this.map[i][j] = new LabelSconosciuto();
-
-                main.add(this.map[i][j]);
-            }
-        }
-
-        main.updateUI();
-    }
-
-    public void errore(String s){
+    public void errore(String s) {
         JDialog dialog = new JDialog(this);
         JLabel content = new JLabel(s);
         content.setHorizontalAlignment(SwingConstants.CENTER);
         dialog.add(content);
-        dialog.setSize(300,100);
+        dialog.setSize(300, 100);
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }
 
     @Override
     public void visualizzaStato(boolean stato) {
-        if(!stato){
+        if(!stato)
             this.statoCasella.setText("Sei su una casella asciutta");
-        }
-        else{
+        else
             this.statoCasella.setText("Sei su una casella bagnata");
+    }
+
+    private void updateMapLabels(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
+        boolean stato;
+        for (int i = 0; i < m.getDim(); i++) {
+            for (int j = 0; j < m.getDim(); j++) {
+                if (m.getMappa()[i][j].isVisibile()) {
+                    JLabel label;
+
+                    switch (m.getMappa()[i][j].tipo()) {
+                        case "Muro":
+                            label = new LabelMuro();
+                            break;
+                        case "Pavimento":
+                            stato = bagnato.get(new Posizione(i, j)).getStato();
+                            if (stato)
+                                label = new LabelBagnato();
+                            else
+                                label = new LabelPavimento();
+                            break;
+                        case "Robot":
+                            label = R;
+                            break;
+                        case "Cat":
+                            label = new LabelGatto();
+                            break;
+                        case "Fornello":
+                            label = F.get(new Posizione(i, j));
+                            break;
+                        case "Lavatrice":
+                            label = L.get(new Posizione(i, j));
+                            break;
+                        case "Rubinetto":
+                            label = rubinetto.get(new Posizione(i, j));
+                            break;
+                        default:
+                            label = new LabelSconosciuto();
+                            break;
+                    }
+
+                    this.map[i][j] = label;
+                    main.add(this.map[i][j]);
+                } else {
+                    this.map[i][j] = new LabelSconosciuto();
+                    main.add(this.map[i][j]);
+                }
+            }
         }
     }
 
-    @Override
-    public void updateLabelRobot(Direzione d){
-        this.R.setDir(d);
-    }
 
-    public synchronized void updateLabelFornello(Posizione p,boolean acceso) {
-        this.F.get(p).setAcceso(acceso);
-    }
 
-    @Override
-    public synchronized void updateLabelLavatrice(Posizione p,boolean rotta) {
-         this.L.get(p).setRotta(rotta);
-    }
 
-    @Override
-    public synchronized void updateLabelRubinetto(Posizione p,boolean rotto){
-        this.rubinetto.get(p).setRotto(rotto);
-    }
-
-    @Override
-    public void visible() {
-        this.setVisible(true);
-    }
 }

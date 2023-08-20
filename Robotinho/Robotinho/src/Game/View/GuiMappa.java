@@ -5,11 +5,10 @@ import Game.Model.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+
 import java.util.HashMap;
 
-public class GuiMappa extends JFrame implements VistaInterface, PropertyChangeListener {
+public class GuiMappa extends JFrame implements VistaInterface{
     private final JPanel main;
     private final JPanel buttons;
     private final JPanel infoCasella;
@@ -220,8 +219,5 @@ public class GuiMappa extends JFrame implements VistaInterface, PropertyChangeLi
     }
 
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
 
-    }
 }
