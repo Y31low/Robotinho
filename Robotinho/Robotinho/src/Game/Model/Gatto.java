@@ -18,7 +18,14 @@ public class Gatto extends Casella implements Movable {
         Direzione direzione = Direzione.randomDirection();
 
         Posizione p;
+        Casella successiva = getCasellaSuccessiva(m, direzione);
 
+        if(isPassable(m, successiva.getPosizione().getX(), successiva.getPosizione().getY())){
+            p = new Posizione(successiva.getPosizione().getX(), successiva.getPosizione().getY());
+            this.setPosizione(p);
+        }
+
+        /*
         switch(direzione){
             case North:
                 if(isPassable(m, this.getPosizione().getX()-1, this.getPosizione().getY())){
@@ -45,5 +52,6 @@ public class Gatto extends Casella implements Movable {
                 }
                 break;
         }
+        */
     }
 }

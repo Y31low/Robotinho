@@ -31,7 +31,6 @@ public class Robot extends Casella implements Movable{
         m[p.getX()][p.getY()+1].setVisibile(true);
     }
 
-
     @Override
     public void Avanza(Casella[][] m) throws IllegalMoveException{
         Posizione p;
@@ -42,56 +41,8 @@ public class Robot extends Casella implements Movable{
         }
         else{
             m[successiva.getPosizione().getX()][successiva.getPosizione().getY()].setVisibile(true);
-        }
-
-        switch (this.direzione) {
-            case North:
-                this.setDirezione(Direzione.North);
-                if (! isPassable(m, this.getPosizione().getX()-1, this.getPosizione().getY())){
-
-                }
-                else {
-                    m[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
-                    p = new Posizione(this.getPosizione().getX() - 1, this.getPosizione().getY());
-                    this.setPosizione(p);
-
-                }
-                break;
-            case West:
-                this.setDirezione(Direzione.West);
-                if (! isPassable(m, this.getPosizione().getX(), this.getPosizione().getY()-1)){
-                    throw new IllegalMoveException("BUMP");
-                }
-                else{
-                    m[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
-                    p = new Posizione(this.getPosizione().getX(), this.getPosizione().getY() - 1);
-                    this.setPosizione(p);
-                }
-                break;
-            case East:
-                this.setDirezione(Direzione.East);
-                if (! isPassable(m, this.getPosizione().getX(), this.getPosizione().getY()+1)){
-                    throw new IllegalMoveException("BUMP");
-                }
-                else{
-                    m[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
-                    p = new Posizione(this.getPosizione().getX(), this.getPosizione().getY() + 1);
-                    this.setPosizione(p);
-                }
-                break;
-            case South:
-                this.setDirezione(Direzione.South);
-                if (! isPassable(m, this.getPosizione().getX()+1, this.getPosizione().getY())){
-                    throw new IllegalMoveException("BUMP");
-                }
-                else {
-                    m[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
-                    p = new Posizione(this.getPosizione().getX() + 1, this.getPosizione().getY());
-                    this.setPosizione(p);
-                }
-                break;
-            default:
-                break;
+            p = new Posizione(successiva.getPosizione().getX(), successiva.getPosizione().getY());
+            this.setPosizione(p);
         }
         this.discover(m, this.getPosizione());
 

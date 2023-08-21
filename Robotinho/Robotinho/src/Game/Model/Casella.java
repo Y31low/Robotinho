@@ -13,7 +13,6 @@ public abstract class Casella {
     public Casella(int x,int y,boolean visibile){
         this.posizione= new Posizione(x, y);
         this.visibile=visibile;
-
     }
 
     public Casella getCasellaSuccessiva(Casella[][] m, Direzione direzione){

@@ -20,6 +20,13 @@ public class Rubinetto extends Casella implements Rompibile{
         Direzione direzione = Direzione.randomDirection();
         Posizione p;
         this.stato=true;
+        Casella successiva = getCasellaSuccessiva(m, direzione);
+
+        if(isPassable(m, successiva.getPosizione().getX(), successiva.getPosizione().getY())){
+            p = new Posizione(successiva.getPosizione().getX(), successiva.getPosizione().getY());
+            espandiPerdita(m, p, bagnato, direzione);
+        }
+        /*
         switch(direzione){
             case North:
                 if(isPassable(m, this.getPosizione().getX()-1, this.getPosizione().getY())){
@@ -46,6 +53,7 @@ public class Rubinetto extends Casella implements Rompibile{
                 }
                 break;
         }
+        */
     }
 
     @Override
@@ -72,8 +80,8 @@ public class Rubinetto extends Casella implements Rompibile{
                 }
             }
         }
-
     }
+
 
     public boolean isStato() {
         return stato;
