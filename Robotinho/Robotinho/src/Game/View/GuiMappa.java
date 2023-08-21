@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class GuiMappa extends Gui implements VistaInterface{
     public GuiMappa(Mappa m, HashMap<Posizione, StatoCasella> bagnato) throws HeadlessException {
-        super(m, bagnato);
+        super(m,bagnato);
         invisible();
     }
 
