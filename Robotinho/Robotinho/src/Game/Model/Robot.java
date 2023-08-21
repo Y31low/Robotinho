@@ -35,12 +35,20 @@ public class Robot extends Casella implements Movable{
     @Override
     public void Avanza(Casella[][] m) throws IllegalMoveException{
         Posizione p;
+        Casella successiva = getCasellaSuccessiva(m, direzione);
+
+        if(!isPassable(m, successiva.getPosizione().getX(), successiva.getPosizione().getY())){
+            throw new IllegalMoveException("BUMP");
+        }
+        else{
+            m[successiva.getPosizione().getX()][successiva.getPosizione().getY()].setVisibile(true);
+        }
 
         switch (this.direzione) {
             case North:
                 this.setDirezione(Direzione.North);
                 if (! isPassable(m, this.getPosizione().getX()-1, this.getPosizione().getY())){
-                    throw new IllegalMoveException("BUMP");
+
                 }
                 else {
                     m[this.getPosizione().getX()][this.getPosizione().getY()].setVisibile(true);
@@ -122,7 +130,6 @@ public class Robot extends Casella implements Movable{
                 this.setDirezione(Direzione.South);
                 break;
         }
-
     }
 
     public void Asciuga(HashMap<Posizione,StatoCasella> s) throws IllegalActionException{
@@ -130,7 +137,6 @@ public class Robot extends Casella implements Movable{
         if (!bagnato.getStato()) throw new IllegalActionException("La casella non è bagnata!");
         else
             bagnato.setStato(false);
-
     }
 
     public static class IllegalMoveException extends RuntimeException {
@@ -145,104 +151,30 @@ public class Robot extends Casella implements Movable{
         }
     }
 
-
-
-    public Posizione spegniFornello(Casella[][] m) throws IllegalActionException{
-        Posizione p=null;
+    public Posizione spegniFornello(Casella[][] m) throws IllegalActionException {
+        Posizione p = null;
         Fornello f;
-        switch (this.direzione){
-            case North:
-                if(m[this.getPosizione().getX()-1][this.getPosizione().getY()].tipo().equals("Fornello")){
-                   f=(Fornello) m[this.getPosizione().getX()-1][this.getPosizione().getY()];
-                   if (!f.getAcceso()){
-                       throw new IllegalActionException("E' gia' spento pirla!");
+        Casella c = getCasellaSuccessiva(m, direzione);
 
-                   }
-                   else{
-                       f.setAcceso(false);
-                       p= f.getPosizione();
-                   }
-                }
-                else {
-                    throw new IllegalActionException("Nessun fornello nella mia direzione!");
+        if(c.tipo().equals("Fornello")){
+            f = (Fornello) c;
+            if (!f.getAcceso()) {
+                throw new IllegalActionException("Il fornello e' gia spento!");
 
-                }
-                break;
-            case East:
-                if(m[this.getPosizione().getX()][this.getPosizione().getY()+1].tipo().equals("Fornello")){
-                    f = (Fornello)m[this.getPosizione().getX()][this.getPosizione().getY()+1];
-                    if(!f.getAcceso()){
-                        throw new IllegalActionException("E' già spento pirla");
-
-                    }
-                    else{
-                        f.setAcceso(false);
-                        p= f.getPosizione();
-                    }
-                }
-                else{
-                    throw new IllegalActionException("Nessun fornello nella mia direzione!");
-
-                }
-                break;
-            case South:
-                if(m[this.getPosizione().getX()+1][this.getPosizione().getY()].tipo().equals("Fornello")){
-                    f = (Fornello)m[this.getPosizione().getX()+1][this.getPosizione().getY()];
-                    if(!f.getAcceso()){
-                        throw new IllegalActionException("E' già spento pirla");
-
-                    }
-                    else{
-                        f.setAcceso(false);
-                        p= f.getPosizione();
-                    }
-                }
-                else{
-                    throw new IllegalActionException("Nessun fornello nella mia direzione!");
-
-                }
-                break;
-            case West:
-                if(m[this.getPosizione().getX()][this.getPosizione().getY()-1].tipo().equals("Fornello")){
-                    f = (Fornello)m[this.getPosizione().getX()][this.getPosizione().getY()-1];
-                    if(!f.getAcceso()){
-                        throw new IllegalActionException("E' già spento pirla");
-
-                    }
-                    else{
-                        f.setAcceso(false);
-                        p= f.getPosizione();
-                    }
-                }
-                else{
-                    throw new IllegalActionException("Nessun fornello nella mia direzione!");
-                }
-                break;
+            } else {
+                f.setAcceso(false);
+                p = f.getPosizione();
+            }
+        }
+        else {
+            throw new IllegalActionException("Nessun fornello nella mia direzione!");
         }
         return p;
     }
 
-    private Casella getCasellaSuccessiva(Casella[][] m){
-        Casella c = null;
-        switch(this.direzione){
-            case North:
-                c = m[this.getPosizione().getX()-1][this.getPosizione().getY()];
-                break;
-            case East:
-                c = m[this.getPosizione().getX()][this.getPosizione().getY()+1];
-                break;
-            case South:
-                c = m[this.getPosizione().getX()+1][this.getPosizione().getY()];
-                break;
-            case West:
-                c = m[this.getPosizione().getX()][this.getPosizione().getY()-1];
-                break;
-        }
-        return c;
-    }
     public Posizione interrompiLavatrice(Casella[][] m) throws IllegalActionException{
         Posizione p;
-        Casella successiva = getCasellaSuccessiva(m);
+        Casella successiva = getCasellaSuccessiva(m, direzione);
         Lavatrice l;
 
         if(successiva.tipo().equals("Lavatrice")){
@@ -263,7 +195,7 @@ public class Robot extends Casella implements Movable{
 
     public Posizione interrompiRubinetto(Casella[][] m) throws IllegalActionException{
         Posizione p;
-        Casella successiva = getCasellaSuccessiva(m);
+        Casella successiva = getCasellaSuccessiva(m, direzione);
         Rubinetto r;
 
         if(successiva.tipo().equals("Rubinetto")){

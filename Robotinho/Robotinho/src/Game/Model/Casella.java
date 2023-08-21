@@ -16,6 +16,25 @@ public abstract class Casella {
 
     }
 
+    public Casella getCasellaSuccessiva(Casella[][] m, Direzione direzione){
+        Casella c = null;
+        switch(direzione){
+            case North:
+                c = m[this.getPosizione().getX()-1][this.getPosizione().getY()];
+                break;
+            case East:
+                c = m[this.getPosizione().getX()][this.getPosizione().getY()+1];
+                break;
+            case South:
+                c = m[this.getPosizione().getX()+1][this.getPosizione().getY()];
+                break;
+            case West:
+                c = m[this.getPosizione().getX()][this.getPosizione().getY()-1];
+                break;
+        }
+        return c;
+    }
+
     public boolean isPassable(Casella[][] m, int x, int y) {
         return m[x][y].tipo().equals("Pavimento");
     }
