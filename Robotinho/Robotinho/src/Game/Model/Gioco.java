@@ -30,7 +30,7 @@ public class Gioco {
         this.lavatrice = this.mappa.getLavatrice();
         this.rubinetto = this.mappa.getRubinetto();
         this.fornello = this.mappa.getFornello();
-        this.statoCasella = this.mappa.getStatoPavimento();
+        this.statoCasella = this.mappa.getStatoMappa();
 
     }
 
@@ -58,7 +58,7 @@ public class Gioco {
         this.lavatrice = this.mappa.getLavatrice();
         this.rubinetto = this.mappa.getRubinetto();
         this.fornello = this.mappa.getFornello();
-        this.statoCasella = this.mappa.getStatoPavimento();
+        this.statoCasella = this.mappa.getStatoMappa();
 
     }
 

@@ -26,6 +26,7 @@ public class GuiGioco extends JFrame implements VistaInterface {
     private final JButton aggiustaLavatrice;
     private final JButton aggiustaRubinetto;
     private final JLabel statoCasella;
+    private final JButton visualizzaMappa;
 
     private JLabel[][] map;
 
@@ -40,7 +41,7 @@ public class GuiGioco extends JFrame implements VistaInterface {
         this.map = new JLabel[m.getDim()][m.getDim()];
         this.main = new JPanel();
 
-        StatoCasella stato = null;
+        StatoCasella stato;
 
         this.R = new LabelRobot();
         this.F = new HashMap<>();
@@ -100,6 +101,7 @@ public class GuiGioco extends JFrame implements VistaInterface {
         asciuga = new JButton("Asciuga");
         aggiustaLavatrice = new JButton("Aggiusta Lavatrice");
         aggiustaRubinetto=new JButton("Aggiusta Rubinetto");
+        visualizzaMappa=new JButton("Visualizza");
 
         this.add(main, BorderLayout.CENTER);
         buttons = new JPanel();
@@ -111,6 +113,7 @@ public class GuiGioco extends JFrame implements VistaInterface {
         buttons.add(asciuga);
         buttons.add(aggiustaLavatrice);
         buttons.add(aggiustaRubinetto);
+        buttons.add(visualizzaMappa);
         this.add(buttons, BorderLayout.SOUTH);
 
         this.infoCasella = new JPanel();
@@ -168,6 +171,7 @@ public class GuiGioco extends JFrame implements VistaInterface {
         this.aggiustaLavatrice.addActionListener(controller);
         this.aggiustaRubinetto.addActionListener(controller);
         this.spegni.addActionListener(controller);
+        this.visualizzaMappa.addActionListener(controller);
     }
 
     @Override

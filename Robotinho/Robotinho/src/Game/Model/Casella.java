@@ -36,4 +36,5 @@ public abstract class Casella {
     }
 
     public abstract String tipo();
+
 }

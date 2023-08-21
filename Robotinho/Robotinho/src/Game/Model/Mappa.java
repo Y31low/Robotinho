@@ -26,14 +26,14 @@ public class Mappa {
     private Fornello[] fornello;
 
 
-    private final HashMap<Posizione,StatoCasella> statoPavimento;
+    private final HashMap<Posizione,StatoCasella> statoMappa;
 
     private Casella[][] mappa;
 
     public Mappa() {
         this.N = 10;
         this.mappa = new Casella[this.N][this.N];
-        this.statoPavimento=new HashMap<>();
+        this.statoMappa =new HashMap<>();
 
     }
     public Mappa(int N,int N_LAVATRICI, int N_FORNELLI, int N_RUBINETTI ) {
@@ -42,7 +42,7 @@ public class Mappa {
         this.N_LAVATRICI=N_LAVATRICI;
         this.N_FORNELLI=N_FORNELLI;
         this.N_RUBINETTI=N_RUBINETTI;
-        this.statoPavimento=new HashMap<>();
+        this.statoMappa =new HashMap<>();
         this.lavatrice=new Lavatrice[N_LAVATRICI];
         this.rubinetto=new Rubinetto[N_RUBINETTI];
         this.fornello=new Fornello[N_FORNELLI];
@@ -56,8 +56,8 @@ public class Mappa {
                     this.mappa[i][j] = new Muro(i, j,true);
                 } else {
                     this.mappa[i][j] = new Pavimento(i, j, false);
-                    this.statoPavimento.put(new Posizione(i,j),new StatoCasella(new Posizione(i,j), false, false));
                 }
+                this.statoMappa.put(new Posizione(i,j),new StatoCasella(new Posizione(i,j), false, false));
             }
 
         }
@@ -91,17 +91,19 @@ public class Mappa {
         g = new Gatto(posizioneGatto.getX(), posizioneGatto.getY(), true);
         this.mappa[posizioneGatto.getX()][posizioneGatto.getY()] = g;
 
-        printMap();
+
     }
 
     public void aggiornaMappa() {
-        this.mappa[posizioneRobot.getX()][posizioneRobot.getY()] = new Pavimento(posizioneRobot.getX(), posizioneRobot.getY(), true);
-
+        statoMappa.get(new Posizione(posizioneRobot.getX() - 1, posizioneRobot.getY())).setVisibile(true);
+        statoMappa.get(new Posizione(posizioneRobot.getX() + 1, posizioneRobot.getY())).setVisibile(true);
+        statoMappa.get(new Posizione(posizioneRobot.getX(), posizioneRobot.getY() - 1)).setVisibile(true);
+        statoMappa.get(new Posizione(posizioneRobot.getX(), posizioneRobot.getY() + 1)).setVisibile(true);
+        this.mappa[posizioneRobot.getX()][posizioneRobot.getY()] = new Pavimento(posizioneRobot.getX(), posizioneRobot.getY(), statoMappa.get(posizioneRobot).isVisibile());
         posizioneRobot.setX(r.getPosizione().getX());
         posizioneRobot.setY(r.getPosizione().getY());
         this.mappa[posizioneRobot.getX()][posizioneRobot.getY()] = r;
-
-        this.mappa[posizioneGatto.getX()][posizioneGatto.getY()] = new Pavimento(posizioneGatto.getX(), posizioneGatto.getY(), false);
+        this.mappa[posizioneGatto.getX()][posizioneGatto.getY()] = new Pavimento(posizioneGatto.getX(), posizioneGatto.getY(),  statoMappa.get(posizioneGatto).isVisibile());
         posizioneGatto.setX(g.getPosizione().getX());
         posizioneGatto.setY(g.getPosizione().getY());
         this.mappa[posizioneGatto.getX()][posizioneGatto.getY()] = g;
@@ -119,8 +121,8 @@ public class Mappa {
        return this.r;
     }
 
-    public HashMap<Posizione,StatoCasella> getStatoPavimento() {
-        return statoPavimento;
+    public HashMap<Posizione,StatoCasella> getStatoMappa() {
+        return statoMappa;
     }
 
     public Gatto getGatto() {
@@ -140,14 +142,6 @@ public class Mappa {
     }
 
 
-        public void printMap(){
-            for (int i = 0; i < this.N; i++) {
-                for (int j = 0; j < this.N; j++) {
-                    System.out.print("|"+mappa[i][j].tipo()+"|");
-                }
-                System.out.println();
-            }
-        }
 
     public int getN_LAVATRICI() {
         return N_LAVATRICI;

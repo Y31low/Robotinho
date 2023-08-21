@@ -1,19 +1,13 @@
 package Game.Model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Robot extends Casella implements Movable{
-    //private Mappa m ;
+
     private Direzione direzione;
-
-    private int mosse;
-
-
     public Robot(int posizionex, int posizioney, boolean visibile, Direzione direzione) {
         super(posizionex, posizioney,visibile);
         this.direzione = direzione;
-        this.mosse=0;
         //c[p.getX()][p.getY()].setVisibile(true);
     }
 
@@ -92,7 +86,7 @@ public class Robot extends Casella implements Movable{
                 break;
         }
         this.discover(m, this.getPosizione());
-        this.mosse++;
+
     }
 
     public void giraSx() {
@@ -110,7 +104,7 @@ public class Robot extends Casella implements Movable{
                 this.setDirezione(Direzione.North);
                 break;
         }
-        this.mosse++;
+
     }
 
     public void giraDx() {
@@ -128,7 +122,7 @@ public class Robot extends Casella implements Movable{
                 this.setDirezione(Direzione.South);
                 break;
         }
-        this.mosse++;
+
     }
 
     public void Asciuga(HashMap<Posizione,StatoCasella> s) throws IllegalActionException{
@@ -136,7 +130,7 @@ public class Robot extends Casella implements Movable{
         if (!bagnato.getStato()) throw new IllegalActionException("La casella non è bagnata!");
         else
             bagnato.setStato(false);
-        this.mosse++;
+
     }
 
     public static class IllegalMoveException extends RuntimeException {
@@ -151,9 +145,7 @@ public class Robot extends Casella implements Movable{
         }
     }
 
-    public int getMosse() {
-        return mosse;
-    }
+
 
     public Posizione spegniFornello(Casella[][] m) throws IllegalActionException{
         Posizione p=null;
@@ -249,7 +241,7 @@ public class Robot extends Casella implements Movable{
         return c;
     }
     public Posizione interrompiLavatrice(Casella[][] m) throws IllegalActionException{
-        Posizione p=null;
+        Posizione p;
         Casella successiva = getCasellaSuccessiva(m);
         Lavatrice l;
 
@@ -270,7 +262,7 @@ public class Robot extends Casella implements Movable{
     }
 
     public Posizione interrompiRubinetto(Casella[][] m) throws IllegalActionException{
-        Posizione p=null;
+        Posizione p;
         Casella successiva = getCasellaSuccessiva(m);
         Rubinetto r;
 

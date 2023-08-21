@@ -4,6 +4,8 @@ import Game.Model.Gioco;
 import Game.Model.Posizione;
 import Game.Model.Robot;
 import Game.Model.ThreadTempo;
+import Game.View.GuiGioco;
+import Game.View.GuiMappa;
 import Game.View.VistaInterface;
 
 import java.awt.event.ActionEvent;
@@ -15,20 +17,21 @@ import java.util.HashSet;
 
 public class GameController implements ActionListener, PropertyChangeListener {
     private final Gioco g;
-    private final Collection<VistaInterface> views;
+    private final VistaInterface guiGioco;
+    private final VistaInterface guiMappa;
     private final ThreadTempo threadTempo;
 
-    public GameController(Gioco g, ThreadTempo threadTempo, VistaInterface... views) {
+    public GameController(Gioco g, ThreadTempo threadTempo, VistaInterface guiGioco,VistaInterface guiMappa) {
         this.g = g;
-        this.views = new HashSet<>();
         this.threadTempo = threadTempo;
-        for (VistaInterface view : views) {
-            this.views.add(view);
-            view.addController(this);
-            view.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
-        }
+        this.guiGioco=guiGioco;
+        this.guiMappa=guiMappa;
+        this.guiGioco.addController(this);
+        this.guiMappa.addController(this);
+        this.guiGioco.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
+        this.guiMappa.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
         threadTempo.addObserver(this);
-       threadTempo.start();
+        threadTempo.start();
     }
 
     @Override
@@ -38,60 +41,57 @@ public class GameController implements ActionListener, PropertyChangeListener {
                 try {
                     g.avanza();
                 } catch (Robot.IllegalMoveException exc) {
-                    for (VistaInterface view : views) {
-                        view.errore(exc.getMessage());
-                    }
+                    guiGioco.errore(exc.getMessage());
+                    guiMappa.errore(exc.getMessage());
                 }
                 break;
             case "Dx":
                 g.giraDx();
-                for (VistaInterface view : views) {
-                    view.updateLabelRobot(g.getRobot().getDirezione());
-                }
+
+                guiMappa.updateLabelRobot(g.getRobot().getDirezione());
+                guiGioco.updateLabelRobot(g.getRobot().getDirezione());
+
                 break;
             case "Sx":
                 g.giraSx();
-                for (VistaInterface view : views) {
-                    view.updateLabelRobot(g.getRobot().getDirezione());
-                }
+                guiMappa.updateLabelRobot(g.getRobot().getDirezione());
+                guiGioco.updateLabelRobot(g.getRobot().getDirezione());
                 break;
             case "Asciuga":
                 try {
                     g.asciuga();
                 } catch (Robot.IllegalActionException exc) {
-                    for (VistaInterface view : views) {
-                        view.errore(exc.getMessage());
-                    }
+                    guiGioco.errore(exc.getMessage());
+                    guiMappa.errore(exc.getMessage());
                 }
                 break;
             case "Spegni":
                 try {
                    Posizione p=g.spegniFornello();
                    if(p!=null){
-                       for (VistaInterface view : views) {
-                           view.updateLabelFornello(p,false);
-                       }
+
+                       guiMappa.updateLabelFornello(p,false);
+                       guiGioco.updateLabelFornello(p,false);
+
                    }
 
                 } catch (Robot.IllegalActionException exc) {
-                    for (VistaInterface view : views) {
-                        view.errore(exc.getMessage());
-                    }
+                    guiGioco.errore(exc.getMessage());
+                    guiMappa.errore(exc.getMessage());
                 }
                 break;
             case "Aggiusta Lavatrice": {
                 try {
                     Posizione p=g.aggiustaPerditaLavatrice();
                     if(p!=null){
-                        for (VistaInterface view : views) {
-                            view.updateLabelLavatrice(p,false);
-                        }
+                        guiGioco.updateLabelLavatrice(p,false);
+                        guiMappa.updateLabelLavatrice(p,false);
+
                     }
 
                 } catch (Robot.IllegalActionException exc) {
-                    for (VistaInterface view : views) {
-                        view.errore(exc.getMessage());
-                    }
+                    guiGioco.errore(exc.getMessage());
+                    guiMappa.errore(exc.getMessage());
                 }
             }
             break;
@@ -99,52 +99,58 @@ public class GameController implements ActionListener, PropertyChangeListener {
                 try {
                     Posizione p=g.aggiustaPerditaRubinetto();
                     if(p!=null){
-                        for (VistaInterface view : views) {
-                            view.updateLabelRubinetto(p,false);
-                        }
+                        guiGioco.updateLabelRubinetto(p,false);
+                        guiMappa.updateLabelRubinetto(p,false);
+
                     }
 
                 } catch (Robot.IllegalActionException exc) {
-                    for (VistaInterface view : views) {
-                        view.errore(exc.getMessage());
-                    }
+                    guiGioco.errore(exc.getMessage());
+                    guiMappa.errore(exc.getMessage());
                 }
                 break;
-
+            case "Visualizza":
+                guiMappa.visible();
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + e.getActionCommand());
         }
 
-        for (VistaInterface view : views) {
-            view.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
-            view.refresh(g.getMappa(), g.getStatoCasella());
-        }
+
+        guiMappa.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
+        guiMappa.refresh(g.getMappa(), g.getStatoCasella());
+        guiGioco.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
+        guiGioco.refresh(g.getMappa(), g.getStatoCasella());
+
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         Posizione p;
         if (evt.getPropertyName().equals("TimerRubinetto")) {
-            for (VistaInterface view : views) {
-                p=(Posizione) evt.getNewValue();
-                view.updateLabelRubinetto(p,true);
-                view.refresh(g.getMappa(), g.getStatoCasella());
-            }
+            p=(Posizione) evt.getNewValue();
+            guiGioco.updateLabelRubinetto(p,true);
+            guiMappa.updateLabelRubinetto(p,true);
+            guiGioco.refresh(g.getMappa(), g.getStatoCasella());
+            guiMappa.refresh(g.getMappa(), g.getStatoCasella());
+
         }
         if (evt.getPropertyName().equals("TimerLavatrice")) {
             p=(Posizione) evt.getNewValue();
-            for (VistaInterface view : views) {
-                view.updateLabelLavatrice(p,true);
-                view.refresh(g.getMappa(), g.getStatoCasella());
-            }
+            guiGioco.updateLabelLavatrice(p,true);
+            guiMappa.updateLabelLavatrice(p,true);
+            guiGioco.refresh(g.getMappa(), g.getStatoCasella());
+            guiMappa.refresh(g.getMappa(), g.getStatoCasella());
+
 
         }
         if (evt.getPropertyName().equals("TimerFornello")) {
             p=(Posizione) evt.getNewValue();
-            for (VistaInterface view : views) {
-                view.updateLabelFornello(p, true);
-                view.refresh(g.getMappa(), g.getStatoCasella());
-            }
+
+            guiGioco.updateLabelFornello(p, true);
+            guiMappa.updateLabelFornello(p, true);
+            guiGioco.refresh(g.getMappa(), g.getStatoCasella());
+            guiMappa.refresh(g.getMappa(), g.getStatoCasella());
         }
 
     }

@@ -10,9 +10,9 @@ public class Main {
         File f= new File("Robotinho/Robotinho/src/Livello/DimensioniLivello.txt");
         Gioco g= new Gioco(10);
         ThreadTempo threadTempo= new ThreadTempo(g);
-        g.getMappa().printMap();
-        GuiMappa u = new GuiMappa(g.getMappa(), g.getStatoCasella());
-        GuiGioco e = new GuiGioco(g.getMappa(), g.getStatoCasella());
-        GameController controller = new GameController(g, threadTempo, u, e);
+
+        GuiMappa guiMappa= new GuiMappa(g.getMappa(), g.getStatoCasella());
+        GuiGioco guiGioco = new GuiGioco(g.getMappa(), g.getStatoCasella());
+        GameController controller = new GameController(g, threadTempo, guiGioco, guiMappa);
     }
 }
