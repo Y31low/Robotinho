@@ -10,36 +10,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
-public class GuiGioco extends JFrame implements VistaInterface {
-    private final JPanel main;
-    private final JPanel buttons;
-    private final JPanel infoCasella;
-    private final JButton dx;
-    private final JButton sx;
-    private final LabelRobot R;
-    private final HashMap<Posizione, LabelFornello>F;
-    private final HashMap<Posizione,LabelLavatrice> L;
-    private final HashMap<Posizione,LabelRubinetto> rubinetto;
-    private final JButton avanza;
-    private final JButton spegni;
-    private final JButton asciuga;
-    private final JButton aggiustaLavatrice;
-    private final JButton aggiustaRubinetto;
-    private final JLabel statoCasella;
-    private final JButton visualizzaMappa;
+public class GuiGioco extends Gui implements VistaInterface {
 
-    private JLabel[][] map;
 
     public GuiGioco(Mappa m, HashMap<Posizione, StatoCasella> bagnato) throws HeadlessException {
 
-        super("Robotinho");
+        ("Robotinho");
         this.setSize(500, 500);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
         this.map = new JLabel[m.getDim()][m.getDim()];
-        this.main = new JPanel();
+        this.main = supernew JPanel();
 
         StatoCasella stato;
 
