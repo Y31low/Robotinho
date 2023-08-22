@@ -1,10 +1,7 @@
 package Game.View;
 
 import Game.Controller.GameController;
-import Game.Model.Direzione;
-import Game.Model.Mappa;
-import Game.Model.Posizione;
-import Game.Model.StatoCasella;
+import Game.Model.*;
 
 import javax.swing.*;
 import java.awt.*;

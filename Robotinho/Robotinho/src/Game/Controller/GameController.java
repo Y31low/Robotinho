@@ -4,16 +4,12 @@ import Game.Model.Gioco;
 import Game.Model.Posizione;
 import Game.Model.Robot;
 import Game.Model.ThreadTempo;
-import Game.View.GuiGioco;
-import Game.View.GuiMappa;
 import Game.View.VistaInterface;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Collection;
-import java.util.HashSet;
 
 public class GameController implements ActionListener, PropertyChangeListener {
     private final Gioco g;

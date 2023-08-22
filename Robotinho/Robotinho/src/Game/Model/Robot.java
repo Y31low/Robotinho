@@ -7,7 +7,6 @@ public class Robot extends Casella implements Movable{
     public Robot(int posizionex, int posizioney, boolean visibile, Direzione direzione) {
         super(posizionex, posizioney,visibile);
         this.direzione = direzione;
-        //c[p.getX()][p.getY()].setVisibile(true);
     }
 
     @Override

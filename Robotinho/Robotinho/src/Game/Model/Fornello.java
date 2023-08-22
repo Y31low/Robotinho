@@ -7,10 +7,6 @@ public class Fornello extends Casella{
         super(x, y,visibile);
         this.acceso = false;
     }
-    public Fornello(int x, int y,boolean visibile, Boolean acceso){
-        super(x, y,visibile);
-        this.acceso = acceso;
-    }
     @Override
     public String tipo() {
         return "Fornello";

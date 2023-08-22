@@ -9,7 +9,7 @@ public class Gatto extends Casella implements Movable {
     }
     @Override
     public String tipo() {
-        return "Cat";
+        return "Gatto";
     }
 
     @Override
