@@ -5,11 +5,11 @@ import java.util.HashMap;
 public class Rubinetto extends Casella implements Rompibile{
     private boolean stato;
 
-
     public Rubinetto(int posizionex, int posizioney,boolean visibile) {
         super(posizionex, posizioney,visibile);
         this.stato = false;
     }
+
     @Override
     public String tipo() {
         return "Rubinetto";
@@ -26,38 +26,9 @@ public class Rubinetto extends Casella implements Rompibile{
             p = new Posizione(successiva.getPosizione().getX(), successiva.getPosizione().getY());
             espandiPerdita(m, p, bagnato, direzione);
         }
-        /*
-        switch(direzione){
-            case North:
-                if(isPassable(m, this.getPosizione().getX()-1, this.getPosizione().getY())){
-                    p = new Posizione(this.getPosizione().getX()-1,this.getPosizione().getY());
-                    espandiPerdita(m, p, bagnato, direzione);
-                }
-                break;
-            case East:
-                if(isPassable(m, this.getPosizione().getX(), this.getPosizione().getY()+1)){
-                    p = new Posizione(this.getPosizione().getX(),this.getPosizione().getY()+1);
-                    espandiPerdita(m, p, bagnato, direzione);
-                }
-                break;
-            case South:
-                if(isPassable(m, this.getPosizione().getX()+1, this.getPosizione().getY())){
-                    p = new Posizione(this.getPosizione().getX()+1,this.getPosizione().getY());
-                    espandiPerdita(m, p, bagnato, direzione);
-                }
-                break;
-            case West:
-                if(isPassable(m, this.getPosizione().getX(), this.getPosizione().getY()-1)){
-                    p = new Posizione(this.getPosizione().getX(),this.getPosizione().getY()-1);
-                    espandiPerdita(m, p, bagnato, direzione);
-                }
-                break;
-        }
-        */
     }
 
     @Override
-    //Da mettere private
     public void espandiPerdita(Casella[][] m, Posizione p, HashMap<Posizione,StatoCasella> bagnato, Direzione dir) {
         if (m[p.getX()][p.getY()].tipo().equals("Pavimento")){
             if(!bagnato.get(p).getStato()){
@@ -81,7 +52,6 @@ public class Rubinetto extends Casella implements Rompibile{
             }
         }
     }
-
 
     public boolean isStato() {
         return stato;

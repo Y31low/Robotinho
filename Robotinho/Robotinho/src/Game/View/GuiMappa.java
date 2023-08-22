@@ -1,11 +1,7 @@
 package Game.View;
 
-import Game.Controller.GameController;
 import Game.Model.*;
-
-import javax.swing.*;
 import java.awt.*;
-
 import java.util.HashMap;
 
 public class GuiMappa extends Gui implements VistaInterface{

@@ -9,5 +9,4 @@ public class Pavimento extends Casella{
     public String tipo() {
         return "Pavimento";
     }
-
 }

@@ -116,12 +116,10 @@ public class GameController implements ActionListener, PropertyChangeListener {
                 throw new IllegalStateException("Unexpected value: " + e.getActionCommand());
         }
 
-
         guiMappa.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
         guiMappa.refresh(g.getMappa(), g.getStatoCasella());
         guiGioco.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
         guiGioco.refresh(g.getMappa(), g.getStatoCasella());
-
     }
 
     @Override
@@ -133,17 +131,16 @@ public class GameController implements ActionListener, PropertyChangeListener {
             guiMappa.updateLabelRubinetto(p,true);
             guiGioco.refresh(g.getMappa(), g.getStatoCasella());
             guiMappa.refresh(g.getMappa(), g.getStatoCasella());
-
         }
+
         if (evt.getPropertyName().equals("TimerLavatrice")) {
             p=(Posizione) evt.getNewValue();
             guiGioco.updateLabelLavatrice(p,true);
             guiMappa.updateLabelLavatrice(p,true);
             guiGioco.refresh(g.getMappa(), g.getStatoCasella());
             guiMappa.refresh(g.getMappa(), g.getStatoCasella());
-
-
         }
+
         if (evt.getPropertyName().equals("TimerFornello")) {
             p=(Posizione) evt.getNewValue();
 
@@ -152,6 +149,5 @@ public class GameController implements ActionListener, PropertyChangeListener {
             guiGioco.refresh(g.getMappa(), g.getStatoCasella());
             guiMappa.refresh(g.getMappa(), g.getStatoCasella());
         }
-
     }
 }

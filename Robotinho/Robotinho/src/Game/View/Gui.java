@@ -156,97 +156,96 @@ public Gui(Mappa m, HashMap<Posizione, StatoCasella> bagnato) throws HeadlessExc
             this.statoCasella.setText("Sei su una casella bagnata");
     }
 
-    public Label[][] updateMapLabels(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
-        boolean stato;
-        Label[][] mappa = new Label[m.getDim()][m.getDim()];
+    public Label selectLabel(Casella m, HashMap<Posizione, StatoCasella> bagnato){
         Label label;
+        boolean stato;
+
+        switch(m.tipo()){
+            case "Muro":
+                label = new LabelMuro();
+                break;
+            case "Pavimento":
+                stato = bagnato.get(new Posizione(m.getPosizione().getX(), m.getPosizione().getY())).getStato();
+                if (stato)
+                    label = new LabelBagnato();
+                else
+                    label = new LabelPavimento();
+                break;
+            case "Robot":
+                label = R;
+                break;
+            case "Gatto":
+                label = new LabelGatto();
+                break;
+            case "Fornello":
+                label = F.get(new Posizione(m.getPosizione().getX(), m.getPosizione().getY()));
+                break;
+            case "Lavatrice":
+                label = L.get(new Posizione(m.getPosizione().getX(), m.getPosizione().getY()));
+                break;
+            case "Rubinetto":
+                label = rubinetto.get(new Posizione(m.getPosizione().getX(), m.getPosizione().getY()));
+                break;
+            default:
+                label = new LabelSconosciuto();
+                break;
+        }
+
+        return label;
+    }
+
+    public Label[][] updateMapLabels(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
+        Label[][] mappa = new Label[m.getDim()][m.getDim()];
 
         for (int i = 0; i < mappa.length; i++) {
             for (int j = 0; j < mappa[i].length; j++) {
-
-                switch (m.getMappa()[i][j].tipo()) {
-                    case "Muro":
-                        label = new LabelMuro();
-                        break;
-                    case "Pavimento":
-                        stato = bagnato.get(new Posizione(i, j)).getStato();
-                        if (stato)
-                            label = new LabelBagnato();
-                        else
-                            label = new LabelPavimento();
-                        break;
-                    case "Robot":
-                        label = R;
-                        break;
-                    case "Cat":
-                        label = new LabelGatto();
-                        break;
-                    case "Fornello":
-                        label = F.get(new Posizione(i, j));
-                        break;
-                    case "Lavatrice":
-                        label = L.get(new Posizione(i, j));
-                        break;
-                    case "Rubinetto":
-                        label = rubinetto.get(new Posizione(i, j));
-                        break;
-                    default:
-                        label = new LabelSconosciuto();
-                        break;
-                }
-                mappa[i][j] = label;
-
+                mappa[i][j] = selectLabel(m.getMappa()[i][j], bagnato);
             }
         }
+
         return mappa;
     }
 
 
-public void creaMappa(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
-
-    StatoCasella stato;
-    for (int i = 0; i < m.getDim(); i++) {
-        for (int j = 0; j < m.getDim(); j++) {
-            switch (m.getMappa()[i][j].tipo()) {
-                case "Muro":
-                    this.map[i][j] = new LabelMuro();
-                    break;
-                case "Pavimento":
-                    stato = bagnato.get(new Posizione(i, j));
-                    if (stato != null) {
-                        if (stato.getStato())
-                            this.map[i][j] = new LabelBagnato();
-                        else
-                            this.map[i][j] = new LabelPavimento();
-                    }
-                    break;
-                case "Robot":
-                    this.map[i][j] = R;
-                    break;
-                case "Cat":
-                    this.map[i][j] = new LabelGatto();
-                    break;
-                case "Fornello":
-                    F.put(new Posizione(i,j),new LabelFornello());
-                    this.map[i][j] = F.get(new Posizione(i,j));
-                    break;
-                case "Lavatrice":
-                    L.put(new Posizione(i,j),new LabelLavatrice());
-                    this.map[i][j] = L.get(new Posizione(i,j));
-                    break;
-                case "Rubinetto":
-                    rubinetto.put(new Posizione(i,j),new LabelRubinetto());
-                    this.map[i][j] = rubinetto.get(new Posizione(i,j));
-                    break;
-                default:
-                    break;
+    public void creaMappa(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
+        StatoCasella stato;
+        for (int i = 0; i < m.getDim(); i++) {
+            for (int j = 0; j < m.getDim(); j++) {
+                switch (m.getMappa()[i][j].tipo()) {
+                    case "Muro":
+                        this.map[i][j] = new LabelMuro();
+                        break;
+                    case "Pavimento":
+                        stato = bagnato.get(new Posizione(i, j));
+                        if (stato != null) {
+                            if (stato.getStato())
+                                this.map[i][j] = new LabelBagnato();
+                            else
+                                this.map[i][j] = new LabelPavimento();
+                        }
+                        break;
+                    case "Robot":
+                        this.map[i][j] = R;
+                        break;
+                    case "Cat":
+                        this.map[i][j] = new LabelGatto();
+                        break;
+                    case "Fornello":
+                        F.put(new Posizione(i,j),new LabelFornello());
+                        this.map[i][j] = F.get(new Posizione(i,j));
+                        break;
+                    case "Lavatrice":
+                        L.put(new Posizione(i,j),new LabelLavatrice());
+                        this.map[i][j] = L.get(new Posizione(i,j));
+                        break;
+                    case "Rubinetto":
+                        rubinetto.put(new Posizione(i,j),new LabelRubinetto());
+                        this.map[i][j] = rubinetto.get(new Posizione(i,j));
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
-
-}
-
-
-
-
 }

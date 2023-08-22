@@ -3,7 +3,6 @@ package Game.Model;
 import java.util.HashMap;
 
 public class Robot extends Casella implements Movable{
-
     private Direzione direzione;
     public Robot(int posizionex, int posizioney, boolean visibile, Direzione direzione) {
         super(posizionex, posizioney,visibile);
@@ -63,7 +62,6 @@ public class Robot extends Casella implements Movable{
                 this.setDirezione(Direzione.North);
                 break;
         }
-
     }
 
     public void giraDx() {
@@ -103,7 +101,7 @@ public class Robot extends Casella implements Movable{
     }
 
     public Posizione spegniFornello(Casella[][] m) throws IllegalActionException {
-        Posizione p = null;
+        Posizione p;
         Fornello f;
         Casella c = getCasellaSuccessiva(m, direzione);
 
@@ -163,5 +161,4 @@ public class Robot extends Casella implements Movable{
         }
         return p;
     }
-
 }

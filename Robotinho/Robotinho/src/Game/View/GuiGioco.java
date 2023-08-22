@@ -5,15 +5,11 @@ import Game.Model.Direzione;
 import Game.Model.Mappa;
 import Game.Model.Posizione;
 import Game.Model.StatoCasella;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
-
-
 public class GuiGioco extends Gui implements VistaInterface {
-
     private final JButton visualizzaMappa;
 
     public GuiGioco(Mappa m, HashMap<Posizione, StatoCasella> bagnato) throws HeadlessException {
@@ -41,53 +37,19 @@ public class GuiGioco extends Gui implements VistaInterface {
 
     @Override
     public Label[][] updateMapLabels(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
-        boolean stato;
         Label[][] mappa = new Label[m.getDim()][m.getDim()];
 
         for (int i = 0; i < mappa.length; i++) {
             for (int j = 0; j < mappa[i].length; j++) {
                 if (m.getMappa()[i][j].isVisibile()) {
-                    Label label;
-
-                    switch (m.getMappa()[i][j].tipo()) {
-                        case "Muro":
-                            label = new LabelMuro();
-                            break;
-                        case "Pavimento":
-                            stato = bagnato.get(new Posizione(i, j)).getStato();
-                            if (stato)
-                                label = new LabelBagnato();
-                            else
-                                label = new LabelPavimento();
-                            break;
-                        case "Robot":
-                            label = R;
-                            break;
-                        case "Cat":
-                            label = new LabelGatto();
-                            break;
-                        case "Fornello":
-                            label = F.get(new Posizione(i, j));
-                            break;
-                        case "Lavatrice":
-                            label = L.get(new Posizione(i, j));
-                            break;
-                        case "Rubinetto":
-                            label = rubinetto.get(new Posizione(i, j));
-                            break;
-                        default:
-                            label = new LabelSconosciuto();
-                            break;
-                    }
-
-                    mappa[i][j] = label;
-                } else {
+                    mappa[i][j] = selectLabel(m.getMappa()[i][j], bagnato);
+                }
+                else {
                     mappa[i][j] = new LabelSconosciuto();
                 }
             }
         }
+
         return mappa;
     }
-
-
 }
