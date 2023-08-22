@@ -21,7 +21,8 @@ public class Gioco {
     private final int N_RUBINETTI=2;
 
     public Gioco(int N) {
-        this.mappa = new Mappa(10,N_LAVATRICI,N_FORNELLI,N_RUBINETTI);
+        this.N=N;
+        this.mappa = new Mappa(this.N,N_LAVATRICI,N_FORNELLI,N_RUBINETTI);
         this.mappa.inizializza();
         this.robot = this.mappa.getRobot();
         this.gatto = this.mappa.getGatto();
@@ -46,9 +47,8 @@ public class Gioco {
         for (int i = 0; i < size; i++) {
             n.append(in[i]);
         }
-        System.out.println(n);
-        int dimensione = Integer.parseInt(n.toString());
-        this.mappa = new Mappa(dimensione,N_LAVATRICI,N_FORNELLI,N_RUBINETTI);
+        this.N = Integer.parseInt(n.toString());
+        this.mappa = new Mappa(this.N,N_LAVATRICI,N_FORNELLI,N_RUBINETTI);
         this.mappa.inizializza();
         this.robot = this.mappa.getRobot();
         this.gatto = this.mappa.getGatto();
@@ -62,31 +62,32 @@ public class Gioco {
     public void avanza() {
         robot.Avanza(mappa.getMappa());
         gatto.Avanza(mappa.getMappa());
-        mappa.aggiornaMappa();
+        mappa.aggiornaRobot();
+        mappa.aggiornaGatto();
     }
 
     public void giraDx() {
         robot.giraDx();
         gatto.Avanza(mappa.getMappa());
-        mappa.aggiornaMappa();
+        mappa.aggiornaGatto();
     }
 
     public void giraSx() {
         robot.giraSx();
         gatto.Avanza(mappa.getMappa());
-        mappa.aggiornaMappa();
+        mappa.aggiornaGatto();
     }
 
     public void asciuga() {
         robot.Asciuga(this.statoCasella);
         gatto.Avanza(mappa.getMappa());
-        mappa.aggiornaMappa();
+        mappa.aggiornaGatto();
     }
 
     public Posizione spegniFornello() {
         Posizione p=robot.spegniFornello(mappa.getMappa());
         gatto.Avanza(mappa.getMappa());
-        mappa.aggiornaMappa();
+        mappa.aggiornaGatto();
         return p;
     }
 
