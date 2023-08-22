@@ -15,12 +15,10 @@ public class Gioco {
     private final Fornello[] fornello;
     private final Mappa mappa;
     private final HashMap<Posizione, StatoCasella> statoCasella;
-    private final int N = 10;//dimensione mappa
+    private final int N;//dimensione mappa
     private final int N_LAVATRICI=2;
     private final int N_FORNELLI=3;
     private final int N_RUBINETTI=2;
-
-
 
     public Gioco(int N) {
         this.mappa = new Mappa(10,N_LAVATRICI,N_FORNELLI,N_RUBINETTI);
@@ -31,7 +29,6 @@ public class Gioco {
         this.rubinetto = this.mappa.getRubinetto();
         this.fornello = this.mappa.getFornello();
         this.statoCasella = this.mappa.getStatoMappa();
-
     }
 
     public Gioco(File f) {

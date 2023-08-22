@@ -93,6 +93,18 @@ public class Mappa {
         }
     }
 
+    public void aggiornaRobot(){
+        statoMappa.get(new Posizione(posizioneRobot.getX() - 1, posizioneRobot.getY())).setVisibile(true);
+        statoMappa.get(new Posizione(posizioneRobot.getX() + 1, posizioneRobot.getY())).setVisibile(true);
+        statoMappa.get(new Posizione(posizioneRobot.getX(), posizioneRobot.getY() - 1)).setVisibile(true);
+        statoMappa.get(new Posizione(posizioneRobot.getX(), posizioneRobot.getY() + 1)).setVisibile(true);
+
+        this.mappa[posizioneRobot.getX()][posizioneRobot.getY()] = new Pavimento(posizioneRobot.getX(), posizioneRobot.getY(), statoMappa.get(posizioneRobot).isVisibile());
+        posizioneRobot.setX(r.getPosizione().getX());
+        posizioneRobot.setY(r.getPosizione().getY());
+        this.mappa[posizioneRobot.getX()][posizioneRobot.getY()] = r;
+    }
+
     public void aggiornaMappa() {
         statoMappa.get(new Posizione(posizioneRobot.getX() - 1, posizioneRobot.getY())).setVisibile(true);
         statoMappa.get(new Posizione(posizioneRobot.getX() + 1, posizioneRobot.getY())).setVisibile(true);
