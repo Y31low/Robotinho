@@ -14,9 +14,7 @@ public class Gatto extends Casella implements Movable {
 
     @Override
     public void Avanza(Casella[][] m) {
-
         Direzione direzione = Direzione.randomDirection();
-
         Posizione p;
         Casella successiva = getCasellaSuccessiva(m, direzione);
 
