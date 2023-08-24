@@ -23,6 +23,8 @@ class LavatriceTest {
                 m[i][j] = new Pavimento(i, j, true);
             }
         }
+        m[2][4] = l;
+
         stato.put(m[1][4].getPosizione(), new StatoCasella(new Posizione(1, 4), true, false));
         stato.put(m[3][4].getPosizione(), new StatoCasella(new Posizione(3, 4), true, false));
         stato.put(m[2][3].getPosizione(), new StatoCasella(new Posizione(2, 3), true, false));
