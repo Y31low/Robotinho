@@ -1,13 +1,10 @@
 package Test;
 
 import Game.Model.Casella;
-import Game.Model.Posizione;
 import Game.Model.Gatto;
 import Game.Model.Pavimento;
-import org.junit.Ignore;
+import Game.Model.Posizione;
 import org.junit.jupiter.api.Assertions;
-
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 class GattoTest {

@@ -35,7 +35,7 @@ class RubinettoTest {
 
     @org.junit.jupiter.api.Test
     void perdita() {
-        boolean perdita=false;
+        boolean perdita = false;
         r.perdita(m,stato);
         for (Map.Entry<Posizione, StatoCasella> entry : stato.entrySet()) {
             StatoCasella s = entry.getValue();

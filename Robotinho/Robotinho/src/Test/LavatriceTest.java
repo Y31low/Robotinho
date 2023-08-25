@@ -1,14 +1,11 @@
 package Test;
 
 import Game.Model.*;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class LavatriceTest {
     Lavatrice l;
