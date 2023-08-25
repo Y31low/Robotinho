@@ -72,6 +72,5 @@ class RubinettoTest {
         r.perdita(m,stato);
         r.interrompiPerdita();
         Assertions.assertFalse(r.isStato());
-
     }
 }
