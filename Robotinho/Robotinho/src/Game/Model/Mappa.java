@@ -31,7 +31,7 @@ public class Mappa {
         this.fornello=new Fornello[N_FORNELLI];
     }
 
-    protected void inizializza() {
+    public void inizializza() {
         for (int i = 0; i < this.N; i++) {
             for (int j = 0; j < this.N; j++) {
                 if (i == 0 || j == 0 || i == N - 1 || j == N - 1) {
