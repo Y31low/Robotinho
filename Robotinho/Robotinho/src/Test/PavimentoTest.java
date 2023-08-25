@@ -10,7 +10,7 @@ class PavimentoTest {
     Pavimento p;
     @BeforeEach
     void setup(){
-        p=new Pavimento(1,4,true);
+        p = new Pavimento(1,4,true);
     }
     @org.junit.jupiter.api.Test
     void tipo() {

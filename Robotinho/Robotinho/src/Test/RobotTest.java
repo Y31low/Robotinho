@@ -28,7 +28,7 @@ class RobotTest {
         }
         m[1][2] = r;
 
-        stato.put(m[2][2].getPosizione(), new StatoCasella(new Posizione(2, 2), true, false));
+        stato.put(m[2][2].getPosizione(), new StatoCasella(new Posizione(2, 2), true, true));
     }
     @org.junit.jupiter.api.Test
     void tipo() {

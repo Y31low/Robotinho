@@ -19,7 +19,7 @@ public class Lavatrice extends Casella implements Rompibile{
     public void perdita(Casella[][] m, HashMap<Posizione,StatoCasella> bagnato) {
         Direzione direzione = Direzione.randomDirection();
         Posizione p;
-        this.stato=true;
+        inizioPerdita(true);
         Casella successiva = getCasellaSuccessiva(m, direzione);
 
         if(isPassable(m, successiva.getPosizione().getX(), successiva.getPosizione().getY())){
@@ -60,5 +60,9 @@ public class Lavatrice extends Casella implements Rompibile{
     @Override
     public void interrompiPerdita() {
         this.stato = false;
+    }
+
+    public void inizioPerdita(boolean stato){
+        this.stato = stato;
     }
 }
