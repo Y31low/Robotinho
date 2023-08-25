@@ -46,7 +46,7 @@ class GattoTest {
         for (Posizione pos:p) {
             if (pos.equals(g.getPosizione())) move=true;
         }
-        Assertions.assertEquals(true,move);
+        Assertions.assertTrue(move);
 
     }
 }

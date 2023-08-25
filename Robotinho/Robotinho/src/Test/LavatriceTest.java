@@ -1,6 +1,7 @@
 package Test;
 
 import Game.Model.*;
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -40,24 +41,41 @@ class LavatriceTest {
         boolean perdita = false;
         l.perdita(m, stato);
         for (Map.Entry<Posizione, StatoCasella> entry : stato.entrySet()) {
-            Posizione p = entry.getKey();
             StatoCasella s = entry.getValue();
-            perdita = s.getStato();
+            if(s.getStato()){
+                perdita=true;
+                break;
+            }
         }
 
-        Assertions.assertEquals(true, perdita);
+        Assertions.assertTrue(perdita);
     }
 
     @org.junit.jupiter.api.Test
     void espandiPerdita() {
+        stato.put(m[0][4].getPosizione(), new StatoCasella(new Posizione(0, 4), false, false));
+        stato.get(m[1][4].getPosizione()).setStato(true);
+        Posizione p = m[1][4].getPosizione();
+        l.espandiPerdita(m, p, stato, Direzione.North);
+
+        Assertions.assertTrue(stato.get(m[0][4].getPosizione()).getStato());
     }
 
     @org.junit.jupiter.api.Test
-    void isStato() {
+    void lavatriceRotta() {
+        l.perdita(m, stato);
+        Assertions.assertTrue(l.isStato());
     }
 
     @org.junit.jupiter.api.Test
-    void interrompiPerdita() {
+    void lavatriceNonRotta(){
+        Assertions.assertFalse(l.isStato());
+    }
 
+    @org.junit.jupiter.api.Test
+    void interrompiPerditaLavatrice() {
+        l.perdita(m, stato);
+        l.interrompiPerdita();
+        Assertions.assertFalse(l.isStato());
     }
 }
