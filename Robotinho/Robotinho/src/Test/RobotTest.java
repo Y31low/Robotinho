@@ -1,5 +1,6 @@
 package Test;
 import Game.Model.Fornello;
+import Game.Model.StatoCasella;
 import Game.Model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -82,7 +83,7 @@ class RobotTest {
     void interrompiLavatrice() {
         l = new Lavatrice(2, 2, true);
         m[2][2] = l;
-        l.perdita(m, stato);
+        l.inizioPerdita(true);
         r.interrompiLavatrice(m);
         Assertions.assertFalse(l.isStato());
     }
@@ -91,7 +92,7 @@ class RobotTest {
     void interrompiRubinetto() {
         rubinetto = new Rubinetto(2, 2, true);
         m[2][2] = rubinetto;
-        rubinetto.perdita(m , stato);
+        rubinetto.inizioPerdita(true);
         r.interrompiRubinetto(m);
         Assertions.assertFalse(rubinetto.isStato());
     }
