@@ -147,6 +147,4 @@ public class Gioco {
     public HashMap<Posizione, StatoCasella> getStatoCasella() {
         return statoCasella;
     }
-
-    
 }

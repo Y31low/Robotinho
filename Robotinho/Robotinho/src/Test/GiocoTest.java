@@ -1,8 +1,24 @@
 package Test;
 
+import Game.Model.Gioco;
+import Game.Model.Posizione;
+import Game.Model.StatoCasella;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+
+import java.util.HashMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GiocoTest {
+    Gioco g;
+    HashMap<Posizione, StatoCasella> stato;
+
+    @BeforeEach
+    void setup(){
+        g = new Gioco(6);
+        stato=new HashMap<>();
+    }
 
     @org.junit.jupiter.api.Test
     void avanza() {
@@ -45,30 +61,12 @@ class GiocoTest {
     }
 
     @org.junit.jupiter.api.Test
-    void getRobot() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getGatto() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getLavatrice() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getRubinetto() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getFornello() {
-    }
-
-    @org.junit.jupiter.api.Test
     void getMappa() {
     }
 
     @org.junit.jupiter.api.Test
     void getStatoCasella() {
+        g.perdiAcquaLavatrice();
+        //Assertions.assertTrue(g.getStatoCasella());
     }
 }

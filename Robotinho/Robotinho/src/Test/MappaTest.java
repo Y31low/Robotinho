@@ -18,6 +18,7 @@ class MappaTest {
 
     @org.junit.jupiter.api.Test
     void getDim() {
+        Assertions.assertEquals(6, m.getDim());
     }
 
     @org.junit.jupiter.api.Test
