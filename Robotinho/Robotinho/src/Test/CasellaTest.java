@@ -67,10 +67,13 @@ class CasellaTest {
 
     @org.junit.jupiter.api.Test
     void isVisibile() {
+        Assertions.assertTrue(g.isVisibile());
     }
 
     @org.junit.jupiter.api.Test
     void setVisibile() {
+        r.setVisibile(false);
+        Assertions.assertFalse(r.isVisibile());
     }
 
     @org.junit.jupiter.api.Test
@@ -80,6 +83,10 @@ class CasellaTest {
 
     @org.junit.jupiter.api.Test
     void setPosizione() {
+        Posizione pos = r.getCasellaSuccessiva(c, Direzione.East).getPosizione();
+        Posizione pos2 = new Posizione(1, 2);
+        r.setPosizione(pos);
+        Assertions.assertEquals(pos2, r.getPosizione());
     }
 
     @org.junit.jupiter.api.Test

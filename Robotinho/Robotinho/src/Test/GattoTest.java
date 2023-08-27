@@ -44,7 +44,6 @@ class GattoTest {
             if (pos.equals(g.getPosizione())) move=true;
         }
         Assertions.assertTrue(move);
-
     }
 }
 

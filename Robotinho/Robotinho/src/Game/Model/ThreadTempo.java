@@ -54,5 +54,4 @@ public class ThreadTempo extends Thread{
     public void addObserver(PropertyChangeListener observer) {
         this.support.addPropertyChangeListener(observer);
     }
-
 }

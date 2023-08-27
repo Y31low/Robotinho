@@ -154,4 +154,36 @@ public class Mappa {
 
         return posRandom;
     }
+
+    public void setPosizioneRobot(Posizione posizioneRobot) {
+        this.posizioneRobot = posizioneRobot;
+    }
+
+    public void setPosizioneGatto(Posizione posizioneGatto) {
+        this.posizioneGatto = posizioneGatto;
+    }
+
+    public Posizione getPosizioneRobot() {
+        return posizioneRobot;
+    }
+
+    public Posizione getPosizioneGatto() {
+        return posizioneGatto;
+    }
+
+    public Robot getR() {
+        return r;
+    }
+
+    public Gatto getG() {
+        return g;
+    }
+
+    public void setR(Robot r) {
+        this.r = r;
+    }
+
+    public void setG(Gatto g) {
+        this.g = g;
+    }
 }
