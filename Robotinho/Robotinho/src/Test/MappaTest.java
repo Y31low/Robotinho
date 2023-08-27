@@ -15,25 +15,41 @@ class MappaTest {
     void setup(){
         m=new Mappa(6,1,2,2);
         m.inizializza();
+        this.inizializza();
     }
-    @org.junit.jupiter.api.Test
-    void inizializza() {
 
-        for (int i = 0; i <m.getDim(); i++) {
-            for (int j = 0; j < m.getDim(); j++) {
-                System.out.print(m.getMappa()[i][j].tipo()+" |");
+    void inizializza(){
+        for (int i = 0; i < 6;   i++) {
+            for (int j = 0; j < 6; j++) {
+                m.getMappa()[i][j]=new Pavimento(i,j,true);
+                m.getStatoMappa().put(new Posizione(i,j),new StatoCasella(new Posizione(i,j),false,false));
             }
-            System.out.println();
         }
     }
 
+
     @org.junit.jupiter.api.Test
     void aggiornaRobot() {
-        
+       Robot r = new Robot(1,2,true,Direzione.South);
+       m.setR(r);
+       m.setPosizioneRobot(r.getPosizione());
+       r.Avanza(m.getMappa());
+       m.aggiornaRobot();
+       Assertions.assertInstanceOf(Pavimento.class,m.getMappa()[1][2]);
+       Assertions.assertInstanceOf(Robot.class,m.getMappa()[2][2]);
+
     }
 
     @org.junit.jupiter.api.Test
     void aggiornaGatto() {
+        Gatto g = new Gatto(1,2,true);
+        m.setG(g);
+        m.setPosizioneGatto(g.getPosizione());
+        g.Avanza(m.getMappa());
+        m.aggiornaGatto();
+        Assertions.assertInstanceOf(Pavimento.class,m.getMappa()[1][2]);
+        Assertions.assertInstanceOf(Gatto.class,m.getMappa()[g.getPosizione().getX()][g.getPosizione().getY()]);
+
     }
 
     @org.junit.jupiter.api.Test
