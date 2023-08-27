@@ -123,7 +123,6 @@ public class Gioco {
         return robot;
     }
 
-
     public Gatto getGatto() {
         return gatto;
     }

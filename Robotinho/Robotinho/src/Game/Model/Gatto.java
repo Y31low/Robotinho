@@ -1,7 +1,5 @@
 package Game.Model;
 
-import java.util.HashMap;
-
 public class Gatto extends Casella implements Movable {
 
     public Gatto(int x, int y,boolean visibile){
