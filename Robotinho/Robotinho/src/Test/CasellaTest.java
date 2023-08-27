@@ -78,7 +78,8 @@ class CasellaTest {
 
     @org.junit.jupiter.api.Test
     void getPosizione() {
-
+        Posizione pos = new Posizione(1, 1);
+        Assertions.assertEquals( pos, r.getPosizione());
     }
 
     @org.junit.jupiter.api.Test
