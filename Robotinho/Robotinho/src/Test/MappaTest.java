@@ -29,7 +29,7 @@ class MappaTest {
 
     @org.junit.jupiter.api.Test
     void aggiornaRobot() {
-
+        
     }
 
     @org.junit.jupiter.api.Test

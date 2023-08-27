@@ -3,12 +3,9 @@ package Test;
 import Game.Model.Gioco;
 import Game.Model.Posizione;
 import Game.Model.StatoCasella;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.util.HashMap;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class GiocoTest {
     Gioco g;
