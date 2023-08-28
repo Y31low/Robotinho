@@ -27,7 +27,6 @@ public class GuiGioco extends Gui implements VistaInterface {
         visible();
     }
 
-
     @Override
     public void addController(GameController controller) {
         this.avanza.addActionListener(controller);
