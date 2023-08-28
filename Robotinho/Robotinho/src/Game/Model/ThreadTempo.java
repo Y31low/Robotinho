@@ -3,15 +3,29 @@ package Game.Model;
 import javax.swing.event.SwingPropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 
+/**
+ * @author Adil Lagzouli 20045391
+ * @author Samuele Giallorenzo 20045100
+ * @author Federico Mannisi 20045099
+ */
+
 public class ThreadTempo extends Thread{
     private final Gioco g;
     private final SwingPropertyChangeSupport support;
 
+    /**
+     * Costruttore per creare un nuovo oggetto ThreadTempo.
+     *
+     * @param g Rappresenta il gioco associato al thread.
+     */
     public ThreadTempo(Gioco g) {
         this.g = g;
         this.support=new SwingPropertyChangeSupport(this);
     }
 
+    /**
+     * Esegue il thread dedicato al controllo del tempo di gioco e alla gestione degli eventi periodici.
+     */
     @Override
     public void run() {
         super.run();
@@ -22,7 +36,6 @@ public class ThreadTempo extends Thread{
         Posizione lastPfornello=new Posizione(0,0);
         Posizione lastPlavatrice=new Posizione(0,0);
         Posizione lastPrubinetto=new Posizione(0,0);
-
 
         while (true) {
             long tempoLavatrice = (System.currentTimeMillis() - lasTimeLavatrice) / 1000;
@@ -51,6 +64,12 @@ public class ThreadTempo extends Thread{
             }
         }
     }
+
+    /**
+     * Aggiunge un osservatore per ricevere notifiche di cambiamenti temporizzati.
+     *
+     * @param observer L'osservatore da aggiungere.
+     */
     public void addObserver(PropertyChangeListener observer) {
         this.support.addPropertyChangeListener(observer);
     }

@@ -1,5 +1,11 @@
 package Game.Model;
 
+/**
+ * @author Adil Lagzouli 20045391
+ * @author Samuele Giallorenzo 20045100
+ * @author Federico Mannisi 20045099
+ */
+
 public class StatoCasella extends Casella{
     private boolean stato;
 
@@ -10,7 +16,6 @@ public class StatoCasella extends Casella{
      * @param visibile  Indica se la casella è visibile nella mappa.
      * @param stato     Indica lo stato associato alla casella.
      */
-
     public StatoCasella(Posizione posizione, boolean visibile, boolean stato) {
         super(posizione, visibile);
         this.stato = stato;
@@ -24,7 +29,6 @@ public class StatoCasella extends Casella{
      * @param visibile Indica se la casella è visibile nella mappa.
      * @param stato    Indica lo stato associato alla casella.
      */
-
     public StatoCasella(int x, int y, boolean visibile, boolean stato) {
         super(x, y, visibile);
         this.stato = stato;
@@ -35,7 +39,6 @@ public class StatoCasella extends Casella{
      *
      * @return lo stato associato alla casella.
      */
-
     public boolean getStato() {
         return stato;
     }
@@ -45,7 +48,6 @@ public class StatoCasella extends Casella{
      *
      * @param stato Il nuovo stato da impostare.
      */
-
     public void setStato(boolean stato) {
         this.stato = stato;
     }
@@ -55,7 +57,6 @@ public class StatoCasella extends Casella{
      *
      * @return la stringa "Stato Casella".
      */
-
     @Override
     public String tipo() {
         return "Stato Casella";

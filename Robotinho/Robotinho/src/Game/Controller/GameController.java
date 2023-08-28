@@ -11,6 +11,12 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * @author Adil Lagzouli 20045391
+ * @author Samuele Giallorenzo 20045100
+ * @author Federico Mannisi 20045099
+ */
+
 public class GameController implements ActionListener, PropertyChangeListener {
     private final Gioco g;
     private final VistaInterface guiGioco;

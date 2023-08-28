@@ -1,5 +1,11 @@
 package Game.Model;
 
+/**
+ * @author Adil Lagzouli 20045391
+ * @author Samuele Giallorenzo 20045100
+ * @author Federico Mannisi 20045099
+ */
+
 public class Muro extends Casella {
     //Il padre del gioco
     /**

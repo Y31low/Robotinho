@@ -1,9 +1,9 @@
 package Game.Model;
 
 /**
-     * @author Adil Lagzouli 20045391
-     * @author Samuele Giallorenzo 20045100
-     * @author Federico Mannisi 20045099
+ * @author Adil Lagzouli 20045391
+ * @author Samuele Giallorenzo 20045100
+ * @author Federico Mannisi 20045099
 */
 
 public abstract class Casella {
@@ -33,6 +33,7 @@ public abstract class Casella {
         this.posizione= new Posizione(x, y);
         this.visibile=visibile;
     }
+
     /**
      * Restituisce la casella successiva nella direzione specificata.
      *
@@ -67,8 +68,6 @@ public abstract class Casella {
      * @param y La coordinata Y della casella da verificare.
      * @return True se la casella è attraversabile, altrimenti false.
      */
-
-
     public boolean isPassable(Casella[][] m, int x, int y) {
         return m[x][y].tipo().equals("Pavimento");
     }
@@ -88,7 +87,6 @@ public abstract class Casella {
      *
      * @param visibile True se la casella deve essere visibile, altrimenti false.
      */
-
     public void setVisibile(boolean visibile) {
         this.visibile = visibile;
     }
@@ -97,7 +95,6 @@ public abstract class Casella {
      * Restituisce la posizione della casella.
      * @return La posizione della casella.
      */
-
     public Posizione getPosizione() {
         return posizione;
     }
@@ -117,5 +114,4 @@ public abstract class Casella {
      * @return Il tipo di casella, specificato dalle classi derivate.
      */
     public abstract String tipo();
-
 }

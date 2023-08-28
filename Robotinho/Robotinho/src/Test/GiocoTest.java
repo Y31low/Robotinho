@@ -4,8 +4,13 @@ import Game.Model.Gioco;
 import Game.Model.Posizione;
 import Game.Model.StatoCasella;
 import org.junit.jupiter.api.BeforeEach;
-
 import java.util.HashMap;
+
+/**
+ * @author Adil Lagzouli 20045391
+ * @author Samuele Giallorenzo 20045100
+ * @author Federico Mannisi 20045099
+ */
 
 class GiocoTest {
     Gioco g;

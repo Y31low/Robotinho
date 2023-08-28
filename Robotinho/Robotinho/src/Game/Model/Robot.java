@@ -2,6 +2,12 @@ package Game.Model;
 
 import java.util.HashMap;
 
+/**
+ * @author Adil Lagzouli 20045391
+ * @author Samuele Giallorenzo 20045100
+ * @author Federico Mannisi 20045099
+ */
+
 public class Robot extends Casella implements Movable{
     private Direzione direzione;
 

@@ -7,6 +7,12 @@ import Game.Model.Posizione;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
+/**
+ * @author Adil Lagzouli 20045391
+ * @author Samuele Giallorenzo 20045100
+ * @author Federico Mannisi 20045099
+ */
+
 class GattoTest {
     Gatto g;
     Casella[][] m;

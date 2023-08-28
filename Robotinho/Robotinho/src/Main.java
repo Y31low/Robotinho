@@ -6,6 +6,13 @@ import Game.View.GuiMappa;
 
 import java.io.File;
 
+/**
+ * @author Adil Lagzouli 20045391
+ * @author Samuele Giallorenzo 20045100
+ * @author Federico Mannisi 20045099
+ */
+
+
 public class Main {
     public static void main(String[] args) {
         File f = new File("Robotinho/Robotinho/src/Livello/DimensioniLivello.txt");

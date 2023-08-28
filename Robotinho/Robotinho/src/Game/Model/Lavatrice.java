@@ -1,5 +1,11 @@
 package Game.Model;
 
+/**
+ * @author Adil Lagzouli 20045391
+ * @author Samuele Giallorenzo 20045100
+ * @author Federico Mannisi 20045099
+ */
+
 public class Lavatrice extends ElementoRompibile {
 
     /**
@@ -9,7 +15,6 @@ public class Lavatrice extends ElementoRompibile {
      * @param posizioney Indica la coordinata Y della posizione della lavatrice.
      * @param visibile  Indica se la lavatrice è visibile nella mappa.
      */
-
     public Lavatrice(int posizionex, int posizioney,boolean visibile) {
         super(posizionex, posizioney,visibile);
 
