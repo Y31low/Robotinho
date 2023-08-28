@@ -22,6 +22,7 @@ public abstract class Casella {
         this.posizione=posizione;
         this.visibile= visibile;
     }
+
     /**
      * Crea una nuova istanza della classe Casella con le coordinate e lo stato di visibilità specificati.
      *
