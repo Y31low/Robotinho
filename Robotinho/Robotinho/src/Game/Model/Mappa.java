@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class Mappa {
     private final int N;
-    private Robot r;
+    private  Robot r;
     private Posizione posizioneRobot;
     private Posizione posizioneGatto;
     private Gatto g;
@@ -112,7 +112,8 @@ public class Mappa {
     }
 
     private void aggiornaElemento(Posizione posizioneElemento, Casella elemento) {
-        Posizione vecchiaPosizione = posizioneElemento;
+        Posizione vecchiaPosizione;
+        vecchiaPosizione = posizioneElemento;
         mappa[vecchiaPosizione.getX()][vecchiaPosizione.getY()] = new Pavimento(vecchiaPosizione.getX(), vecchiaPosizione.getY(), statoMappa.get(vecchiaPosizione).isVisibile());
 
         posizioneElemento.setX(elemento.getPosizione().getX());
@@ -247,9 +248,7 @@ public class Mappa {
      */
     public Posizione getPosizioneGatto() {
         return posizioneGatto;
-    }
-
-    /**
+    }    /**
      * Restituisce l'oggetto Robot presente sulla mappa.
      *
      * @return l'oggetto Robot presente sulla mappa.
