@@ -3,6 +3,12 @@ package Game.View;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author Adil Lagzouli 20045391
+ * @author Samuele Giallorenzo 20045100
+ * @author Federico Mannisi 20045099
+ */
+
 public class LabelLavatrice extends Label {
     public LabelLavatrice() {
         super("Robotinho/Robotinho/src/img/lavatrice.png");

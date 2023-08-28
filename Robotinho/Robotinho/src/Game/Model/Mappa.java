@@ -19,6 +19,14 @@ public class Mappa {
     private final HashMap<Posizione,StatoCasella> statoMappa;
     private final Casella[][] mappa;
 
+    /**
+     * Costruttore per la classe Mappa.
+     *
+     * @param N             Indica la dimensione della mappa.
+     * @param N_LAVATRICI   Indica il numero di lavatrici sulla mappa.
+     * @param N_FORNELLI    Indica il numero di fornelli sulla mappa.
+     * @param N_RUBINETTI   Indica il numero di rubinetti sulla mappa.
+     */
     public Mappa(int N, int N_LAVATRICI, int N_FORNELLI, int N_RUBINETTI ) {
         this.N = N;
         this.mappa = new Casella[this.N][this.N];
@@ -31,6 +39,9 @@ public class Mappa {
         this.fornello=new Fornello[N_FORNELLI];
     }
 
+    /**
+     * Inizializza la mappa con gli elementi robot, gatto, lavatrici, fornelli e rubinetti.
+     */
     public void inizializza() {
         for (int i = 0; i < this.N; i++) {
             for (int j = 0; j < this.N; j++) {
@@ -93,6 +104,9 @@ public class Mappa {
         }
     }
 
+    /**
+     * Aggiorna la posizione del robot sulla mappa.
+     */
     public void aggiornaRobot(){
         statoMappa.get(new Posizione(posizioneRobot.getX() - 1, posizioneRobot.getY())).setVisibile(true);
         statoMappa.get(new Posizione(posizioneRobot.getX() + 1, posizioneRobot.getY())).setVisibile(true);
@@ -105,6 +119,9 @@ public class Mappa {
         this.mappa[posizioneRobot.getX()][posizioneRobot.getY()] = r;
     }
 
+    /**
+     * Aggiorna la posizione del gatto sulla mappa.
+     */
     public void aggiornaGatto() {
         this.mappa[posizioneGatto.getX()][posizioneGatto.getY()] = new Pavimento(posizioneGatto.getX(), posizioneGatto.getY(),  statoMappa.get(posizioneGatto).isVisibile());
         posizioneGatto.setX(g.getPosizione().getX());
@@ -112,14 +129,29 @@ public class Mappa {
         this.mappa[posizioneGatto.getX()][posizioneGatto.getY()] = g;
     }
 
+    /**
+     * Restituisce la dimensione della mappa.
+     *
+     * @return la dimensione della mappa.
+     */
     public int getDim() {
         return N;
     }
 
+    /**
+     * Restituisce la matrice di caselle che compone la mappa.
+     *
+     * @return la matrice di caselle.
+     */
     public Casella[][] getMappa() {
         return mappa;
     }
 
+    /**
+     * Restituisce l'oggetto Robot sulla mappa.
+     *
+     * @return l'oggetto Robot sulla mappa.
+     */
     public Robot getRobot() {
        return this.r;
     }
@@ -128,18 +160,38 @@ public class Mappa {
         return statoMappa;
     }
 
+    /**
+     * Restituisce l'oggetto Gatto sulla mappa.
+     *
+     * @return l'oggetto Gatto sulla mappa.
+     */
     public Gatto getGatto() {
         return this.g;
     }
 
+    /**
+     * Restituisce l'array di tutte le lavatrici sulla mappa.
+     *
+     * @return l'array delle lavatrici.
+     */
     public Lavatrice[] getLavatrice() {
         return lavatrice;
     }
 
+    /**
+     * Restituisce l'array di tutti i rubinetti sulla mappa.
+     *
+     * @return l'array dei rubinetti.
+     */
     public Rubinetto[] getRubinetto() {
         return rubinetto;
     }
 
+    /**
+     * Restituisce l'array di tutti i fornelli sulla mappa.
+     *
+     * @return l'array dei fornelli.
+     */
     public Fornello[] getFornello() {
         return fornello;
     }
@@ -155,34 +207,74 @@ public class Mappa {
         return posRandom;
     }
 
+    /**
+     * Imposta la posizione del robot sulla mappa.
+     *
+     * @param posizioneRobot Indica la nuova posizione del robot sulla mappa.
+     */
     public void setPosizioneRobot(Posizione posizioneRobot) {
         this.posizioneRobot = posizioneRobot;
     }
 
+    /**
+     * Imposta la posizione del gatto sulla mappa.
+     *
+     * @param posizioneGatto Indica la nuova posizione del gatto sulla mappa.
+     */
     public void setPosizioneGatto(Posizione posizioneGatto) {
         this.posizioneGatto = posizioneGatto;
     }
 
+    /**
+     * Restituisce la posizione attuale del robot sulla mappa.
+     *
+     * @return la posizione attuale del robot sulla mappa.
+     */
     public Posizione getPosizioneRobot() {
         return posizioneRobot;
     }
 
+    /**
+     * Restituisce la posizione attuale del gatto sulla mappa.
+     *
+     * @return la posizione attuale del gatto sulla mappa.
+     */
     public Posizione getPosizioneGatto() {
         return posizioneGatto;
     }
 
+    /**
+     * Restituisce l'oggetto Robot presente sulla mappa.
+     *
+     * @return l'oggetto Robot presente sulla mappa.
+     */
     public Robot getR() {
         return r;
     }
 
+    /**
+     * Restituisce l'oggetto Gatto presente sulla mappa.
+     *
+     * @return L'oggetto Gatto presente sulla mappa.
+     */
     public Gatto getG() {
         return g;
     }
 
+    /**
+     * Imposta l'oggetto Robot sulla mappa.
+     *
+     * @param r Indica il nuovo oggetto Robot da impostare.
+     */
     public void setR(Robot r) {
         this.r = r;
     }
 
+    /**
+     * Imposta l'oggetto Gatto sulla mappa.
+     *
+     * @param g Indica il nuovo oggetto Gatto da impostare.
+     */
     public void setG(Gatto g) {
         this.g = g;
     }

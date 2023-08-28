@@ -113,6 +113,12 @@ public class Gioco {
         return robot.interrompiRubinetto(mappa.getMappa());
     }
 
+    /**
+     * Accendi un fornello sulla mappa
+     * e restituisce la posizione del fornello acceso.
+     *
+     * @return La posizione del fornello acceso.
+     */
     public Posizione accendiFornello() {
         int rnd = new Random().nextInt(this.fornello.length);
         this.fornello[rnd].setAcceso(true);

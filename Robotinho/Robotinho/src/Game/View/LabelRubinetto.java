@@ -3,6 +3,12 @@ package Game.View;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author Adil Lagzouli 20045391
+ * @author Samuele Giallorenzo 20045100
+ * @author Federico Mannisi 20045099
+ */
+
 public class LabelRubinetto extends Label {
     public LabelRubinetto() {
         super("Robotinho/Robotinho/src/img/rubinetto.png");

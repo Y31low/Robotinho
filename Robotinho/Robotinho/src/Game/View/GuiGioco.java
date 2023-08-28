@@ -8,6 +8,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+/**
+ * @author Adil Lagzouli 20045391
+ * @author Samuele Giallorenzo 20045100
+ * @author Federico Mannisi 20045099
+ */
+
 public class GuiGioco extends Gui implements VistaInterface {
     private final JButton visualizzaMappa;
 

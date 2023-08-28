@@ -8,6 +8,12 @@ import Game.Model.StatoCasella;
 
 import java.util.HashMap;
 
+/**
+ * @author Adil Lagzouli 20045391
+ * @author Samuele Giallorenzo 20045100
+ * @author Federico Mannisi 20045099
+ */
+
 public interface VistaInterface {
 
      void refresh(Mappa m, HashMap<Posizione,StatoCasella> bagnato);

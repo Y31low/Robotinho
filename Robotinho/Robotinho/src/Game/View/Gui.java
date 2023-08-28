@@ -7,6 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+/**
+ * @author Adil Lagzouli 20045391
+ * @author Samuele Giallorenzo 20045100
+ * @author Federico Mannisi 20045099
+ */
+
 public class Gui extends JFrame implements VistaInterface{
     protected JPanel main;
     protected JPanel buttons;
