@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
  */
 
 class DirezioneTest {
-
     Direzione[] direzioni;
 
     @BeforeEach

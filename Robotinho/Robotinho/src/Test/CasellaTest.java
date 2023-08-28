@@ -70,7 +70,6 @@ class CasellaTest {
         Assertions.assertTrue(g.isPassable(c, p.getX(), p.getY()));
     }
 
-
     @org.junit.jupiter.api.Test
     void isVisibile() {
         Assertions.assertTrue(g.isVisibile());
