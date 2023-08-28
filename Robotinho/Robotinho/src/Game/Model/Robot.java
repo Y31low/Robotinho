@@ -64,7 +64,6 @@ public class Robot extends Casella implements Movable {
         visibile.get(SOUTH).setVisibile(true);
         visibile.get(WEST).setVisibile(true);
         visibile.get(EAST).setVisibile(true);
-
     }
 
     /**
@@ -84,8 +83,6 @@ public class Robot extends Casella implements Movable {
             p = new Posizione(successiva.getPosizione().getX(), successiva.getPosizione().getY());
             this.setPosizione(p);
         }
-
-
     }
 
     /**

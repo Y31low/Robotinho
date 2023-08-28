@@ -14,7 +14,7 @@ public class LabelLavatrice extends Label {
         super("Robotinho/Robotinho/src/img/lavatrice.png");
     }
 
-    public void setRotta(boolean rotta){
+    protected void setRotta(boolean rotta){
         this.setIcon(null);
 
         if(!rotta)

@@ -14,7 +14,7 @@ public class LabelRubinetto extends Label {
         super("Robotinho/Robotinho/src/img/rubinetto.png");
     }
 
-    public void setRotto(boolean rotto){
+    protected void setRotto(boolean rotto){
         this.setIcon(null);
 
         if(!rotto)

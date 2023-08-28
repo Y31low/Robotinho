@@ -29,10 +29,7 @@ public class Gui extends JFrame implements VistaInterface{
     protected JButton aggiustaRubinetto;
     protected JLabel statoCasella;
     protected JPanel infoCasella;
-
     protected JLabel[][] map;
-
-
 
 public Gui(Mappa m, HashMap<Posizione, StatoCasella> bagnato) throws HeadlessException {
         super("Robotinho");

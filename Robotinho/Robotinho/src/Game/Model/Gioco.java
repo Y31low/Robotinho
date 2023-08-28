@@ -72,7 +72,6 @@ public class Gioco {
         this.rubinetto = this.mappa.getRubinetto();
         this.fornello = this.mappa.getFornello();
         this.statoCasella = this.mappa.getStatoMappa();
-
     }
 
     /**
@@ -145,7 +144,7 @@ public class Gioco {
      *
      * @return La posizione del rubinetto colpito dalla perdita d'acqua.
      */
-    public Posizione perdiAcquaRubinetto() {
+    protected Posizione perdiAcquaRubinetto() {
         int rnd = new Random().nextInt(this.rubinetto.length);
         this.rubinetto[rnd].perdita(mappa.getMappa(), statoCasella);
         return this.rubinetto[rnd].getPosizione();
@@ -177,7 +176,7 @@ public class Gioco {
      *
      * @return La posizione del fornello acceso.
      */
-    public Posizione accendiFornello() {
+    protected Posizione accendiFornello() {
         int rnd = new Random().nextInt(this.fornello.length);
         this.fornello[rnd].setAcceso(true);
         return this.fornello[rnd].getPosizione();

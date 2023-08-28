@@ -14,7 +14,7 @@ public class LabelFornello extends Label {
         super("Robotinho/Robotinho/src/img/fornello.png");
     }
 
-    public void setAcceso(boolean acceso){
+    protected void setAcceso(boolean acceso){
         this.setIcon(null);
 
         if(acceso)

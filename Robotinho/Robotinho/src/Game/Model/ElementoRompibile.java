@@ -41,7 +41,7 @@ public class ElementoRompibile extends Casella implements Rompibile{
      */
     @Override
     public String tipo() {
-        return "Elememento rompibile";
+        return "Elemento rompibile";
     }
 
     /**
