@@ -144,7 +144,7 @@ public class Gioco {
      *
      * @return La posizione del rubinetto colpito dalla perdita d'acqua.
      */
-    protected Posizione perdiAcquaRubinetto() {
+    public Posizione perdiAcquaRubinetto() {
         int rnd = new Random().nextInt(this.rubinetto.length);
         this.rubinetto[rnd].perdita(mappa.getMappa(), statoCasella);
         return this.rubinetto[rnd].getPosizione();
