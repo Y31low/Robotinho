@@ -88,7 +88,6 @@ public class Mappa {
             posizioneRubinetto = randomPos();
             this.rubinetto[i] = new Rubinetto(posizioneRubinetto.getX(), posizioneRubinetto.getY(), false);
             this.mappa[posizioneRubinetto.getX()][posizioneRubinetto.getY()] = rubinetto[i];
-
         }
     }
 
@@ -111,6 +110,7 @@ public class Mappa {
             this.mappa[posizioneLavatrice.getX()][posizioneLavatrice.getY()] = lavatrice[i];
         }
     }
+
     private void aggiornaElemento(Posizione posizioneElemento, Casella elemento) {
         Posizione vecchiaPosizione = posizioneElemento;
         mappa[vecchiaPosizione.getX()][vecchiaPosizione.getY()] = new Pavimento(vecchiaPosizione.getX(), vecchiaPosizione.getY(), statoMappa.get(vecchiaPosizione).isVisibile());

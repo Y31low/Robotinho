@@ -17,7 +17,7 @@ class CasellaTest {
 
     @BeforeEach
     public void setup() {
-        g = new Gatto(3, 5, true);
+        g = new Gatto(3, 4, true);
         r = new Robot(1, 1, true, Direzione.South);
         c = new Casella[6][6];
         for (int i = 0; i < 6; i++) {
@@ -25,28 +25,28 @@ class CasellaTest {
                 c[i][j] = new Pavimento(i, j, true);
             }
         }
-        c[3][5] = g;
+        c[3][4] = g;
     }
 
     @org.junit.jupiter.api.Test
     void getCasellaNorth() {
-        Posizione p = new Posizione(2, 5);
+        Posizione p = new Posizione(2, 4);
         Assertions.assertEquals(g.getCasellaSuccessiva(c, Direzione.North).getPosizione(), p);
     }
     @org.junit.jupiter.api.Test
     void getCasellaSouth() {
-        Posizione p = new Posizione(4, 5);
+        Posizione p = new Posizione(4, 4);
         Assertions.assertEquals(g.getCasellaSuccessiva(c, Direzione.South).getPosizione(), p);
     }
     @org.junit.jupiter.api.Test
     void getCasellaWest() {
-        Posizione p = new Posizione(3, 4);
-        Assertions.assertEquals(g.getCasellaSuccessiva(c, Direzione.South).getPosizione(), p);
+        Posizione p = new Posizione(3, 3);
+        Assertions.assertEquals(g.getCasellaSuccessiva(c, Direzione.West).getPosizione(), p);
     }
     @org.junit.jupiter.api.Test
     void getCasellaEast() {
         Posizione p = new Posizione(3, 5);
-        Assertions.assertEquals(g.getCasellaSuccessiva(c, Direzione.South).getPosizione(), p);
+        Assertions.assertEquals(g.getCasellaSuccessiva(c, Direzione.East).getPosizione(), p);
     }
 
     @org.junit.jupiter.api.Test
