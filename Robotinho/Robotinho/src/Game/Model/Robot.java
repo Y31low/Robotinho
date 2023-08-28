@@ -8,7 +8,7 @@ import java.util.HashMap;
  * @author Federico Mannisi 20045099
  */
 
-public class Robot extends Casella implements Movable{
+public class Robot extends Casella implements Movable {
     private Direzione direzione;
 
     /**
@@ -20,7 +20,7 @@ public class Robot extends Casella implements Movable{
      * @param direzione  Indica la direzione iniziale del robot.
      */
     public Robot(int posizionex, int posizioney, boolean visibile, Direzione direzione) {
-        super(posizionex, posizioney,visibile);
+        super(posizionex, posizioney, visibile);
         this.direzione = direzione;
     }
 
@@ -52,11 +52,19 @@ public class Robot extends Casella implements Movable{
         return direzione;
     }
 
-    private void discover(Casella[][] m, Posizione p) {
-        m[p.getX()-1][p.getY()].setVisibile(true);
-        m[p.getX()+1][p.getY()].setVisibile(true);
-        m[p.getX()][p.getY()-1].setVisibile(true);
-        m[p.getX()][p.getY()+1].setVisibile(true);
+    public void discover(HashMap<Posizione, StatoCasella> visibile) {
+        Posizione ATTUALE = new Posizione(this.getPosizione().getX(), this.getPosizione().getY());
+        Posizione NORTH = new Posizione(this.getPosizione().getX(), this.getPosizione().getY() - 1);
+        Posizione SOUTH = new Posizione(this.getPosizione().getX(), this.getPosizione().getY() + 1);
+        Posizione WEST = new Posizione(this.getPosizione().getX() - 1, this.getPosizione().getY());
+        Posizione EAST = new Posizione(this.getPosizione().getX() + 1, this.getPosizione().getY());
+
+        visibile.get(ATTUALE).setVisibile(true);
+        visibile.get(NORTH).setVisibile(true);
+        visibile.get(SOUTH).setVisibile(true);
+        visibile.get(WEST).setVisibile(true);
+        visibile.get(EAST).setVisibile(true);
+
     }
 
     /**
@@ -66,19 +74,17 @@ public class Robot extends Casella implements Movable{
      * @throws IllegalMoveException Se il movimento non è consentito.
      */
     @Override
-    public void Avanza(Casella[][] m) throws IllegalMoveException{
+    public void Avanza(Casella[][] m) throws IllegalMoveException {
         Posizione p;
         Casella successiva = getCasellaSuccessiva(m, direzione);
 
-        if(!isPassable(m, successiva.getPosizione().getX(), successiva.getPosizione().getY())){
+        if (!isPassable(m, successiva.getPosizione().getX(), successiva.getPosizione().getY())) {
             throw new IllegalMoveException("BUMP");
-        }
-        else{
-            m[successiva.getPosizione().getX()][successiva.getPosizione().getY()].setVisibile(true);
+        } else {
             p = new Posizione(successiva.getPosizione().getX(), successiva.getPosizione().getY());
             this.setPosizione(p);
         }
-        this.discover(m, this.getPosizione());
+
 
     }
 
@@ -128,8 +134,8 @@ public class Robot extends Casella implements Movable{
      * @param s Mappa delle posizioni delle caselle con lo stato.
      * @throws IllegalActionException Se l'azione non è consentita.
      */
-    public void Asciuga(HashMap<Posizione,StatoCasella> s) throws IllegalActionException{
-        StatoCasella bagnato=s.get(this.getPosizione());
+    public void Asciuga(HashMap<Posizione, StatoCasella> s) throws IllegalActionException {
+        StatoCasella bagnato = s.get(this.getPosizione());
         if (!bagnato.getStato()) throw new IllegalActionException("La casella non è bagnata!");
         else
             bagnato.setStato(false);
@@ -165,7 +171,7 @@ public class Robot extends Casella implements Movable{
         Fornello f;
         Casella c = getCasellaSuccessiva(m, direzione);
 
-        if(c.tipo().equals("Fornello")){
+        if (c.tipo().equals("Fornello")) {
             f = (Fornello) c;
             if (!f.getAcceso()) {
                 throw new IllegalActionException("Il fornello e' gia spento!");
@@ -174,8 +180,7 @@ public class Robot extends Casella implements Movable{
                 f.setAcceso(false);
                 p = f.getPosizione();
             }
-        }
-        else {
+        } else {
             throw new IllegalActionException("Nessun fornello nella mia direzione!");
         }
         return p;
@@ -188,22 +193,20 @@ public class Robot extends Casella implements Movable{
      * @return la posizione della lavatrice interrotta.
      * @throws IllegalActionException Se l'azione non è consentita.
      */
-    public Posizione interrompiLavatrice(Casella[][] m) throws IllegalActionException{
+    public Posizione interrompiLavatrice(Casella[][] m) throws IllegalActionException {
         Posizione p;
         Casella successiva = getCasellaSuccessiva(m, direzione);
         Lavatrice l;
 
-        if(successiva.tipo().equals("Lavatrice")){
-            l=(Lavatrice) successiva;
-            if (!l.isStato()){
+        if (successiva.tipo().equals("Lavatrice")) {
+            l = (Lavatrice) successiva;
+            if (!l.isStato()) {
                 throw new IllegalActionException("La lavatrice non è rotta!");
-            }
-            else{
+            } else {
                 l.interrompiPerdita();
-                p=l.getPosizione();
+                p = l.getPosizione();
             }
-        }
-        else {
+        } else {
             throw new IllegalActionException("Nessuna lavatrice nella mia direzione!");
         }
         return p;
@@ -216,21 +219,20 @@ public class Robot extends Casella implements Movable{
      * @return la posizione del rubinetto interrotto.
      * @throws IllegalActionException Se l'azione non è consentita.
      */
-    public Posizione interrompiRubinetto(Casella[][] m) throws IllegalActionException{
+    public Posizione interrompiRubinetto(Casella[][] m) throws IllegalActionException {
         Posizione p;
         Casella successiva = getCasellaSuccessiva(m, direzione);
         Rubinetto r;
 
-        if(successiva.tipo().equals("Rubinetto")){
-            r=(Rubinetto) successiva;
-            if (!r.isStato()){
+        if (successiva.tipo().equals("Rubinetto")) {
+            r = (Rubinetto) successiva;
+            if (!r.isStato()) {
                 throw new IllegalActionException("Il rubinetto non è rotto!");
-            }
-            else{
+            } else {
                 r.interrompiPerdita();
-                p=r.getPosizione();           }
-        }
-        else {
+                p = r.getPosizione();
+            }
+        } else {
             throw new IllegalActionException("Nessun rubinetto nella mia direzione!");
         }
         return p;

@@ -55,7 +55,7 @@ public class Mappa {
                 } else {
                     this.mappa[i][j] = new Pavimento(i, j, false);
                 }
-                this.statoMappa.put(new Posizione(i,j),new StatoCasella(new Posizione(i,j), false, false));
+                this.statoMappa.put(new Posizione(i,j),new StatoCasella(new Posizione(i,j), this.mappa[i][j].isVisibile(), false));
             }
         }
 
@@ -70,7 +70,9 @@ public class Mappa {
         posizioneRobot = randomPos();
         this.r = new Robot(posizioneRobot.getX(), posizioneRobot.getY(), true, Direzione.South);
         this.mappa[posizioneRobot.getX()][posizioneRobot.getY()] = r;
-        this.mappa[posizioneRobot.getX()][posizioneRobot.getY()].setVisibile(true);
+
+        statoMappa.get(new Posizione(posizioneRobot.getX(), posizioneRobot.getY())).setVisibile(true);
+
     }
 
     private void generaGatto() {
@@ -86,6 +88,7 @@ public class Mappa {
             posizioneRubinetto = randomPos();
             this.rubinetto[i] = new Rubinetto(posizioneRubinetto.getX(), posizioneRubinetto.getY(), false);
             this.mappa[posizioneRubinetto.getX()][posizioneRubinetto.getY()] = rubinetto[i];
+
         }
     }
 
@@ -108,30 +111,28 @@ public class Mappa {
             this.mappa[posizioneLavatrice.getX()][posizioneLavatrice.getY()] = lavatrice[i];
         }
     }
+    private void aggiornaElemento(Posizione posizioneElemento, Casella elemento) {
+        Posizione vecchiaPosizione = posizioneElemento;
+        mappa[vecchiaPosizione.getX()][vecchiaPosizione.getY()] = new Pavimento(vecchiaPosizione.getX(), vecchiaPosizione.getY(), statoMappa.get(vecchiaPosizione).isVisibile());
+
+        posizioneElemento.setX(elemento.getPosizione().getX());
+        posizioneElemento.setY(elemento.getPosizione().getY());
+
+        mappa[posizioneElemento.getX()][posizioneElemento.getY()] = elemento;
+    }
 
     /**
      * Aggiorna la posizione del robot sulla mappa.
      */
     public void aggiornaRobot(){
-        statoMappa.get(new Posizione(posizioneRobot.getX() - 1, posizioneRobot.getY())).setVisibile(true);
-        statoMappa.get(new Posizione(posizioneRobot.getX() + 1, posizioneRobot.getY())).setVisibile(true);
-        statoMappa.get(new Posizione(posizioneRobot.getX(), posizioneRobot.getY() - 1)).setVisibile(true);
-        statoMappa.get(new Posizione(posizioneRobot.getX(), posizioneRobot.getY() + 1)).setVisibile(true);
-
-        this.mappa[posizioneRobot.getX()][posizioneRobot.getY()] = new Pavimento(posizioneRobot.getX(), posizioneRobot.getY(), statoMappa.get(posizioneRobot).isVisibile());
-        posizioneRobot.setX(r.getPosizione().getX());
-        posizioneRobot.setY(r.getPosizione().getY());
-        this.mappa[posizioneRobot.getX()][posizioneRobot.getY()] = r;
+        aggiornaElemento(this.posizioneRobot,this.r);
     }
 
     /**
      * Aggiorna la posizione del gatto sulla mappa.
      */
     public void aggiornaGatto() {
-        this.mappa[posizioneGatto.getX()][posizioneGatto.getY()] = new Pavimento(posizioneGatto.getX(), posizioneGatto.getY(),  statoMappa.get(posizioneGatto).isVisibile());
-        posizioneGatto.setX(g.getPosizione().getX());
-        posizioneGatto.setY(g.getPosizione().getY());
-        this.mappa[posizioneGatto.getX()][posizioneGatto.getY()] = g;
+        aggiornaElemento(this.posizioneGatto,this.g);
     }
 
     /**

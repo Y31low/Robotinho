@@ -46,7 +46,7 @@ public class GuiGioco extends Gui implements VistaInterface {
 
         for (int i = 0; i < mappa.length; i++) {
             for (int j = 0; j < mappa[i].length; j++) {
-                if (m.getMappa()[i][j].isVisibile()) {
+                if (bagnato.get(new Posizione(i,j)).isVisibile() || m.getMappa()[i][j].tipo().equals("Gatto") ) {
                     mappa[i][j] = selectLabel(m.getMappa()[i][j], bagnato);
                 }
                 else {

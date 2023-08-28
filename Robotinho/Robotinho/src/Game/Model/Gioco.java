@@ -82,6 +82,7 @@ public class Gioco {
      */
     public void avanza() {
         robot.Avanza(mappa.getMappa());
+        robot.discover(mappa.getStatoMappa());
         gatto.Avanza(mappa.getMappa());
         mappa.aggiornaRobot();
         mappa.aggiornaGatto();
