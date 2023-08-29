@@ -84,7 +84,7 @@ public abstract class Casella {
     }
 
     /**
-     * Cambia la visibilit&agrave di una classe secondo il parametro passato
+     * Cambia la visibilit&agrave di una casella secondo il parametro passato
      *
      * @param visibile True se la casella deve essere visibile, altrimenti false.
      */
