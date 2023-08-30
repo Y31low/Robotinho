@@ -42,6 +42,7 @@ public class Mappa {
         this.lavatrice=new Lavatrice[N_LAVATRICI];
         this.rubinetto=new Rubinetto[N_RUBINETTI];
         this.fornello=new Fornello[N_FORNELLI];
+        this.inizializza();
     }
 
     /**

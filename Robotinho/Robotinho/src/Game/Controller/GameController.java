@@ -1,9 +1,6 @@
 package Game.Controller;
 
-import Game.Model.Gioco;
-import Game.Model.Posizione;
-import Game.Model.Robot;
-import Game.Model.ThreadTempo;
+import Game.Model.*;
 import Game.View.VistaInterface;
 
 import java.awt.event.ActionEvent;
@@ -18,20 +15,25 @@ import java.beans.PropertyChangeListener;
  */
 
 public class GameController implements ActionListener, PropertyChangeListener {
-    private final Gioco g;
+
+    private final Mappa m;
+    private final Robot r;
+    private final Gatto g;
     private final VistaInterface guiGioco;
     private final VistaInterface guiMappa;
     private final ThreadTempo threadTempo;
 
-    public GameController(Gioco g, ThreadTempo threadTempo, VistaInterface guiGioco,VistaInterface guiMappa) {
-        this.g = g;
+    public GameController(Mappa m, ThreadTempo threadTempo, VistaInterface guiGioco,VistaInterface guiMappa) {
+        this.m = m;
+        this.r=m.getRobot();
+        this.g =m.getGatto();
         this.threadTempo = threadTempo;
         this.guiGioco=guiGioco;
         this.guiMappa=guiMappa;
         this.guiGioco.addController(this);
         this.guiMappa.addController(this);
-        this.guiGioco.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
-        this.guiMappa.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
+        this.guiGioco.visualizzaStato(m.getStatoMappa().get(this.m.getRobot().getPosizione()).getStato());
+        this.guiMappa.visualizzaStato(this.m.getStatoMappa().get(this.m.getRobot().getPosizione()).getStato());
         threadTempo.addObserver(this);
         threadTempo.start();
     }
@@ -41,27 +43,32 @@ public class GameController implements ActionListener, PropertyChangeListener {
         switch (e.getActionCommand()) {
             case "Avanza":
                 try {
-                    g.avanza();
+                    r.Avanza(m.getMappa());
+                    r.discover(m.getStatoMappa());
+                    g.Avanza(m.getMappa());
                 } catch (Robot.IllegalMoveException exc) {
                     guiGioco.errore(exc.getMessage());
                     guiMappa.errore(exc.getMessage());
                 }
                 break;
             case "Dx":
-                g.giraDx();
+                r.giraDx();
+                g.Avanza(m.getMappa());
 
-                guiMappa.updateLabelRobot(g.getRobot().getDirezione());
-                guiGioco.updateLabelRobot(g.getRobot().getDirezione());
+                guiMappa.updateLabelRobot(m.getRobot().getDirezione());
+                guiGioco.updateLabelRobot(m.getRobot().getDirezione());
 
                 break;
             case "Sx":
-                g.giraSx();
-                guiMappa.updateLabelRobot(g.getRobot().getDirezione());
-                guiGioco.updateLabelRobot(g.getRobot().getDirezione());
+                r.giraSx();
+                g.Avanza(m.getMappa());
+                guiMappa.updateLabelRobot(m.getRobot().getDirezione());
+                guiGioco.updateLabelRobot(m.getRobot().getDirezione());
                 break;
             case "Asciuga":
                 try {
-                    g.asciuga();
+                    r.Asciuga(m.getStatoMappa());
+                    g.Avanza(m.getMappa());
                 } catch (Robot.IllegalActionException exc) {
                     guiGioco.errore(exc.getMessage());
                     guiMappa.errore(exc.getMessage());
@@ -69,13 +76,13 @@ public class GameController implements ActionListener, PropertyChangeListener {
                 break;
             case "Spegni":
                 try {
-                   Posizione p=g.spegniFornello();
+                   Posizione p= r.spegniFornello(m.getMappa());
                    if(p!=null){
-
                        guiMappa.updateLabelFornello(p,false);
                        guiGioco.updateLabelFornello(p,false);
 
                    }
+                   g.Avanza(m.getMappa());
 
                 } catch (Robot.IllegalActionException exc) {
                     guiGioco.errore(exc.getMessage());
@@ -84,12 +91,13 @@ public class GameController implements ActionListener, PropertyChangeListener {
                 break;
             case "Aggiusta Lavatrice": {
                 try {
-                    Posizione p=g.aggiustaPerditaLavatrice();
+                    Posizione p= r.interrompiLavatrice(m.getMappa());
                     if(p!=null){
                         guiGioco.updateLabelLavatrice(p,false);
                         guiMappa.updateLabelLavatrice(p,false);
 
                     }
+                    g.Avanza(m.getMappa());
 
                 } catch (Robot.IllegalActionException exc) {
                     guiGioco.errore(exc.getMessage());
@@ -99,12 +107,13 @@ public class GameController implements ActionListener, PropertyChangeListener {
             break;
             case "Aggiusta Rubinetto":
                 try {
-                    Posizione p=g.aggiustaPerditaRubinetto();
+                    Posizione p= r.interrompiRubinetto(m.getMappa());
                     if(p!=null){
                         guiGioco.updateLabelRubinetto(p,false);
                         guiMappa.updateLabelRubinetto(p,false);
 
                     }
+                    g.Avanza(m.getMappa());
 
                 } catch (Robot.IllegalActionException exc) {
                     guiGioco.errore(exc.getMessage());
@@ -113,43 +122,51 @@ public class GameController implements ActionListener, PropertyChangeListener {
                 break;
             case "Visualizza":
                 guiMappa.visible();
+                g.Avanza(m.getMappa());
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + e.getActionCommand());
         }
+        m.aggiornaRobot();
+        m.aggiornaGatto();
 
-        guiMappa.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
-        guiMappa.refresh(g.getMappa(), g.getStatoCasella());
-        guiGioco.visualizzaStato(g.getStatoCasella().get(g.getRobot().getPosizione()).getStato());
-        guiGioco.refresh(g.getMappa(), g.getStatoCasella());
+        Posizione p;
+        p=Rubinetto.rompiRubinettoRandom();
+        if (p!=null){
+            guiGioco.updateLabelRubinetto(p,true);
+            guiMappa.updateLabelRubinetto(p,true);
+        }
+
+        p=Lavatrice.rompiLavatriceRandom();
+        if (p!=null){
+            guiGioco.updateLabelLavatrice(p,true);
+            guiMappa.updateLabelLavatrice(p,true);
+        }
+        guiMappa.visualizzaStato(m.getStatoMappa().get(m.getRobot().getPosizione()).getStato());
+        guiMappa.refresh(m, m.getStatoMappa());
+        guiGioco.visualizzaStato(m.getStatoMappa().get(m.getRobot().getPosizione()).getStato());
+        guiGioco.refresh(m, m.getStatoMappa());
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         Posizione p;
         if (evt.getPropertyName().equals("TimerRubinetto")) {
-            p=(Posizione) evt.getNewValue();
-            guiGioco.updateLabelRubinetto(p,true);
-            guiMappa.updateLabelRubinetto(p,true);
-            guiGioco.refresh(g.getMappa(), g.getStatoCasella());
-            guiMappa.refresh(g.getMappa(), g.getStatoCasella());
+            guiGioco.refresh(m, m.getStatoMappa());
+            guiMappa.refresh(m, m.getStatoMappa());
         }
 
         if (evt.getPropertyName().equals("TimerLavatrice")) {
-            p=(Posizione) evt.getNewValue();
-            guiGioco.updateLabelLavatrice(p,true);
-            guiMappa.updateLabelLavatrice(p,true);
-            guiGioco.refresh(g.getMappa(), g.getStatoCasella());
-            guiMappa.refresh(g.getMappa(), g.getStatoCasella());
+            guiGioco.refresh(m, m.getStatoMappa());
+            guiMappa.refresh(m, m.getStatoMappa());
         }
 
         if (evt.getPropertyName().equals("TimerFornello")) {
             p=(Posizione) evt.getNewValue();
-
             guiGioco.updateLabelFornello(p, true);
             guiMappa.updateLabelFornello(p, true);
-            guiGioco.refresh(g.getMappa(), g.getStatoCasella());
-            guiMappa.refresh(g.getMappa(), g.getStatoCasella());
+            guiGioco.refresh(m, m.getStatoMappa());
+            guiMappa.refresh(m, m.getStatoMappa());
         }
     }
 }

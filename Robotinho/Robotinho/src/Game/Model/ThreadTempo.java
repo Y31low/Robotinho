@@ -1,7 +1,8 @@
 package Game.Model;
 
-import javax.swing.event.SwingPropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.HashMap;
 
 /**
  * @author Adil Lagzouli 20045391
@@ -9,18 +10,21 @@ import java.beans.PropertyChangeListener;
  * @author Federico Mannisi 20045099
  */
 
-public class ThreadTempo extends Thread{
-    private final Gioco g;
-    private final SwingPropertyChangeSupport support;
+public class ThreadTempo extends Thread  {
+    private Casella[][] m;
+    private HashMap<Posizione,StatoCasella> s;
+    private PropertyChangeSupport support;
 
     /**
      * Costruttore per creare un nuovo oggetto ThreadTempo.
      *
-     * @param g Rappresenta il gioco associato al thread.
+     * @param m Rappresenta il gioco associato al thread.
+     * @param s
      */
-    public ThreadTempo(Gioco g) {
-        this.g = g;
-        this.support=new SwingPropertyChangeSupport(this);
+    public ThreadTempo(Casella[][]m, HashMap<Posizione,StatoCasella>s) {
+        this.m=m;
+        this.s=s;
+        this.support = new PropertyChangeSupport(this);
     }
 
     /**
@@ -34,8 +38,7 @@ public class ThreadTempo extends Thread{
         long lastTimeFornello = System.currentTimeMillis();
         Posizione p;
         Posizione lastPfornello=new Posizione(0,0);
-        Posizione lastPlavatrice=new Posizione(0,0);
-        Posizione lastPrubinetto=new Posizione(0,0);
+
 
         while (true) {
             long tempoLavatrice = (System.currentTimeMillis() - lasTimeLavatrice) / 1000;
@@ -44,20 +47,17 @@ public class ThreadTempo extends Thread{
 
 
             if (tempoLavatrice > 10) {
-                p=g.perdiAcquaLavatrice();
+                Lavatrice.perditaLavatrici(m,s);
                 lasTimeLavatrice = System.currentTimeMillis();
-                this.support.firePropertyChange("TimerLavatrice", lastPlavatrice,p);
-                lastPlavatrice=p;
-
+                this.support.firePropertyChange("TimerLavatrice", tempoLavatrice,lasTimeLavatrice);
             }
             if (tempoRubinetto > 15) {
-                p=g.perdiAcquaRubinetto();
+                Rubinetto.perditaRubinetto(m,s);
                 lasTimeRubinetto = System.currentTimeMillis();
-                this.support.firePropertyChange("TimerRubinetto", lastPrubinetto,p);
-                lastPrubinetto=p;
+                this.support.firePropertyChange("TimerRubinetto", lasTimeRubinetto,tempoRubinetto);
             }
             if (tempoFornello > 7) {
-                p=g.accendiFornello();
+                p=Fornello.accendiFornelloRandom();
                 lastTimeFornello = System.currentTimeMillis();
                 this.support.firePropertyChange("TimerFornello",lastPfornello ,p);
                 lastPfornello=p;

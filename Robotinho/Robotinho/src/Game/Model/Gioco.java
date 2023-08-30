@@ -1,9 +1,6 @@
 package Game.Model;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -58,7 +55,8 @@ public class Gioco {
             size = br.read(in);
             br.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Errore durante la lettura del file: "+e.getMessage());
+
         }
         for (int i = 0; i < size; i++) {
             n.append(in[i]);

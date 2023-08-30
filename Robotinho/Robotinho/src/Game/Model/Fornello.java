@@ -1,5 +1,8 @@
 package Game.Model;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * @author Adil Lagzouli 20045391
  * @author Samuele Giallorenzo 20045100
@@ -8,7 +11,7 @@ package Game.Model;
 
 public class Fornello extends Casella{
     private Boolean acceso;
-
+    private static ArrayList<Fornello> fornelli=new ArrayList<>();
     /**
      * Costruisce un nuovo oggetto Fornello con le coordinate specificate e la visibilità indicata.
      *
@@ -19,6 +22,7 @@ public class Fornello extends Casella{
     public Fornello(int x, int y,boolean visibile){
         super(x, y,visibile);
         this.acceso = false;
+        fornelli.add(this);
     }
 
     /**
@@ -47,5 +51,11 @@ public class Fornello extends Casella{
      */
     public void setAcceso(Boolean acceso) {
         this.acceso = acceso;
+    }
+
+    public static Posizione accendiFornelloRandom(){
+        int rnd= new Random().nextInt(fornelli.size());
+        fornelli.get(rnd).setAcceso(true);
+        return  fornelli.get(rnd).getPosizione();
     }
 }

@@ -52,7 +52,7 @@ public class Robot extends Casella implements Movable {
         return direzione;
     }
 
-    protected void discover(HashMap<Posizione, StatoCasella> visibile) {
+    public void discover(HashMap<Posizione, StatoCasella> visibile) {
         Posizione ATTUALE = new Posizione(this.getPosizione().getX(), this.getPosizione().getY());
         Posizione NORTH = new Posizione(this.getPosizione().getX(), this.getPosizione().getY() - 1);
         Posizione SOUTH = new Posizione(this.getPosizione().getX(), this.getPosizione().getY() + 1);

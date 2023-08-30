@@ -1,5 +1,9 @@
 package Game.Model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
+
 /**
  * @author Adil Lagzouli 20045391
  * @author Samuele Giallorenzo 20045100
@@ -7,6 +11,7 @@ package Game.Model;
  */
 
 public class Lavatrice extends ElementoRompibile {
+    private static ArrayList<Lavatrice> lavatrici=new ArrayList<>();
 
     /**
      * Costruisce un nuovo oggetto Lavatrice con le coordinate specificate e la visibilità indicata.
@@ -17,8 +22,8 @@ public class Lavatrice extends ElementoRompibile {
      */
     public Lavatrice(int posizionex, int posizioney,boolean visibile) {
         super(posizionex, posizioney,visibile);
+        lavatrici.add(this);
     }
-
     /**
      * Restituisce una stringa che rappresenta il tipo di oggetto, ovvero "Lavatrice".
      *
@@ -28,4 +33,18 @@ public class Lavatrice extends ElementoRompibile {
     public String tipo() {
         return "Lavatrice";
     }
+
+    public static Posizione rompiLavatriceRandom(){
+        int rnd= new Random().nextInt(lavatrici.size());
+        lavatrici.get(rnd).inizioPerdita(true);
+        return lavatrici.get(rnd).getPosizione();
+    }
+
+    public static void perditaLavatrici(Casella[][] m, HashMap<Posizione,StatoCasella> s){
+        for (Lavatrice l: lavatrici
+             ) {
+            if (l.isStato()) l.perdita(m,s);
+        }
+    }
+
 }
