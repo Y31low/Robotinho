@@ -53,15 +53,17 @@ public class ElementoRompibile extends Casella implements Rompibile{
      */
     @Override
     public void perdita(Casella[][] m, HashMap<Posizione,StatoCasella> bagnato) {
-        Direzione direzione = Direzione.randomDirection();
-        Posizione p;
-        inizioPerdita(true);
-        Casella successiva = getCasellaSuccessiva(m, direzione);
+        if (this.isStato()){
+            Direzione direzione = Direzione.randomDirection();
+            Posizione p;
+            Casella successiva = getCasellaSuccessiva(m, direzione);
 
-        if(isPassable(m, successiva.getPosizione().getX(), successiva.getPosizione().getY())){
-            p = new Posizione(successiva.getPosizione().getX(), successiva.getPosizione().getY());
-            espandiPerdita(m, p, bagnato, direzione);
+            if(isPassable(m, successiva.getPosizione().getX(), successiva.getPosizione().getY())){
+                p = new Posizione(successiva.getPosizione().getX(), successiva.getPosizione().getY());
+                espandiPerdita(m, p, bagnato, direzione);
+            }
         }
+
     }
 
     /**
