@@ -6,8 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author Adil Lagzouli 20045391
  * @author Samuele Giallorenzo 20045100

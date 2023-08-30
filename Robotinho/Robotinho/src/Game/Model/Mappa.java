@@ -39,7 +39,7 @@ public class Mappa {
         this.N_FORNELLI=N_FORNELLI;
         this.N_RUBINETTI=N_RUBINETTI;
         this.statoMappa =new HashMap<>();
-        this.lavatrice=new Lavatrice[N_LAVATRICI];
+        this.lavatrice =new Lavatrice[N_LAVATRICI];
         this.rubinetto=new Rubinetto[N_RUBINETTI];
         this.fornello=new Fornello[N_FORNELLI];
         this.inizializza();

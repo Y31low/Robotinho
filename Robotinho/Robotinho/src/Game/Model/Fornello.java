@@ -53,6 +53,11 @@ public class Fornello extends Casella{
         this.acceso = acceso;
     }
 
+    /**
+     * Accende casualmente un fornello e restituisce la posizione del fornello acceso.
+     *
+     * @return La posizione del fornello acceso.
+     */
     public static Posizione accendiFornelloRandom(){
         int rnd= new Random().nextInt(fornelli.size());
         fornelli.get(rnd).setAcceso(true);

@@ -137,7 +137,7 @@ public class GameController implements ActionListener, PropertyChangeListener {
             guiMappa.updateLabelRubinetto(p,true);
         }
 
-        p=Lavatrice.rompiLavatriceRandom();
+        p= Lavatrice.rompiLavatriceRandom();
         if (p!=null){
             guiGioco.updateLabelLavatrice(p,true);
             guiMappa.updateLabelLavatrice(p,true);
