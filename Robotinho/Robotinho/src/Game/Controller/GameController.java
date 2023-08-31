@@ -46,6 +46,7 @@ public class GameController implements ActionListener, PropertyChangeListener {
                     r.Avanza(m.getMappa());
                     r.discover(m.getStatoMappa());
                     g.Avanza(m.getMappa());
+                    rompiRubinettoLavatriceCasuale();
                 } catch (Robot.IllegalMoveException exc) {
                     guiGioco.errore(exc.getMessage());
                     guiMappa.errore(exc.getMessage());
@@ -54,7 +55,7 @@ public class GameController implements ActionListener, PropertyChangeListener {
             case "Dx":
                 r.giraDx();
                 g.Avanza(m.getMappa());
-
+                rompiRubinettoLavatriceCasuale();
                 guiMappa.updateLabelRobot(m.getRobot().getDirezione());
                 guiGioco.updateLabelRobot(m.getRobot().getDirezione());
 
@@ -62,6 +63,7 @@ public class GameController implements ActionListener, PropertyChangeListener {
             case "Sx":
                 r.giraSx();
                 g.Avanza(m.getMappa());
+                rompiRubinettoLavatriceCasuale();
                 guiMappa.updateLabelRobot(m.getRobot().getDirezione());
                 guiGioco.updateLabelRobot(m.getRobot().getDirezione());
                 break;
@@ -129,19 +131,6 @@ public class GameController implements ActionListener, PropertyChangeListener {
         }
         m.aggiornaRobot();
         m.aggiornaGatto();
-
-        Posizione p;
-        p=Rubinetto.rompiRubinettoRandom();
-        if (p!=null){
-            guiGioco.updateLabelRubinetto(p,true);
-            guiMappa.updateLabelRubinetto(p,true);
-        }
-
-        p= Lavatrice.rompiLavatriceRandom();
-        if (p!=null){
-            guiGioco.updateLabelLavatrice(p,true);
-            guiMappa.updateLabelLavatrice(p,true);
-        }
         guiMappa.visualizzaStato(m.getStatoMappa().get(m.getRobot().getPosizione()).getStato());
         guiMappa.refresh(m, m.getStatoMappa());
         guiGioco.visualizzaStato(m.getStatoMappa().get(m.getRobot().getPosizione()).getStato());
@@ -167,6 +156,21 @@ public class GameController implements ActionListener, PropertyChangeListener {
             guiMappa.updateLabelFornello(p, true);
             guiGioco.refresh(m, m.getStatoMappa());
             guiMappa.refresh(m, m.getStatoMappa());
+        }
+    }
+
+    private void rompiRubinettoLavatriceCasuale(){
+        Posizione p;
+        p=Rubinetto.rompiRubinettoRandom();
+        if (p!=null){
+            guiGioco.updateLabelRubinetto(p,true);
+            guiMappa.updateLabelRubinetto(p,true);
+        }
+
+        p= Lavatrice.rompiLavatriceRandom();
+        if (p!=null){
+            guiGioco.updateLabelLavatrice(p,true);
+            guiMappa.updateLabelLavatrice(p,true);
         }
     }
 }

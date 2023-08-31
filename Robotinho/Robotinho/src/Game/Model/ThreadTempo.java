@@ -11,15 +11,15 @@ import java.util.HashMap;
  */
 
 public class ThreadTempo extends Thread  {
-    private Casella[][] m;
-    private HashMap<Posizione,StatoCasella> s;
-    private PropertyChangeSupport support;
+    private final Casella[][] m;
+    private final HashMap<Posizione,StatoCasella> s;
+    private final PropertyChangeSupport support;
 
     /**
      * Costruttore per creare un nuovo oggetto ThreadTempo.
      *
      * @param m Rappresenta il gioco associato al thread.
-     * @param s
+     * @param s Rappresenta lo stato delle caselle della mappa.
      */
     public ThreadTempo(Casella[][]m, HashMap<Posizione,StatoCasella>s) {
         this.m=m;
