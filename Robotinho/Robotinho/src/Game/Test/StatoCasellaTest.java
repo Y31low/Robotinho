@@ -1,11 +1,9 @@
-package Test;
+package Game.Test;
 
 import Game.Model.Posizione;
 import Game.Model.StatoCasella;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Adil Lagzouli 20045391

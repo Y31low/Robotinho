@@ -1,4 +1,4 @@
-package Test;
+package Game.Test;
 
 import Game.Model.*;
 import org.junit.jupiter.api.Assertions;
@@ -64,7 +64,7 @@ class RubinettoTest {
 
     @org.junit.jupiter.api.Test
     void rubinettoRotto() {
-        r.perdita(m,stato);
+        r.inizioPerdita(true);
         Assertions.assertTrue(r.isStato());
     }
 
@@ -75,7 +75,7 @@ class RubinettoTest {
 
     @org.junit.jupiter.api.Test
     void interrompiPerditaRubinetto() {
-        r.perdita(m,stato);
+        r.inizioPerdita(true);
         r.interrompiPerdita();
         Assertions.assertFalse(r.isStato());
     }

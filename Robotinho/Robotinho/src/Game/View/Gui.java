@@ -207,7 +207,7 @@ public Gui(Mappa m, HashMap<Posizione, StatoCasella> bagnato) throws HeadlessExc
     }
 
 
-    public void creaMappa(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
+    protected void creaMappa(Mappa m, HashMap<Posizione, StatoCasella> bagnato) {
         StatoCasella stato;
         for (int i = 0; i < m.getDim(); i++) {
             for (int j = 0; j < m.getDim(); j++) {

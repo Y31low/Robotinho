@@ -1,4 +1,4 @@
-package Test;
+package Game.Test;
 
 import Game.Model.*;
 import org.junit.jupiter.api.Assertions;
@@ -64,7 +64,7 @@ class LavatriceTest {
 
     @org.junit.jupiter.api.Test
     void lavatriceRotta() {
-        l.perdita(m, stato);
+        l.inizioPerdita(true);
         Assertions.assertTrue(l.isStato());
     }
 
@@ -75,7 +75,7 @@ class LavatriceTest {
 
     @org.junit.jupiter.api.Test
     void interrompiPerditaLavatrice() {
-        l.perdita(m, stato);
+        l.inizioPerdita(true);
         l.interrompiPerdita();
         Assertions.assertFalse(l.isStato());
     }

@@ -1,4 +1,4 @@
-package Test;
+package Game.Test;
 
 import Game.Model.Direzione;
 import org.junit.jupiter.api.Assertions;
@@ -27,7 +27,10 @@ class DirezioneTest {
         boolean check = false;
         Direzione rand = Direzione.randomDirection();
         for(Direzione dir:direzioni){
-            if(dir.equals(rand)) check = true;
+            if (dir.equals(rand)) {
+                check = true;
+                break;
+            }
         }
         Assertions.assertTrue(check);
     }

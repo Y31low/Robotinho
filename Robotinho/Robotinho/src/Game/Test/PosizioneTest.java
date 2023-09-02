@@ -1,4 +1,4 @@
-package Test;
+package Game.Test;
 
 import Game.Model.Posizione;
 import org.junit.jupiter.api.Assertions;

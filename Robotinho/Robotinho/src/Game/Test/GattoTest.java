@@ -1,4 +1,4 @@
-package Test;
+package Game.Test;
 
 import Game.Model.Casella;
 import Game.Model.Gatto;
@@ -47,7 +47,10 @@ class GattoTest {
 
         g.Avanza(m);
         for (Posizione pos:p) {
-            if (pos.equals(g.getPosizione())) move=true;
+            if (pos.equals(g.getPosizione())) {
+                move = true;
+                break;
+            }
         }
         Assertions.assertTrue(move);
     }
