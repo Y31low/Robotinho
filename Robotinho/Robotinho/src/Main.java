@@ -15,13 +15,17 @@ public class Main {
     public static void main(String[] args) {
 
             //File f = new File("Robotinho/Robotinho/src/Livello/DimensioniLivello.txt");
-            //Gioco g= new Gioco(f);
-            Mappa m=new Mappa(10,2,3,2);
-            ThreadTempo threadTempo= new ThreadTempo(m.getMappa(),m.getStatoMappa());
+            try{
+                Mappa m=new Mappa(10,2,3,2);
+                ThreadTempo threadTempo= new ThreadTempo(m.getMappa(),m.getStatoMappa());
 
-            Gui guiMappa= new GuiMappa(m, m.getStatoMappa());
-            Gui guiGioco = new GuiGioco(m, m.getStatoMappa());
-            GameController controller = new GameController(m, threadTempo, guiGioco, guiMappa);
+                Gui guiMappa= new GuiMappa(m, m.getStatoMappa());
+                Gui guiGioco = new GuiGioco(m, m.getStatoMappa());
+                GameController controller = new GameController(m, threadTempo, guiGioco, guiMappa);
+
+            }catch (IllegalArgumentException e){
+                e.printStackTrace();
+            }
 
 
 
