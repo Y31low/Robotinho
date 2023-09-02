@@ -8,7 +8,7 @@ import java.util.HashMap;
  * @author Federico Mannisi 20045099
  */
 
-public class ElementoRompibile extends Casella implements Rompibile{
+public class ElementoRompibile extends Casella implements Rompibile {
     private boolean stato;
 
     /**
@@ -19,7 +19,7 @@ public class ElementoRompibile extends Casella implements Rompibile{
      */
     public ElementoRompibile(Posizione posizione, boolean visibile) {
         super(posizione, visibile);
-        this.stato=false;
+        this.stato = false;
     }
 
     /**
@@ -31,7 +31,7 @@ public class ElementoRompibile extends Casella implements Rompibile{
      */
     public ElementoRompibile(int x, int y, boolean visibile) {
         super(x, y, visibile);
-        this.stato=false;
+        this.stato = false;
     }
 
     /**
@@ -52,16 +52,17 @@ public class ElementoRompibile extends Casella implements Rompibile{
      * @param bagnato Una mappa che tiene traccia dello stato "bagnato" delle caselle.
      */
     @Override
-    public void perdita(Casella[][] m, HashMap<Posizione,StatoCasella> bagnato) {
+    public void perdita(Casella[][] m, HashMap<Posizione, StatoCasella> bagnato) {
         Direzione direzione = Direzione.randomDirection();
         Posizione p;
-        inizioPerdita(true);
         Casella successiva = getCasellaSuccessiva(m, direzione);
 
-        if(isPassable(m, successiva.getPosizione().getX(), successiva.getPosizione().getY())){
+        if (isPassable(m, successiva.getPosizione().getX(), successiva.getPosizione().getY())) {
             p = new Posizione(successiva.getPosizione().getX(), successiva.getPosizione().getY());
             espandiPerdita(m, p, bagnato, direzione);
         }
+
+
     }
 
     /**
@@ -74,24 +75,23 @@ public class ElementoRompibile extends Casella implements Rompibile{
      * @param dir     La direzione di espansione dell'acqua.
      */
     @Override
-    public void espandiPerdita(Casella[][] m, Posizione p, HashMap<Posizione,StatoCasella> bagnato, Direzione dir) {
-        if (m[p.getX()][p.getY()].tipo().equals("Pavimento")){
-            if(!bagnato.get(p).getStato()){
+    public void espandiPerdita(Casella[][] m, Posizione p, HashMap<Posizione, StatoCasella> bagnato, Direzione dir) {
+        if (m[p.getX()][p.getY()].tipo().equals("Pavimento")) {
+            if (!bagnato.get(p).getStato()) {
                 bagnato.get(p).setStato(true);
-            }
-            else {
-                switch(dir){
+            } else {
+                switch (dir) {
                     case North:
-                        espandiPerdita(m,new Posizione(p.getX()-1,p.getY()), bagnato, dir);
+                        espandiPerdita(m, new Posizione(p.getX() - 1, p.getY()), bagnato, dir);
                         break;
                     case East:
-                        espandiPerdita(m,new Posizione(p.getX(),p.getY()+1), bagnato, dir);
+                        espandiPerdita(m, new Posizione(p.getX(), p.getY() + 1), bagnato, dir);
                         break;
                     case South:
-                        espandiPerdita(m,new Posizione(p.getX()+1,p.getY()), bagnato, dir);
+                        espandiPerdita(m, new Posizione(p.getX() + 1, p.getY()), bagnato, dir);
                         break;
                     case West:
-                        espandiPerdita(m,new Posizione(p.getX(),p.getY()-1), bagnato, dir);
+                        espandiPerdita(m, new Posizione(p.getX(), p.getY() - 1), bagnato, dir);
                         break;
                 }
             }
@@ -112,7 +112,7 @@ public class ElementoRompibile extends Casella implements Rompibile{
      *
      * @param stato Lo stato iniziale di perdita (true per ElementoRompibile rotto, false altrimenti).
      */
-    public void inizioPerdita(boolean stato){
+    public void inizioPerdita(boolean stato) {
         this.stato = stato;
     }
 
