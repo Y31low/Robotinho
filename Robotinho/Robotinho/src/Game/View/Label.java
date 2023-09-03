@@ -23,16 +23,17 @@ public class Label extends JLabel{
     }
 
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+        Graphics g2= g.create();
+        super.paintComponent(g2);
 
         if (sfondo != null) {
-            g.drawImage(sfondo.getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
+            g2.drawImage(sfondo.getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
         }
 
         if (img != null) {
             int x = (this.getWidth() - img.getIconWidth()) / 2;
             int y = (this.getHeight() - img.getIconHeight()) / 2;
-            img.paintIcon(this, g, x, y);
+            img.paintIcon(this, g2, x, y);
         }
     }
 }

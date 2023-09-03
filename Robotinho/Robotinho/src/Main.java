@@ -16,7 +16,7 @@ public class Main {
 
             //File f = new File("Robotinho/Robotinho/src/Livello/DimensioniLivello.txt");
             try{
-                Mappa m=new Mappa(10,2,3,2);
+                Mappa m=new Mappa(15,2,3,2);
                 ThreadTempo threadTempo= new ThreadTempo(m.getMappa(),m.getStatoMappa());
 
                 Gui guiMappa= new GuiMappa(m, m.getStatoMappa());
