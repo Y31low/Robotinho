@@ -33,7 +33,8 @@ public class Mappa {
      * @param N_RUBINETTI Indica il numero di rubinetti sulla mappa.
      */
     public Mappa(int N, int N_LAVATRICI, int N_FORNELLI, int N_RUBINETTI) throws IllegalArgumentException {
-        if(N<=0 || N_LAVATRICI<=0 || N_FORNELLI<=0 || N_RUBINETTI<=0) new IllegalArgumentException("Parametri errati");
+        if(N<=0 || N_LAVATRICI<=0 || N_FORNELLI<=0 || N_RUBINETTI<=0)
+            throw new IllegalArgumentException("Parametri errati");
         this.N = N;
         this.mappa = new Casella[this.N][this.N];
         this.N_LAVATRICI = N_LAVATRICI;
