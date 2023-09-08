@@ -18,7 +18,7 @@ public class ThreadTempo extends Thread  {
     /**
      * Costruttore per creare un nuovo oggetto ThreadTempo.
      *
-     * @param m Rappresenta il gioco associato al thread.
+     * @param m Rappresenta la mappa associato al thread.
      * @param s Rappresenta lo stato delle caselle della mappa.
      */
     public ThreadTempo(Casella[][]m, HashMap<Posizione,StatoCasella>s) {

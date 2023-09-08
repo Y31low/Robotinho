@@ -47,7 +47,7 @@ public class Lavatrice extends ElementoRompibile {
     }
 
     /**
-     * Genera la perdita d'acqua da parte delle lavatrici rottr.
+     * Genera la perdita d'acqua da parte delle lavatrici rotta.
      *
      * @param m La matrice delle caselle della mappa.
      * @param s Una mappa che associa le posizioni allo stato delle caselle correnti.

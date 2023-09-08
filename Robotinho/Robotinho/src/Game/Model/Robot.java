@@ -52,6 +52,11 @@ public class Robot extends Casella implements Movable {
         return direzione;
     }
 
+    /**
+     *  Rende visibile la casella attuale in cui si trova il robot e quelle adiacenti
+     *
+     * @param visibile Stato di visibilità di tutte le caselle della mappa
+     */
     public void discover(HashMap<Posizione, StatoCasella> visibile) {
         Posizione ATTUALE = new Posizione(this.getPosizione().getX(), this.getPosizione().getY());
         Posizione NORTH = new Posizione(this.getPosizione().getX(), this.getPosizione().getY() - 1);
