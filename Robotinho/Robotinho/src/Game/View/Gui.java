@@ -139,13 +139,16 @@ public Gui(Mappa m, HashMap<Posizione, StatoCasella> bagnato) throws HeadlessExc
 
     @Override
     public void errore(String s) {
-        JDialog dialog = new JDialog(this);
-        JLabel content = new JLabel(s);
-        content.setHorizontalAlignment(SwingConstants.CENTER);
-        dialog.add(content);
-        dialog.setSize(300, 100);
-        dialog.setLocationRelativeTo(null);
-        dialog.setVisible(true);
+        if(this.isVisible()){
+            JDialog dialog = new JDialog(this);
+            JLabel content = new JLabel(s);
+            content.setHorizontalAlignment(SwingConstants.CENTER);
+            dialog.add(content);
+            dialog.setSize(300, 100);
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+        }
+
     }
 
     @Override
